@@ -1,0 +1,42 @@
+Cria a feature user com base aos outras que fizeste
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder(toBuilder = true)
+@EqualsAndHashCode(callSuper = true)
+@Table(
+        name = EntityVariable.USER,
+        uniqueConstraints = {
+                @UniqueConstraint(name = ConstraintUniqueKey.USER_USERNAME, columnNames = "username"),
+                @UniqueConstraint(name = ConstraintUniqueKey.USER_EMAIL,    columnNames = "email"),
+                @UniqueConstraint(name = ConstraintUniqueKey.USER_PHONE,    columnNames = "phone")
+        }
+)
+public class User extends ConcreteModel implements UserDetails {
+    @NotBlank
+    private String name;
+    @Column(unique = true)
+    private String username;
+    @Email
+    @Column(unique = true)
+    private String email;
+    @Pattern(regexp = "^\\+?[0-9]{7,15}$", message = "Phone invalid")
+    @Column(unique = true)
+    @Size(max = 15)
+    private String phone;
+    private String password;
+    private LocalDate birthday;
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private UserType type = UserType.CLIENT;
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private UserStatus status = UserStatus.PENDING;
+    private String logo;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+}

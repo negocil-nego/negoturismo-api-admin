@@ -1,0 +1,29 @@
+spring:
+  docker:
+    compose:
+      enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/negoturismo
+    username: postgres
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+ombala:
+  api:
+    base-url: https://api.useombala.ao/v1
+    token: 737b810a-f853-48fa-bf34-59356e6f1e3f
+    name: Bumbaki
+mailjet:
+  api:
+    base-url: https://api.mailjet.com/v3.1
+    public-key: fc914081ce6f32786c9c1c000cb1bb7c
+    private-key: cd293a71ee0ceccf0f317d608a3e4fd3
+  sender:
+    name: Negoreserva
+    email: florenciocalupeteca388@gmail.com
+cloudinary:
+  cloud-name: dutqp1b2w
+  api-key: 116295929792656
+  api-secret: G8KNxXfvKM2Qam5WGrOZLCRKdqM

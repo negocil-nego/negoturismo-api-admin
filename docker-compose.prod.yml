@@ -1,0 +1,9 @@
+services:
+  negoturismo_admin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: negoturismo-admin-api-prod
+    ports:
+      - "8080:8080"
+    restart: always

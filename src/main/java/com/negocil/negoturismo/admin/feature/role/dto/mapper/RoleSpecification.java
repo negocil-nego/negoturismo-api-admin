@@ -33,12 +33,15 @@ public class RoleSpecification implements Specification<Role> {
             if (filter.getField() == RoleField.ALL) {
                 predicates.add(cb.or(
                     cb.like(cb.lower(root.get("code")), ("%" + search + "%")),
-                    cb.like(cb.lower(root.get("name")), ("%" + search + "%"))
+                    cb.like(cb.lower(root.get("name")), ("%" + search + "%")),
+                    cb.like(cb.lower(root.get("description")), ("%" + search + "%"))
                 ));
             } else if (filter.getField() == RoleField.CODE) {
                 predicates.add(cb.like(cb.lower(root.get("code")), ("%" + search + "%")));
             } else if (filter.getField() == RoleField.NAME) {
                 predicates.add(cb.like(cb.lower(root.get("name")), ("%" + search + "%")));
+            } else if (filter.getField() == RoleField.DESCRIPTION) {
+                predicates.add(cb.like(cb.lower(root.get("description")), ("%" + search + "%")));
             }
         });
 

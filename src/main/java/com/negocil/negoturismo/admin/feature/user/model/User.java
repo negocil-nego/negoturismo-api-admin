@@ -22,14 +22,11 @@ import java.util.List;
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(
-        name = ConcreteTableModel.USER,
-        uniqueConstraints = {
-                @UniqueConstraint(name = ConstraintUniqueKey.USER_USERNAME, columnNames = "username"),
-                @UniqueConstraint(name = ConstraintUniqueKey.USER_EMAIL,    columnNames = "email"),
-                @UniqueConstraint(name = ConstraintUniqueKey.USER_PHONE,    columnNames = "phone")
-        }
-)
+@Table(name = ConcreteTableModel.USER, uniqueConstraints = {
+        @UniqueConstraint(name = ConstraintUniqueKey.USER_USERNAME, columnNames = "username"),
+        @UniqueConstraint(name = ConstraintUniqueKey.USER_EMAIL,    columnNames = "email"),
+        @UniqueConstraint(name = ConstraintUniqueKey.USER_PHONE,    columnNames = "phone")
+})
 public class User extends ConcreteModel implements UserDetails {
     @NotBlank
     private String name;

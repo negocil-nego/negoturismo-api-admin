@@ -19,6 +19,10 @@ public record RoleRequest(
         @Size(max = 255)
         String name,
 
+        @Schema(description = "Role description", example = "System administrator", requiredMode = Schema.RequiredMode.NOT_REQUIRED, maxLength = 500)
+        @Size(max = 500)
+        String description,
+
         @Schema(description = "Set of permission UUIDs to assign to this role", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
         Set<UUID> permissionUuids
 ) {
@@ -26,6 +30,7 @@ public record RoleRequest(
         return Role.builder()
                 .code(code)
                 .name(name)
+                .description(description)
                 .build();
     }
 }

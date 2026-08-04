@@ -11,6 +11,7 @@ import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,16 @@ public class RoleController {
     @CanPermission(PermissionCode.READ_ROLE)
     public ResponseEntity<RolePaginate> findByFilter(@ParameterObject @ModelAttribute RoleFilterPaginate filter) {
         return ResponseEntity.ok(RolePaginate.of(service.findAll(filter)));
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "Search roles using full-text search")
+    @CanPermission(PermissionCode.READ_ROLE)
+    public ResponseEntity<RolePaginate> search(
+            @RequestParam String query,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(RolePaginate.of(service.search(query, PageRequest.of(page, size))));
     }
 
     @PostMapping

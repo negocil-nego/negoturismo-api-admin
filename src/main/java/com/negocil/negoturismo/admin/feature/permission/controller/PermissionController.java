@@ -11,6 +11,7 @@ import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,6 +32,16 @@ public class PermissionController {
     @CanPermission(PermissionCode.READ_PERMISSION)
     public ResponseEntity<PermissionPaginate> findByFilter(@ParameterObject @ModelAttribute PermissionFilterPaginate filter) {
         return ResponseEntity.ok(PermissionPaginate.of(service.findAll(filter)));
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "Search permissions using full-text search")
+    @CanPermission(PermissionCode.READ_PERMISSION)
+    public ResponseEntity<PermissionPaginate> search(
+            @RequestParam String query,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(PermissionPaginate.of(service.search(query, PageRequest.of(page, size))));
     }
 
     @PostMapping

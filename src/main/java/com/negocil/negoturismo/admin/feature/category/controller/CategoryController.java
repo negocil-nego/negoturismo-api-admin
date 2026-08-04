@@ -11,6 +11,7 @@ import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,16 @@ public class CategoryController {
     @CanPermission(PermissionCode.READ_CATEGORY)
     public ResponseEntity<CategoryPaginate> findByFilter(@ParameterObject @ModelAttribute CategoryFilterPaginate filter) {
         return ResponseEntity.ok(CategoryPaginate.of(service.findAll(filter)));
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "Search categories using full-text search")
+    @CanPermission(PermissionCode.READ_CATEGORY)
+    public ResponseEntity<CategoryPaginate> search(
+            @RequestParam String query,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(CategoryPaginate.of(service.search(query, PageRequest.of(page, size))));
     }
 
     @PostMapping

@@ -16,14 +16,15 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = ConcreteTableModel.ROLE)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
+@Table(name = ConcreteTableModel.ROLE)
 public class Role extends ConcreteModel {
     @NotBlank
     @Column(unique = true)
     private String code;
     private String name;
+    private String description;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

@@ -8,6 +8,7 @@ import com.negocil.negoturismo.admin.feature.permission.model.Permission;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
 import com.negocil.negoturismo.admin.shared.core.service.ConcreteService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -24,6 +25,10 @@ public class PermissionService extends ConcreteService<Permission> implements IF
     public Page<Permission> findAll(PermissionFilterPaginate permissionFilterPaginate) {
         var spec = new PermissionSpecification(permissionFilterPaginate);
         return findAll(spec, permissionFilterPaginate.toRequest());
+    }
+
+    public Page<Permission> search(String query, Pageable pageable) {
+        return repository.search(query, pageable);
     }
 
     @Override

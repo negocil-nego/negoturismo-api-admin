@@ -1,5 +1,6 @@
 package com.negocil.negoturismo.admin.feature.category.dto.response;
 
+import com.negocil.negoturismo.admin.feature.category.enums.CategoryGroup;
 import com.negocil.negoturismo.admin.feature.category.model.Category;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -21,7 +22,10 @@ public record CategoryResponse(
         String description,
 
         @Schema(description = "Icon identifier or URL for the category", example = "restaurant-icon.svg", nullable = true)
-        String icon
+        String icon,
+
+        @Schema(description = "Category group", example = "HOSTING")
+        CategoryGroup group
 
 ) {
     public static CategoryResponse of(Category category) {
@@ -30,7 +34,8 @@ public record CategoryResponse(
                 category.getName(),
                 category.getSlug(),
                 category.getDescription(),
-                category.getIcon()
+                category.getIcon(),
+                category.getCategoryGroup()
         );
     }
 }

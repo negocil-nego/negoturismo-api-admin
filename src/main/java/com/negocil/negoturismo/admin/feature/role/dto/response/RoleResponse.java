@@ -17,6 +17,9 @@ public record RoleResponse(
         @Schema(description = "Role name", example = "Administrator")
         String name,
 
+        @Schema(description = "Role description", example = "System administrator", nullable = true)
+        String description,
+
         @Schema(description = "Set of permission UUIDs assigned to this role")
         Set<UUID> permissionUuids
 ) {
@@ -25,6 +28,7 @@ public record RoleResponse(
                 role.getUuid(),
                 role.getCode(),
                 role.getName(),
+                role.getDescription(),
                 role.getPermissions() != null
                         ? role.getPermissions().stream().map(p -> p.getUuid()).collect(java.util.stream.Collectors.toSet())
                         : java.util.Set.of()

@@ -8,7 +8,8 @@ import java.util.Arrays;
 public enum RoleField {
     ALL("ALL"),
     CODE("CODE"),
-    NAME("NAME");
+    NAME("NAME"),
+    DESCRIPTION("DESCRIPTION");
 
     private final String value;
 

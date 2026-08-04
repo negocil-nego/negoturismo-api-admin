@@ -1,42 +1,29 @@
-Cria a feature user com base aos outras que fizeste
-@Data
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder(toBuilder = true)
-@EqualsAndHashCode(callSuper = true)
-@Table(
-        name = EntityVariable.USER,
-        uniqueConstraints = {
-                @UniqueConstraint(name = ConstraintUniqueKey.USER_USERNAME, columnNames = "username"),
-                @UniqueConstraint(name = ConstraintUniqueKey.USER_EMAIL,    columnNames = "email"),
-                @UniqueConstraint(name = ConstraintUniqueKey.USER_PHONE,    columnNames = "phone")
-        }
-)
-public class User extends ConcreteModel implements UserDetails {
-    @NotBlank
-    private String name;
-    @Column(unique = true)
-    private String username;
-    @Email
-    @Column(unique = true)
-    private String email;
-    @Pattern(regexp = "^\\+?[0-9]{7,15}$", message = "Phone invalid")
-    @Column(unique = true)
-    @Size(max = 15)
-    private String phone;
-    private String password;
-    private LocalDate birthday;
-    @Builder.Default
-    @Enumerated(EnumType.STRING)
-    private UserType type = UserType.CLIENT;
-    @Builder.Default
-    @Enumerated(EnumType.STRING)
-    private UserStatus status = UserStatus.PENDING;
-    private String logo;
+Adiciona o campo "description" em "com/negocil/negoturismo/admin/feature/role/model/Role.java"
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
-}
+Iremos implementar o full-text search utilizado o recurso do postgresql
+para todas as model que estão no sistema a ideia é semelhante a este (
+ALTER TABLE "ENTITY" ADD COLUMN "search_vector" tsvector
+GENERATED ALWAYS AS (
+  setweight(to_tsvector('portuguese', coalesce(code, '')), 'A') ||
+  setweight(to_tsvector('portuguese', coalesce(name, '')), 'B') ||
+) STORED;
+CREATE INDEX "entity_search_vector_idx" ON "needs" USING GIN ("search_vector");
+)
+
+com/negocil/negoturismo/admin/feature/permission/model/Permission.java - campos para pesquisa: (code, name, description)
+com/negocil/negoturismo/admin/feature/category/model/Category.java - campos para pesquisa: (name, description, group)
+com/negocil/negoturismo/admin/feature/user/model/User.java - campos para pesquisa: (name, username, phone, status)
+com/negocil/negoturismo/admin/feature/role/model/Role.java - campos para pesquisa: (code, name, description)
+
+E todas controller em toda feature [category, permission, role, user] tem método findByFilter e deves
+criar um método semelhante que pesquisa usando full-text search isto para
+CategoryController, PermissionController, RoleController, UserController
+seguindo este padrão de nomenclatura
+"public ResponseEntity<*Response> paginate(@ParameterObject @ModelAttribute EntityFilterPaginate filter)"
+
+O que é possível você otimizar o full-text search, mas sem utilizar muitas recursos de funções, triggres e
+podes utilizar consultas nativas ou com jpql para utilizar os sql com to_vector, to_query e as consultas
+deve ser paginada então sigua o padrão de do spring boot de no @Query, usando a consulta que conta, e que pesquisa
+e todos consulta tenta colocar no arquivo de consulta padrão do spring jpa que pesquisa na pasta "src/main/resources".
+
+E para e garantir que cria também o arquivo de .sql com todas código em postgresql com campo de vector criado

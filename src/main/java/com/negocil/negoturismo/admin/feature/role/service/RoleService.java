@@ -8,6 +8,7 @@ import com.negocil.negoturismo.admin.feature.role.model.Role;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
 import com.negocil.negoturismo.admin.shared.core.service.ConcreteService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -24,6 +25,10 @@ public class RoleService extends ConcreteService<Role> implements IFindOrCreate<
     public Page<Role> findAll(RoleFilterPaginate roleFilterPaginate) {
         var spec = new RoleSpecification(roleFilterPaginate);
         return findAll(spec, roleFilterPaginate.toRequest());
+    }
+
+    public Page<Role> search(String query, Pageable pageable) {
+        return repository.search(query, pageable);
     }
 
     @Override

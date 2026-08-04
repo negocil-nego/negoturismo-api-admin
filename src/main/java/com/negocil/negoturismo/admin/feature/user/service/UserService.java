@@ -11,6 +11,7 @@ import com.negocil.negoturismo.admin.feature.user.model.User;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
 import com.negocil.negoturismo.admin.shared.core.service.ConcreteService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -27,6 +28,10 @@ public class UserService extends ConcreteService<User> implements IFindOrCreate<
     public Page<User> findAll(UserFilterPaginate userFilterPaginate) {
         var spec = new UserSpecification(userFilterPaginate);
         return findAll(spec, userFilterPaginate.toRequest());
+    }
+
+    public Page<User> search(String query, Pageable pageable) {
+        return repository.search(query, pageable);
     }
 
     @Override

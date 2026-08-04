@@ -15,9 +15,9 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = ConcreteTableModel.PERMISSION)
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
+@Table(name = ConcreteTableModel.PERMISSION)
 public class Permission extends ConcreteModel {
     @NotBlank
     @Column(unique = true)

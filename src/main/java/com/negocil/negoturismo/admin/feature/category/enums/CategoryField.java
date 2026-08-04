@@ -8,6 +8,7 @@ import java.util.Arrays;
 public enum CategoryField {
     ALL("ALL"),
     NAME("NAME"),
+    GROUP("GROUP"),
     DESCRIPTION("DESCRIPTION");
 
     private final String value;

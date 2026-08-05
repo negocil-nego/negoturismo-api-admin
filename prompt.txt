@@ -18,14 +18,14 @@ public class Organization extends ConcreteModel {
     @Column(unique = true)
     private String email;
     @NotBlank
-    @Pattern(regexp = "^\\+?[0-9]{7,15}$", message = "Phone invalid")
+    @Pattern(regexp = ValidateFields.REGEX_PHONE, message = "Phone invalid")
     @Size(max = 15)
     @Column(unique = true)
     private String phone;
-    @Size(max = 1000)
-    @Column(length = 1000)
+    @Size(min= ValidateFields.DESCRIPTION_SIZE_MIN, max = ValidateFields.DESCRIPTION_SIZE_MAX)
+    @Column(length = ValidateFields.DESCRIPTION_SIZE_MAX)
     private String description;
-    @Size(max = 255)
+    @Size(max = ValidateFields.SIZE_MAX)
     private String address;
     @Min(0)
     @Max(5)

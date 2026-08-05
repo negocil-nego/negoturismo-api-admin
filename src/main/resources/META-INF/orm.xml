@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings xmlns="http://www.hibernate.org/xsd/orm/mapping"
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:schemaLocation="http://www.hibernate.org/xsd/orm/mapping
-                  http://www.hibernate.org/xsd/orm/mapping/mapping-7.0.xsd"
-                 version="7.0">
+                 xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm
+                 https://jakarta.ee/xml/ns/persistence/orm/orm_3_1.xsd"
+                 version="3.1">
 
     <!-- ═══════════════════════════════════════════════════════════
          Named Native Queries - Full-Text Search (PostgreSQL)
@@ -19,7 +19,6 @@
             ORDER BY ts_rank(c.search_vector, to_tsquery('portuguese', :query)) DESC
         ]]></query>
     </named-native-query>
-
     <named-native-query name="Category.countSearch">
         <query><![CDATA[
             SELECT COUNT(*) FROM TB_CATEGORIES c
@@ -37,7 +36,6 @@
             ORDER BY ts_rank(p.search_vector, to_tsquery('portuguese', :query)) DESC
         ]]></query>
     </named-native-query>
-
     <named-native-query name="Permission.countSearch">
         <query><![CDATA[
             SELECT COUNT(*) FROM TB_PERMISSIONS p
@@ -55,7 +53,6 @@
             ORDER BY ts_rank(r.search_vector, to_tsquery('portuguese', :query)) DESC
         ]]></query>
     </named-native-query>
-
     <named-native-query name="Role.countSearch">
         <query><![CDATA[
             SELECT COUNT(*) FROM TB_ROLES r
@@ -73,12 +70,94 @@
             ORDER BY ts_rank(u.search_vector, to_tsquery('portuguese', :query)) DESC
         ]]></query>
     </named-native-query>
-
     <named-native-query name="User.countSearch">
         <query><![CDATA[
             SELECT COUNT(*) FROM TB_USERS u
             WHERE u.deleted_at IS NULL AND u.deleted_by IS NULL
               AND u.search_vector @@ to_tsquery('portuguese', :query)
+        ]]></query>
+    </named-native-query>
+
+    <!-- ─── ORGANIZATION ────────────────────────────────────── -->
+    <named-native-query name="Organization.search">
+        <query><![CDATA[
+            SELECT o.* FROM TB_ORGANIZATIONS o
+            WHERE o.deleted_at IS NULL AND o.deleted_by IS NULL
+              AND o.search_vector @@ to_tsquery('portuguese', :query)
+            ORDER BY ts_rank(o.search_vector, to_tsquery('portuguese', :query)) DESC
+        ]]></query>
+    </named-native-query>
+    <named-native-query name="Organization.countSearch">
+        <query><![CDATA[
+            SELECT COUNT(*) FROM TB_ORGANIZATIONS o
+            WHERE o.deleted_at IS NULL AND o.deleted_by IS NULL
+              AND o.search_vector @@ to_tsquery('portuguese', :query)
+        ]]></query>
+    </named-native-query>
+
+    <!-- ─── PRODUCT ─────────────────────────────────────────── -->
+    <named-native-query name="Product.search">
+        <query><![CDATA[
+            SELECT p.* FROM TB_PRODUCTS p
+            WHERE p.deleted_at IS NULL AND p.deleted_by IS NULL
+              AND p.search_vector @@ to_tsquery('portuguese', :query)
+            ORDER BY ts_rank(p.search_vector, to_tsquery('portuguese', :query)) DESC
+        ]]></query>
+    </named-native-query>
+    <named-native-query name="Product.countSearch">
+        <query><![CDATA[
+            SELECT COUNT(*) FROM TB_PRODUCTS p
+            WHERE p.deleted_at IS NULL AND p.deleted_by IS NULL
+              AND p.search_vector @@ to_tsquery('portuguese', :query)
+        ]]></query>
+    </named-native-query>
+
+    <!-- ─── INTERPRETER LANGUAGE ────────────────────────────── -->
+    <named-native-query name="InterpreterLanguage.search">
+        <query><![CDATA[
+            SELECT il.* FROM TB_INTERPRETER_LANGUAGES il
+            WHERE il.search_vector @@ to_tsquery('portuguese', :query)
+            ORDER BY ts_rank(il.search_vector, to_tsquery('portuguese', :query)) DESC
+        ]]></query>
+    </named-native-query>
+    <named-native-query name="InterpreterLanguage.countSearch">
+        <query><![CDATA[
+            SELECT COUNT(*) FROM TB_INTERPRETER_LANGUAGES il
+            WHERE il.search_vector @@ to_tsquery('portuguese', :query)
+        ]]></query>
+    </named-native-query>
+
+    <!-- ─── TOUR GUIDE ──────────────────────────────────────── -->
+    <named-native-query name="TourGuide.search">
+        <query><![CDATA[
+            SELECT tg.* FROM TB_TOUR_GUIDES tg
+            WHERE tg.deleted_at IS NULL AND tg.deleted_by IS NULL
+              AND tg.search_vector @@ to_tsquery('portuguese', :query)
+            ORDER BY ts_rank(tg.search_vector, to_tsquery('portuguese', :query)) DESC
+        ]]></query>
+    </named-native-query>
+    <named-native-query name="TourGuide.countSearch">
+        <query><![CDATA[
+            SELECT COUNT(*) FROM TB_TOUR_GUIDES tg
+            WHERE tg.deleted_at IS NULL AND tg.deleted_by IS NULL
+              AND tg.search_vector @@ to_tsquery('portuguese', :query)
+        ]]></query>
+    </named-native-query>
+
+    <!-- ─── TOURIST AREA ────────────────────────────────────── -->
+    <named-native-query name="TouristArea.search">
+        <query><![CDATA[
+            SELECT ta.* FROM TB_TOURIST_AREAS ta
+            WHERE ta.deleted_at IS NULL AND ta.deleted_by IS NULL
+              AND ta.search_vector @@ to_tsquery('portuguese', :query)
+            ORDER BY ts_rank(ta.search_vector, to_tsquery('portuguese', :query)) DESC
+        ]]></query>
+    </named-native-query>
+    <named-native-query name="TouristArea.countSearch">
+        <query><![CDATA[
+            SELECT COUNT(*) FROM TB_TOURIST_AREAS ta
+            WHERE ta.deleted_at IS NULL AND ta.deleted_by IS NULL
+              AND ta.search_vector @@ to_tsquery('portuguese', :query)
         ]]></query>
     </named-native-query>
 

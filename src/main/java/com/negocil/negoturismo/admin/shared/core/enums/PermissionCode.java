@@ -17,4 +17,24 @@ public final class PermissionCode {
     public static final String UPDATE_PERMISSION = "UPDATE_PERMISSION";
     public static final String DELETE_PERMISSION = "DELETE_PERMISSION";
     public static final String READ_PERMISSION = "READ_PERMISSION";
+    public static final String CREATE_ORGANIZATION = "CREATE_ORGANIZATION";
+    public static final String UPDATE_ORGANIZATION = "UPDATE_ORGANIZATION";
+    public static final String DELETE_ORGANIZATION = "DELETE_ORGANIZATION";
+    public static final String READ_ORGANIZATION = "READ_ORGANIZATION";
+    public static final String CREATE_PRODUCT = "CREATE_PRODUCT";
+    public static final String UPDATE_PRODUCT = "UPDATE_PRODUCT";
+    public static final String DELETE_PRODUCT = "DELETE_PRODUCT";
+    public static final String READ_PRODUCT = "READ_PRODUCT";
+    public static final String CREATE_INTERPRETER = "CREATE_INTERPRETER";
+    public static final String UPDATE_INTERPRETER = "UPDATE_INTERPRETER";
+    public static final String DELETE_INTERPRETER = "DELETE_INTERPRETER";
+    public static final String READ_INTERPRETER = "READ_INTERPRETER";
+    public static final String CREATE_TOUR_GUIDE = "CREATE_TOUR_GUIDE";
+    public static final String UPDATE_TOUR_GUIDE = "UPDATE_TOUR_GUIDE";
+    public static final String DELETE_TOUR_GUIDE = "DELETE_TOUR_GUIDE";
+    public static final String READ_TOUR_GUIDE = "READ_TOUR_GUIDE";
+    public static final String CREATE_TOURIST_AREA = "CREATE_TOURIST_AREA";
+    public static final String UPDATE_TOURIST_AREA = "UPDATE_TOURIST_AREA";
+    public static final String DELETE_TOURIST_AREA = "DELETE_TOURIST_AREA";
+    public static final String READ_TOURIST_AREA = "READ_TOURIST_AREA";
 }

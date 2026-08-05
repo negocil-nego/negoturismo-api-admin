@@ -1,6 +1,5 @@
 package com.negocil.negoturismo.admin.feature.permission.controller;
 
-import com.negocil.negoturismo.admin.feature.permission.dto.request.PermissionFilterPaginate;
 import com.negocil.negoturismo.admin.feature.permission.dto.response.PermissionPaginate;
 import com.negocil.negoturismo.admin.feature.permission.dto.response.PermissionResponse;
 import com.negocil.negoturismo.admin.feature.permission.dto.request.PermissionRequest;
@@ -10,7 +9,6 @@ import com.negocil.negoturismo.admin.shared.core.enums.PermissionCode;
 import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,10 +26,12 @@ public class PermissionController {
     private final PermissionService service;
 
     @GetMapping()
-    @Operation(summary = "Get permissions by filter")
+    @Operation(summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_PERMISSION)
-    public ResponseEntity<PermissionPaginate> findByFilter(@ParameterObject @ModelAttribute PermissionFilterPaginate filter) {
-        return ResponseEntity.ok(PermissionPaginate.of(service.findAll(filter)));
+    public ResponseEntity<PermissionPaginate> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(PermissionPaginate.of(service.findAll(PageRequest.of(page, size))));
     }
 
     @GetMapping("/search")

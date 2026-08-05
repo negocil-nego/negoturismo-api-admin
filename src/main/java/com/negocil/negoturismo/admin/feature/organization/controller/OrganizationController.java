@@ -1,6 +1,5 @@
 package com.negocil.negoturismo.admin.feature.organization.controller;
 
-import com.negocil.negoturismo.admin.feature.organization.dto.request.OrganizationFilterPaginate;
 import com.negocil.negoturismo.admin.feature.organization.dto.request.OrganizationRequest;
 import com.negocil.negoturismo.admin.feature.organization.dto.response.OrganizationPaginate;
 import com.negocil.negoturismo.admin.feature.organization.dto.response.OrganizationResponse;
@@ -10,7 +9,6 @@ import com.negocil.negoturismo.admin.shared.core.enums.PermissionCode;
 import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +26,12 @@ public class OrganizationController {
     private final OrganizationService service;
 
     @GetMapping()
-    @Operation(summary = "Get organizations by filter")
+    @Operation(summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_ORGANIZATION)
-    public ResponseEntity<OrganizationPaginate> findByFilter(@ParameterObject @ModelAttribute OrganizationFilterPaginate filter) {
-        return ResponseEntity.ok(OrganizationPaginate.of(service.findAll(filter)));
+    public ResponseEntity<OrganizationPaginate> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(OrganizationPaginate.of(service.findAll(PageRequest.of(page, size))));
     }
 
     @GetMapping("/search")

@@ -15,6 +15,6 @@ import java.util.UUID;
 public interface TourGuideRepository extends ConcreteRepository<TourGuide> {
     Optional<TourGuide> findByUserUuid(UUID userUuid);
 
-    @Query(name = "TourGuide.search", countQuery = "TourGuide.countSearch")
+    @Query(name = "TourGuide.search", countQuery = "TourGuide.countSearch", nativeQuery = true)
     Page<TourGuide> search(@Param("query") String query, Pageable pageable);
 }

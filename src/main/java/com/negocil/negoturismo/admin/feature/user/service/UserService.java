@@ -2,8 +2,7 @@ package com.negocil.negoturismo.admin.feature.user.service;
 
 import com.negocil.negoturismo.admin.feature.user.exception.UserEmailNotFoundException;
 import com.negocil.negoturismo.admin.feature.user.exception.UserNotFoundException;
-import com.negocil.negoturismo.admin.feature.user.dto.request.UserFilterPaginate;
-import com.negocil.negoturismo.admin.feature.user.dto.mapper.UserSpecification;
+
 import com.negocil.negoturismo.admin.feature.user.exception.UserPhoneNotFoundException;
 import com.negocil.negoturismo.admin.feature.user.exception.UserUsernameNotFoundException;
 import com.negocil.negoturismo.admin.feature.user.repository.UserRepository;
@@ -25,9 +24,8 @@ public class UserService extends ConcreteService<User> implements IFindOrCreate<
         this.repository = repository;
     }
 
-    public Page<User> findAll(UserFilterPaginate userFilterPaginate) {
-        var spec = new UserSpecification(userFilterPaginate);
-        return findAll(spec, userFilterPaginate.toRequest());
+    public Page<User> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Page<User> search(String query, Pageable pageable) {

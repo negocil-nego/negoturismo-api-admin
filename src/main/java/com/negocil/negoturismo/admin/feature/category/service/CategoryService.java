@@ -1,8 +1,7 @@
 package com.negocil.negoturismo.admin.feature.category.service;
 
 import com.negocil.negoturismo.admin.feature.category.exception.CategoryNotFoundException;
-import com.negocil.negoturismo.admin.feature.category.dto.request.CategoryFilterPaginate;
-import com.negocil.negoturismo.admin.feature.category.dto.mapper.CategorySpecification;
+
 import com.negocil.negoturismo.admin.feature.category.repository.CategoryRepository;
 import com.negocil.negoturismo.admin.feature.category.model.Category;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
@@ -23,9 +22,8 @@ public class CategoryService extends ConcreteService<Category> implements IFindO
         this.repository = repository;
     }
 
-    public Page<Category> findAll(CategoryFilterPaginate categoryFilterPaginate) {
-        var spec = new CategorySpecification(categoryFilterPaginate);
-        return findAll(spec, categoryFilterPaginate.toRequest());
+    public Page<Category> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Page<Category> search(String query, Pageable pageable) {
@@ -41,6 +39,18 @@ public class CategoryService extends ConcreteService<Category> implements IFindO
     public Category save(Category data) {
         data.setSlug(StringUtils.generateFlag(data.getName()));
         return super.save(data);
+    }
+
+    @Override
+    public Category update(UUID uuid, Category data) {
+        data.setSlug(StringUtils.generateFlag(data.getName()));
+        return super.update(uuid, data);
+    }
+
+    @Override
+    public Category update(long id, Category data) {
+        data.setSlug(StringUtils.generateFlag(data.getName()));
+        return super.update(id, data);
     }
 
     @Override

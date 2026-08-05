@@ -161,4 +161,38 @@
         ]]></query>
     </named-native-query>
 
+    <!-- ─── ORGANIZATION HIGHLIGHTS ─────────────────────────── -->
+    <named-native-query name="OrganizationHighlights.search">
+        <query><![CDATA[
+            SELECT oh.* FROM TB_ORGANIZATION_HIGHLIGHTS oh
+            WHERE oh.status = 'ACTIVE' AND oh.started_at <= CURRENT_TIMESTAMP AND oh.completed_at >= CURRENT_TIMESTAMP
+              AND oh.concat ILIKE '%' || :query || '%'
+            ORDER BY oh.id DESC
+        ]]></query>
+    </named-native-query>
+    <named-native-query name="OrganizationHighlights.countSearch">
+        <query><![CDATA[
+            SELECT COUNT(*) FROM TB_ORGANIZATION_HIGHLIGHTS oh
+            WHERE oh.status = 'ACTIVE' AND oh.started_at <= CURRENT_TIMESTAMP AND oh.completed_at >= CURRENT_TIMESTAMP
+              AND oh.concat ILIKE '%' || :query || '%'
+        ]]></query>
+    </named-native-query>
+
+    <!-- ─── PRODUCT PROMOTION ───────────────────────────────── -->
+    <named-native-query name="ProductPromotion.search">
+        <query><![CDATA[
+            SELECT pp.* FROM TB_PRODUCT_PROMOTIONS pp
+            WHERE pp.status = 'ACTIVE' AND pp.started_at <= CURRENT_TIMESTAMP AND pp.completed_at >= CURRENT_TIMESTAMP
+              AND pp.concat ILIKE '%' || :query || '%'
+            ORDER BY pp.id DESC
+        ]]></query>
+    </named-native-query>
+    <named-native-query name="ProductPromotion.countSearch">
+        <query><![CDATA[
+            SELECT COUNT(*) FROM TB_PRODUCT_PROMOTIONS pp
+            WHERE pp.status = 'ACTIVE' AND pp.started_at <= CURRENT_TIMESTAMP AND pp.completed_at >= CURRENT_TIMESTAMP
+              AND pp.concat ILIKE '%' || :query || '%'
+        ]]></query>
+    </named-native-query>
+
 </entity-mappings>

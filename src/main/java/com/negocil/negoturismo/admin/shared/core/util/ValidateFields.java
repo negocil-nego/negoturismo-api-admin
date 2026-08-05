@@ -6,5 +6,5 @@ public final class ValidateFields {
 
     public static  final int SIZE_MAX = 255;
 
-    public static  final String REGEX_PHONE = "^\\\\+?[0-9]{7,15}$";
+    public static  final String REGEX_PHONE = "^\\+?[0-9]{7,15}$";
 }

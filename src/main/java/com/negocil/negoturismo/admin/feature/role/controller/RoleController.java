@@ -1,6 +1,5 @@
 package com.negocil.negoturismo.admin.feature.role.controller;
 
-import com.negocil.negoturismo.admin.feature.role.dto.request.RoleFilterPaginate;
 import com.negocil.negoturismo.admin.feature.role.dto.request.RoleRequest;
 import com.negocil.negoturismo.admin.feature.role.dto.response.RolePaginate;
 import com.negocil.negoturismo.admin.feature.role.dto.response.RoleResponse;
@@ -10,7 +9,6 @@ import com.negocil.negoturismo.admin.shared.core.enums.PermissionCode;
 import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +26,12 @@ public class RoleController {
     private final RoleService service;
 
     @GetMapping()
-    @Operation(summary = "Get roles by filter")
+    @Operation(summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_ROLE)
-    public ResponseEntity<RolePaginate> findByFilter(@ParameterObject @ModelAttribute RoleFilterPaginate filter) {
-        return ResponseEntity.ok(RolePaginate.of(service.findAll(filter)));
+    public ResponseEntity<RolePaginate> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(RolePaginate.of(service.findAll(PageRequest.of(page, size))));
     }
 
     @GetMapping("/search")

@@ -1,8 +1,7 @@
 package com.negocil.negoturismo.admin.feature.role.service;
 
 import com.negocil.negoturismo.admin.feature.role.exception.RoleNotFoundException;
-import com.negocil.negoturismo.admin.feature.role.dto.request.RoleFilterPaginate;
-import com.negocil.negoturismo.admin.feature.role.dto.mapper.RoleSpecification;
+
 import com.negocil.negoturismo.admin.feature.role.repository.RoleRepository;
 import com.negocil.negoturismo.admin.feature.role.model.Role;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
@@ -22,9 +21,8 @@ public class RoleService extends ConcreteService<Role> implements IFindOrCreate<
         this.repository = repository;
     }
 
-    public Page<Role> findAll(RoleFilterPaginate roleFilterPaginate) {
-        var spec = new RoleSpecification(roleFilterPaginate);
-        return findAll(spec, roleFilterPaginate.toRequest());
+    public Page<Role> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Page<Role> search(String query, Pageable pageable) {

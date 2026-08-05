@@ -1,6 +1,5 @@
 package com.negocil.negoturismo.admin.feature.category.controller;
 
-import com.negocil.negoturismo.admin.feature.category.dto.request.CategoryFilterPaginate;
 import com.negocil.negoturismo.admin.feature.category.dto.request.CategoryRequest;
 import com.negocil.negoturismo.admin.feature.category.dto.response.CategoryPaginate;
 import com.negocil.negoturismo.admin.feature.category.dto.response.CategoryResponse;
@@ -10,7 +9,6 @@ import com.negocil.negoturismo.admin.shared.core.enums.PermissionCode;
 import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +26,12 @@ public class CategoryController {
     private final CategoryService service;
 
     @GetMapping()
-    @Operation(summary = "Get categories by filter")
+    @Operation(summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_CATEGORY)
-    public ResponseEntity<CategoryPaginate> findByFilter(@ParameterObject @ModelAttribute CategoryFilterPaginate filter) {
-        return ResponseEntity.ok(CategoryPaginate.of(service.findAll(filter)));
+    public ResponseEntity<CategoryPaginate> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(CategoryPaginate.of(service.findAll(PageRequest.of(page, size))));
     }
 
     @GetMapping("/search")

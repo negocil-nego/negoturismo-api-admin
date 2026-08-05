@@ -6,6 +6,7 @@ import com.negocil.negoturismo.admin.feature.tour_guide.model.TouristArea;
 import com.negocil.negoturismo.admin.feature.tour_guide.repository.TourGuideRepository;
 import com.negocil.negoturismo.admin.feature.tour_guide.repository.TourGuideTouristAreaRepository;
 import com.negocil.negoturismo.admin.feature.tour_guide.repository.TouristAreaRepository;
+import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
 import com.negocil.negoturismo.admin.shared.core.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,7 +18,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class TourGuideTouristAreaService {
+public class TourGuideTouristAreaService implements IFindOrCreate<TourGuideTouristArea> {
     private final TourGuideTouristAreaRepository repository;
     private final TourGuideRepository tourGuideRepository;
     private final TouristAreaRepository touristAreaRepository;
@@ -41,5 +42,11 @@ public class TourGuideTouristAreaService {
 
     public void deleteById(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public TourGuideTouristArea findOrCreate(TourGuideTouristArea model) {
+        return repository.findByTourGuideAndTouristArea(model.getTourGuide(), model.getTouristArea())
+                .orElseGet(() -> save(model));
     }
 }

@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface ProductRepository extends ConcreteRepository<Product> {
     Optional<Product> findByName(String name);
 
-    @Query(name = "Product.search", countQuery = "Product.countSearch")
+    @Query(name = "Product.search", countQuery = "Product.countSearch", nativeQuery = true)
     Page<Product> search(@Param("query") String query, Pageable pageable);
 }

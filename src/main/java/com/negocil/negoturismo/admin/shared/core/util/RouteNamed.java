@@ -12,4 +12,6 @@ public class RouteNamed {
     public final static String TOUR_GUIDE = "/api/v1/admin/tour-guides";
     public final static String TOURIST_AREA = "/api/v1/admin/tourist-areas";
     public final static String TOUR_GUIDE_TOURIST_AREA = "/api/v1/admin/tour-guide-tourist-areas";
+    public final static String ORGANIZATION_HIGHLIGHTS = "/api/v1/admin/organization-highlights";
+    public final static String PRODUCT_PROMOTION = "/api/v1/admin/product-promotions";
 }

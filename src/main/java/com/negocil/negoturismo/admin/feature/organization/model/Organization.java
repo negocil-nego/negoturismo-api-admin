@@ -20,13 +20,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
 @EqualsAndHashCode(callSuper = true)
-@Table(name = ConcreteTableModel.ORGANIZATION, uniqueConstraints = {
-        @UniqueConstraint(name = ConstraintUniqueKey.ORGANIZATION_NAME, columnNames = "name"),
-        @UniqueConstraint(name = ConstraintUniqueKey.ORGANIZATION_SLUG, columnNames = "slug"),
-        @UniqueConstraint(name = ConstraintUniqueKey.ORGANIZATION_EMAIL, columnNames = "email"),
-        @UniqueConstraint(name = ConstraintUniqueKey.ORGANIZATION_PHONE, columnNames = "phone"),
-        @UniqueConstraint(name = "UK_ORGANIZATION_USER", columnNames = "user_id")
-})
+@Table(name = ConcreteTableModel.ORGANIZATION)
 public class Organization extends ConcreteModel {
     @NotBlank
     @Size(max = 100)

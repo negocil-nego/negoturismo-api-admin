@@ -1,8 +1,7 @@
 package com.negocil.negoturismo.admin.feature.tour_guide.service;
 
 import com.negocil.negoturismo.admin.feature.tour_guide.exception.TourGuideNotFoundException;
-import com.negocil.negoturismo.admin.feature.tour_guide.dto.request.TourGuideFilterPaginate;
-import com.negocil.negoturismo.admin.feature.tour_guide.dto.mapper.TourGuideSpecification;
+
 import com.negocil.negoturismo.admin.feature.tour_guide.repository.TourGuideRepository;
 import com.negocil.negoturismo.admin.feature.tour_guide.model.TourGuide;
 import com.negocil.negoturismo.admin.feature.user.model.User;
@@ -23,9 +22,8 @@ public class TourGuideService extends ConcreteService<TourGuide> implements IFin
         this.repository = repository;
     }
 
-    public Page<TourGuide> findAll(TourGuideFilterPaginate filter) {
-        var spec = new TourGuideSpecification(filter);
-        return findAll(spec, filter.toRequest());
+    public Page<TourGuide> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Page<TourGuide> search(String query, Pageable pageable) {

@@ -24,7 +24,7 @@ public record OrganizationRequest(
         String phone,
 
         @Schema(description = "Organization description", example = "Empresa de turismo em Angola", requiredMode = Schema.RequiredMode.NOT_REQUIRED, minLength = 50, maxLength = 500)
-        @Size(min = 50, max = 500)
+        @Size(max = 500)
         String description,
 
         @Schema(description = "Organization address", example = "Luanda, Angola", requiredMode = Schema.RequiredMode.NOT_REQUIRED, maxLength = 255)

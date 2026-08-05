@@ -7,6 +7,3 @@ openssl rsa -in keypair.pem -pubout -out public.pem
 
 # create private key in PKCS#8 format
 openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in keypair.pem -out private.pem
-
-# Mappings
-spring.jpa.mapping-resources=META-INF/orm-category.xml,META-INF/orm-permission.xml,META-INF/orm-role.xml,META-INF/orm-user.xml

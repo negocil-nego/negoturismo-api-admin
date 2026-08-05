@@ -1,8 +1,7 @@
 package com.negocil.negoturismo.admin.feature.permission.service;
 
 import com.negocil.negoturismo.admin.feature.permission.exception.PermissionNotFoundException;
-import com.negocil.negoturismo.admin.feature.permission.dto.request.PermissionFilterPaginate;
-import com.negocil.negoturismo.admin.feature.permission.dto.mapper.PermissionSpecification;
+
 import com.negocil.negoturismo.admin.feature.permission.repository.PermissionRepository;
 import com.negocil.negoturismo.admin.feature.permission.model.Permission;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
@@ -22,9 +21,8 @@ public class PermissionService extends ConcreteService<Permission> implements IF
         this.repository = repository;
     }
 
-    public Page<Permission> findAll(PermissionFilterPaginate permissionFilterPaginate) {
-        var spec = new PermissionSpecification(permissionFilterPaginate);
-        return findAll(spec, permissionFilterPaginate.toRequest());
+    public Page<Permission> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Page<Permission> search(String query, Pageable pageable) {

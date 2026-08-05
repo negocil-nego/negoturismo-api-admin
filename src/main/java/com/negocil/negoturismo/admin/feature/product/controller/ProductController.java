@@ -1,6 +1,5 @@
 package com.negocil.negoturismo.admin.feature.product.controller;
 
-import com.negocil.negoturismo.admin.feature.product.dto.request.ProductFilterPaginate;
 import com.negocil.negoturismo.admin.feature.product.dto.request.ProductRequest;
 import com.negocil.negoturismo.admin.feature.product.dto.response.ProductPaginate;
 import com.negocil.negoturismo.admin.feature.product.dto.response.ProductResponse;
@@ -10,7 +9,6 @@ import com.negocil.negoturismo.admin.shared.core.enums.PermissionCode;
 import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +26,12 @@ public class ProductController {
     private final ProductService service;
 
     @GetMapping()
-    @Operation(summary = "Get products by filter")
+    @Operation(summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_PRODUCT)
-    public ResponseEntity<ProductPaginate> findByFilter(@ParameterObject @ModelAttribute ProductFilterPaginate filter) {
-        return ResponseEntity.ok(ProductPaginate.of(service.findAll(filter)));
+    public ResponseEntity<ProductPaginate> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(ProductPaginate.of(service.findAll(PageRequest.of(page, size))));
     }
 
     @GetMapping("/search")

@@ -1,6 +1,5 @@
 package com.negocil.negoturismo.admin.feature.tour_guide.controller;
 
-import com.negocil.negoturismo.admin.feature.tour_guide.dto.request.TouristAreaFilterPaginate;
 import com.negocil.negoturismo.admin.feature.tour_guide.dto.request.TouristAreaRequest;
 import com.negocil.negoturismo.admin.feature.tour_guide.dto.response.TouristAreaPaginate;
 import com.negocil.negoturismo.admin.feature.tour_guide.dto.response.TouristAreaResponse;
@@ -10,7 +9,6 @@ import com.negocil.negoturismo.admin.shared.core.enums.PermissionCode;
 import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +26,12 @@ public class TouristAreaController {
     private final TouristAreaService service;
 
     @GetMapping()
-    @Operation(summary = "Get tourist areas by filter")
+    @Operation(summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_TOURIST_AREA)
-    public ResponseEntity<TouristAreaPaginate> findByFilter(@ParameterObject @ModelAttribute TouristAreaFilterPaginate filter) {
-        return ResponseEntity.ok(TouristAreaPaginate.of(service.findAll(filter)));
+    public ResponseEntity<TouristAreaPaginate> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(TouristAreaPaginate.of(service.findAll(PageRequest.of(page, size))));
     }
 
     @GetMapping("/search")

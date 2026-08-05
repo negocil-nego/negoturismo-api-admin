@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface RoleRepository extends ConcreteRepository<Role> {
     Optional<Role> findByCode(String code);
 
-    @Query(name = "Role.search", countQuery = "Role.countSearch")
+    @Query(name = "Role.search", countQuery = "Role.countSearch", nativeQuery = true)
     Page<Role> search(@Param("query") String query, Pageable pageable);
 }

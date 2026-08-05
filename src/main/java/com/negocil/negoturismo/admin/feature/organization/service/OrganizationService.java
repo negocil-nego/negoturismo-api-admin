@@ -1,8 +1,7 @@
 package com.negocil.negoturismo.admin.feature.organization.service;
 
 import com.negocil.negoturismo.admin.feature.organization.exception.OrganizationNotFoundException;
-import com.negocil.negoturismo.admin.feature.organization.dto.request.OrganizationFilterPaginate;
-import com.negocil.negoturismo.admin.feature.organization.dto.mapper.OrganizationSpecification;
+
 import com.negocil.negoturismo.admin.feature.organization.repository.OrganizationRepository;
 import com.negocil.negoturismo.admin.feature.organization.model.Organization;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
@@ -23,9 +22,8 @@ public class OrganizationService extends ConcreteService<Organization> implement
         this.repository = repository;
     }
 
-    public Page<Organization> findAll(OrganizationFilterPaginate organizationFilterPaginate) {
-        var spec = new OrganizationSpecification(organizationFilterPaginate);
-        return findAll(spec, organizationFilterPaginate.toRequest());
+    public Page<Organization> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Page<Organization> search(String query, Pageable pageable) {
@@ -41,6 +39,18 @@ public class OrganizationService extends ConcreteService<Organization> implement
     public Organization save(Organization data) {
         data.setSlug(StringUtils.generateFlag(data.getName()));
         return super.save(data);
+    }
+
+    @Override
+    public Organization update(long id, Organization data) {
+        data.setSlug(StringUtils.generateFlag(data.getName()));
+        return super.update(id, data);
+    }
+
+    @Override
+    public Organization update(UUID uuid, Organization data) {
+        data.setSlug(StringUtils.generateFlag(data.getName()));
+        return super.update(uuid, data);
     }
 
     @Override

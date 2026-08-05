@@ -1,6 +1,5 @@
 package com.negocil.negoturismo.admin.feature.user.controller;
 
-import com.negocil.negoturismo.admin.feature.user.dto.request.UserFilterPaginate;
 import com.negocil.negoturismo.admin.feature.user.dto.request.UserRequest;
 import com.negocil.negoturismo.admin.feature.user.dto.response.UserPaginate;
 import com.negocil.negoturismo.admin.feature.user.dto.response.UserResponse;
@@ -10,7 +9,6 @@ import com.negocil.negoturismo.admin.shared.core.enums.PermissionCode;
 import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +26,12 @@ public class UserController {
     private final UserService service;
 
     @GetMapping()
-    @Operation(summary = "Get users by filter")
+    @Operation(summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_USER)
-    public ResponseEntity<UserPaginate> findByFilter(@ParameterObject @ModelAttribute UserFilterPaginate filter) {
-        return ResponseEntity.ok(UserPaginate.of(service.findAll(filter)));
+    public ResponseEntity<UserPaginate> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(UserPaginate.of(service.findAll(PageRequest.of(page, size))));
     }
 
     @GetMapping("/search")

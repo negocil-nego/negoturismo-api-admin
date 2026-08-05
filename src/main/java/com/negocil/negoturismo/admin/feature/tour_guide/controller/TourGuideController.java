@@ -1,6 +1,5 @@
 package com.negocil.negoturismo.admin.feature.tour_guide.controller;
 
-import com.negocil.negoturismo.admin.feature.tour_guide.dto.request.TourGuideFilterPaginate;
 import com.negocil.negoturismo.admin.feature.tour_guide.dto.request.TourGuideRequest;
 import com.negocil.negoturismo.admin.feature.tour_guide.dto.response.TourGuidePaginate;
 import com.negocil.negoturismo.admin.feature.tour_guide.dto.response.TourGuideResponse;
@@ -11,7 +10,6 @@ import com.negocil.negoturismo.admin.shared.core.enums.PermissionCode;
 import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,10 +28,12 @@ public class TourGuideController {
     private final UserRepository userRepository;
 
     @GetMapping()
-    @Operation(summary = "Get tour guides by filter")
+    @Operation(summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_TOUR_GUIDE)
-    public ResponseEntity<TourGuidePaginate> findByFilter(@ParameterObject @ModelAttribute TourGuideFilterPaginate filter) {
-        return ResponseEntity.ok(TourGuidePaginate.of(service.findAll(filter)));
+    public ResponseEntity<TourGuidePaginate> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(TourGuidePaginate.of(service.findAll(PageRequest.of(page, size))));
     }
 
     @GetMapping("/search")

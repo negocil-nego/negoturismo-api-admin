@@ -1,8 +1,7 @@
 package com.negocil.negoturismo.admin.feature.product.service;
 
 import com.negocil.negoturismo.admin.feature.product.exception.ProductNotFoundException;
-import com.negocil.negoturismo.admin.feature.product.dto.request.ProductFilterPaginate;
-import com.negocil.negoturismo.admin.feature.product.dto.mapper.ProductSpecification;
+
 import com.negocil.negoturismo.admin.feature.product.repository.ProductRepository;
 import com.negocil.negoturismo.admin.feature.product.model.Product;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
@@ -23,9 +22,8 @@ public class ProductService extends ConcreteService<Product> implements IFindOrC
         this.repository = repository;
     }
 
-    public Page<Product> findAll(ProductFilterPaginate productFilterPaginate) {
-        var spec = new ProductSpecification(productFilterPaginate);
-        return findAll(spec, productFilterPaginate.toRequest());
+    public Page<Product> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Page<Product> search(String query, Pageable pageable) {

@@ -1,6 +1,5 @@
 package com.negocil.negoturismo.admin.feature.interpreter.controller;
 
-import com.negocil.negoturismo.admin.feature.interpreter.dto.request.InterpreterLanguageFilterPaginate;
 import com.negocil.negoturismo.admin.feature.interpreter.dto.request.InterpreterLanguageRequest;
 import com.negocil.negoturismo.admin.feature.interpreter.dto.response.InterpreterLanguagePaginate;
 import com.negocil.negoturismo.admin.feature.interpreter.dto.response.InterpreterLanguageResponse;
@@ -13,7 +12,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,10 +28,12 @@ public class InterpreterLanguageController {
     private final InterpreterService interpreterService;
 
     @GetMapping()
-    @Operation(summary = "Get interpreter languages by filter")
+    @Operation(summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_INTERPRETER)
-    public ResponseEntity<InterpreterLanguagePaginate> findByFilter(@ParameterObject @ModelAttribute InterpreterLanguageFilterPaginate filter) {
-        return ResponseEntity.ok(InterpreterLanguagePaginate.of(service.findAll(filter)));
+    public ResponseEntity<InterpreterLanguagePaginate> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(InterpreterLanguagePaginate.of(service.findAll(PageRequest.of(page, size))));
     }
 
     @GetMapping("/search")

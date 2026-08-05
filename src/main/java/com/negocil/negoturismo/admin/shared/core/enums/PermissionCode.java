@@ -37,4 +37,12 @@ public final class PermissionCode {
     public static final String UPDATE_TOURIST_AREA = "UPDATE_TOURIST_AREA";
     public static final String DELETE_TOURIST_AREA = "DELETE_TOURIST_AREA";
     public static final String READ_TOURIST_AREA = "READ_TOURIST_AREA";
+    public static final String CREATE_ORGANIZATION_HIGHLIGHTS = "CREATE_ORGANIZATION_HIGHLIGHTS";
+    public static final String UPDATE_ORGANIZATION_HIGHLIGHTS = "UPDATE_ORGANIZATION_HIGHLIGHTS";
+    public static final String DELETE_ORGANIZATION_HIGHLIGHTS = "DELETE_ORGANIZATION_HIGHLIGHTS";
+    public static final String READ_ORGANIZATION_HIGHLIGHTS = "READ_ORGANIZATION_HIGHLIGHTS";
+    public static final String CREATE_PRODUCT_PROMOTION = "CREATE_PRODUCT_PROMOTION";
+    public static final String UPDATE_PRODUCT_PROMOTION = "UPDATE_PRODUCT_PROMOTION";
+    public static final String DELETE_PRODUCT_PROMOTION = "DELETE_PRODUCT_PROMOTION";
+    public static final String READ_PRODUCT_PROMOTION = "READ_PRODUCT_PROMOTION";
 }

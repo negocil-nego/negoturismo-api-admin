@@ -1,8 +1,7 @@
 package com.negocil.negoturismo.admin.feature.tour_guide.service;
 
 import com.negocil.negoturismo.admin.feature.tour_guide.exception.TouristAreaNotFoundException;
-import com.negocil.negoturismo.admin.feature.tour_guide.dto.request.TouristAreaFilterPaginate;
-import com.negocil.negoturismo.admin.feature.tour_guide.dto.mapper.TouristAreaSpecification;
+
 import com.negocil.negoturismo.admin.feature.tour_guide.repository.TouristAreaRepository;
 import com.negocil.negoturismo.admin.feature.tour_guide.model.TouristArea;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
@@ -22,9 +21,8 @@ public class TouristAreaService extends ConcreteService<TouristArea> implements 
         this.repository = repository;
     }
 
-    public Page<TouristArea> findAll(TouristAreaFilterPaginate filter) {
-        var spec = new TouristAreaSpecification(filter);
-        return findAll(spec, filter.toRequest());
+    public Page<TouristArea> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Page<TouristArea> search(String query, Pageable pageable) {

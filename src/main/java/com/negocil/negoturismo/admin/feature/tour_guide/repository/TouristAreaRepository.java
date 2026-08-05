@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface TouristAreaRepository extends ConcreteRepository<TouristArea> {
     Optional<TouristArea> findByName(String name);
 
-    @Query(name = "TouristArea.search", countQuery = "TouristArea.countSearch")
+    @Query(name = "TouristArea.search", countQuery = "TouristArea.countSearch", nativeQuery = true)
     Page<TouristArea> search(@Param("query") String query, Pageable pageable);
 }

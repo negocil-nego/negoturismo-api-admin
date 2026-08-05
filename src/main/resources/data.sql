@@ -50,48 +50,63 @@ CREATE INDEX IF NOT EXISTS user_search_vector_idx ON TB_USERS USING GIN (search_
 
 -- ─── TB_ORGANIZATIONS ──────────────────────────────────────
 ALTER TABLE TB_ORGANIZATIONS
-    ADD COLUMN search_vector tsvector
+    ADD COLUMN IF NOT EXISTS search_vector tsvector
         GENERATED ALWAYS AS (
             setweight(to_tsvector('portuguese', coalesce("name", '')), 'A') ||
             setweight(to_tsvector('portuguese', coalesce("email", '')), 'B') ||
-            setweight(to_tsvector('portuguese', coalesce("phone", '')), 'C') ||
-            setweight(to_tsvector('portuguese', coalesce("description", '')), 'D') ||
-            setweight(to_tsvector('portuguese', coalesce("address", '')), 'E')
+            setweight(to_tsvector('portuguese', coalesce("description", '')), 'C') ||
+            setweight(to_tsvector('portuguese', coalesce("address", '')), 'D')
             ) STORED;
-CREATE INDEX organization_search_vector_idx ON TB_ORGANIZATIONS USING GIN (search_vector);
+CREATE INDEX IF NOT EXISTS organization_search_vector_idx ON TB_ORGANIZATIONS USING GIN (search_vector);
 
 -- ─── TB_PRODUCTS ────────────────────────────────────────────
 ALTER TABLE TB_PRODUCTS
-    ADD COLUMN search_vector tsvector
+    ADD COLUMN IF NOT EXISTS search_vector tsvector
         GENERATED ALWAYS AS (
             setweight(to_tsvector('portuguese', coalesce("name", '')), 'A') ||
             setweight(to_tsvector('portuguese', coalesce("description", '')), 'B')
             ) STORED;
-CREATE INDEX product_search_vector_idx ON TB_PRODUCTS USING GIN (search_vector);
+CREATE INDEX IF NOT EXISTS product_search_vector_idx ON TB_PRODUCTS USING GIN (search_vector);
 
 -- ─── TB_INTERPRETER_LANGUAGES ──────────────────────────────
 ALTER TABLE TB_INTERPRETER_LANGUAGES
-    ADD COLUMN search_vector tsvector
+    ADD COLUMN IF NOT EXISTS search_vector tsvector
         GENERATED ALWAYS AS (
             setweight(to_tsvector('portuguese', coalesce("concat", '')), 'A') ||
             setweight(to_tsvector('portuguese', coalesce("language", '')), 'B')
             ) STORED;
-CREATE INDEX interpreter_language_search_vector_idx ON TB_INTERPRETER_LANGUAGES USING GIN (search_vector);
+CREATE INDEX IF NOT EXISTS interpreter_language_search_vector_idx ON TB_INTERPRETER_LANGUAGES USING GIN (search_vector);
 
 -- ─── TB_TOUR_GUIDES ────────────────────────────────────────
 ALTER TABLE TB_TOUR_GUIDES
-    ADD COLUMN search_vector tsvector
+    ADD COLUMN IF NOT EXISTS search_vector tsvector
         GENERATED ALWAYS AS (
             setweight(to_tsvector('portuguese', coalesce("concat", '')), 'A')
             ) STORED;
-CREATE INDEX tour_guide_search_vector_idx ON TB_TOUR_GUIDES USING GIN (search_vector);
+CREATE INDEX IF NOT EXISTS tour_guide_search_vector_idx ON TB_TOUR_GUIDES USING GIN (search_vector);
 
 -- ─── TB_TOURIST_AREAS ──────────────────────────────────────
 ALTER TABLE TB_TOURIST_AREAS
-    ADD COLUMN search_vector tsvector
+    ADD COLUMN IF NOT EXISTS search_vector tsvector
         GENERATED ALWAYS AS (
             setweight(to_tsvector('portuguese', coalesce("name", '')), 'A') ||
             setweight(to_tsvector('portuguese', coalesce("state", '')), 'B') ||
             setweight(to_tsvector('portuguese', coalesce("address", '')), 'C')
             ) STORED;
-CREATE INDEX tourist_area_search_vector_idx ON TB_TOURIST_AREAS USING GIN (search_vector);
+CREATE INDEX IF NOT EXISTS tourist_area_search_vector_idx ON TB_TOURIST_AREAS USING GIN (search_vector);
+
+-- ─── TB_ORGANIZATION_HIGHLIGHTS ────────────────────────────
+ALTER TABLE TB_ORGANIZATION_HIGHLIGHTS
+    ADD COLUMN IF NOT EXISTS search_vector tsvector
+        GENERATED ALWAYS AS (
+            setweight(to_tsvector('portuguese', coalesce("concat", '')), 'A')
+            ) STORED;
+CREATE INDEX IF NOT EXISTS organization_highlights_search_vector_idx ON TB_ORGANIZATION_HIGHLIGHTS USING GIN (search_vector);
+
+-- ─── TB_PRODUCT_PROMOTIONS ─────────────────────────────────
+ALTER TABLE TB_PRODUCT_PROMOTIONS
+    ADD COLUMN IF NOT EXISTS search_vector tsvector
+        GENERATED ALWAYS AS (
+            setweight(to_tsvector('portuguese', coalesce("concat", '')), 'A')
+            ) STORED;
+CREATE INDEX IF NOT EXISTS product_promotion_search_vector_idx ON TB_PRODUCT_PROMOTIONS USING GIN (search_vector);

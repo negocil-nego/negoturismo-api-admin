@@ -27,7 +27,7 @@ public class OrganizationHighlightsController {
     private final OrganizationService organizationService;
 
     @GetMapping()
-    @Operation(summary = "Get all organization highlights paginated")
+    @Operation(operationId = "listOrganizationHighlights", summary = "Get all organization highlights paginated")
     @CanPermission(PermissionCode.READ_ORGANIZATION_HIGHLIGHTS)
     public ResponseEntity<OrganizationHighlightsPaginate> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -36,7 +36,7 @@ public class OrganizationHighlightsController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search organization highlights using full-text search")
+    @Operation(operationId = "searchOrganizationHighlights", summary = "Search organization highlights using full-text search")
     @CanPermission(PermissionCode.READ_ORGANIZATION_HIGHLIGHTS)
     public ResponseEntity<OrganizationHighlightsPaginate> search(
             @RequestParam String query,
@@ -46,7 +46,7 @@ public class OrganizationHighlightsController {
     }
 
     @PostMapping
-    @Operation(summary = "Create organization highlights")
+    @Operation(operationId = "createOrganizationHighlight", summary = "Create organization highlights")
     @CanPermission(PermissionCode.CREATE_ORGANIZATION_HIGHLIGHTS)
     public ResponseEntity<OrganizationHighlightsResponse> save(@RequestBody @Valid OrganizationHighlightsRequest request) {
         var model = request.toModel();
@@ -57,7 +57,7 @@ public class OrganizationHighlightsController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update organization highlights")
+    @Operation(operationId = "updateOrganizationHighlight", summary = "Update organization highlights")
     @CanPermission(PermissionCode.UPDATE_ORGANIZATION_HIGHLIGHTS)
     public ResponseEntity<OrganizationHighlightsResponse> update(@PathVariable Long id, @RequestBody @Valid OrganizationHighlightsRequest request) {
         var model = request.toModel();
@@ -68,7 +68,7 @@ public class OrganizationHighlightsController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Delete organization highlights by id")
+    @Operation(operationId = "deleteOrganizationHighlight", summary = "Delete organization highlights by id")
     @CanPermission(PermissionCode.DELETE_ORGANIZATION_HIGHLIGHTS)
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         service.deleteById(id);

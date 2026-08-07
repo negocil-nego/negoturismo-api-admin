@@ -28,7 +28,7 @@ public class InterpreterLanguageController {
     private final InterpreterService interpreterService;
 
     @GetMapping()
-    @Operation(summary = "Get all entities paginated")
+    @Operation(operationId = "listInterpreterLanguages", summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_INTERPRETER)
     public ResponseEntity<InterpreterLanguagePaginate> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -37,7 +37,7 @@ public class InterpreterLanguageController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search interpreter languages using full-text search")
+    @Operation(operationId = "searchInterpreterLanguages", summary = "Search interpreter languages using full-text search")
     @CanPermission(PermissionCode.READ_INTERPRETER)
     public ResponseEntity<InterpreterLanguagePaginate> search(
             @RequestParam String query,
@@ -47,7 +47,7 @@ public class InterpreterLanguageController {
     }
 
     @PostMapping
-    @Operation(summary = "Create interpreter language")
+    @Operation(operationId = "createInterpreterLanguage", summary = "Create interpreter language")
     @CanPermission(PermissionCode.CREATE_INTERPRETER)
     public ResponseEntity<InterpreterLanguageResponse> save(@RequestBody @Valid InterpreterLanguageRequest request) {
         var model = request.toModel();
@@ -59,7 +59,7 @@ public class InterpreterLanguageController {
     }
 
     @PutMapping("/{uuid}")
-    @Operation(summary = "Update interpreter language")
+    @Operation(operationId = "updateInterpreterLanguage", summary = "Update interpreter language")
     @CanPermission(PermissionCode.UPDATE_INTERPRETER)
     public ResponseEntity<InterpreterLanguageResponse> update(@PathVariable UUID uuid, @RequestBody @Valid InterpreterLanguageRequest request) {
         var model = request.toModel();
@@ -71,7 +71,7 @@ public class InterpreterLanguageController {
     }
 
     @DeleteMapping("/{uuid}")
-    @Operation(summary = "Delete interpreter language by uuid")
+    @Operation(operationId = "deleteInterpreterLanguage", summary = "Delete interpreter language by uuid")
     @CanPermission(PermissionCode.DELETE_INTERPRETER)
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
         service.deleteByUuid(uuid);

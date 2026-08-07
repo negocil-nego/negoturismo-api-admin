@@ -26,7 +26,7 @@ public class PermissionController {
     private final PermissionService service;
 
     @GetMapping()
-    @Operation(summary = "Get all entities paginated")
+    @Operation(operationId = "listPermissions", summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_PERMISSION)
     public ResponseEntity<PermissionPaginate> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -35,7 +35,7 @@ public class PermissionController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search permissions using full-text search")
+    @Operation(operationId = "searchPermissions", summary = "Search permissions using full-text search")
     @CanPermission(PermissionCode.READ_PERMISSION)
     public ResponseEntity<PermissionPaginate> search(
             @RequestParam String query,
@@ -45,7 +45,7 @@ public class PermissionController {
     }
 
     @PostMapping
-    @Operation(summary = "Create permission")
+    @Operation(operationId = "createPermission", summary = "Create permission")
     @CanPermission(PermissionCode.CREATE_PERMISSION)
     public ResponseEntity<PermissionResponse> save(@RequestBody @Valid PermissionRequest permissionDto) {
         var permission = service.save(permissionDto.toModel());
@@ -53,7 +53,7 @@ public class PermissionController {
     }
 
     @PutMapping("/{uuid}")
-    @Operation(summary = "Update permission")
+    @Operation(operationId = "updatePermission", summary = "Update permission")
     @CanPermission(PermissionCode.UPDATE_PERMISSION)
     public ResponseEntity<PermissionResponse> update(@PathVariable UUID uuid, @RequestBody @Valid PermissionRequest permissionDto) {
         var permission = service.update(uuid, permissionDto.toModel());
@@ -61,7 +61,7 @@ public class PermissionController {
     }
 
     @DeleteMapping("/{uuid}")
-    @Operation(summary = "Delete permission by uuid")
+    @Operation(operationId = "deletePermission", summary = "Delete permission by uuid")
     @CanPermission(PermissionCode.DELETE_PERMISSION)
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
         service.deleteByUuid(uuid);

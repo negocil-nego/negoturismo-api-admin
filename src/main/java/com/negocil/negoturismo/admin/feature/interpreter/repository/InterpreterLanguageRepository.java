@@ -2,6 +2,7 @@ package com.negocil.negoturismo.admin.feature.interpreter.repository;
 
 import com.negocil.negoturismo.admin.feature.interpreter.model.Interpreter;
 import com.negocil.negoturismo.admin.feature.interpreter.model.InterpreterLanguage;
+import com.negocil.negoturismo.admin.feature.interpreter.util.InterpreterLanguageQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public interface InterpreterLanguageRepository extends JpaRepository<InterpreterLanguage, Long>, JpaSpecificationExecutor<InterpreterLanguage> {
     Optional<InterpreterLanguage> findByUuid(UUID uuid);
 
-    @NativeQuery(name = "InterpreterLanguage.search", countQuery = "InterpreterLanguage.countSearch")
+    @NativeQuery(value = InterpreterLanguageQuery.INTERPRETER_LANGUAGE_SEARCH, countQuery = InterpreterLanguageQuery.INTERPRETER_LANGUAGE_SEARCH_COUNT)
     Page<InterpreterLanguage> search(@Param("query") String query, Pageable pageable);
 
     Optional<InterpreterLanguage> findByInterpreterAndLanguage(Interpreter interpreter, String language);

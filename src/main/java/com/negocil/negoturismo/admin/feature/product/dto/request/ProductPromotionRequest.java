@@ -21,13 +21,21 @@ public record ProductPromotionRequest(
         Instant startedAt,
 
         @Schema(description = "End date and time of the promotion", example = "2026-12-31T23:59:59Z", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
-        Instant completedAt
+        Instant completedAt,
+
+        @Schema(description = "Old price before promotion", example = "120.00", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+        double oldPrice,
+
+        @Schema(description = "New price after promotion", example = "99.90", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+        double newPrice
 ) {
     public ProductPromotion toModel() {
         return ProductPromotion.builder()
                 .status(status != null ? status : ProductPromotionStatus.PENDENT)
                 .startedAt(startedAt)
                 .completedAt(completedAt)
+                .oldPrice(oldPrice)
+                .newPrice(newPrice)
                 .build();
     }
 }

@@ -26,7 +26,7 @@ public class RoleController {
     private final RoleService service;
 
     @GetMapping()
-    @Operation(summary = "Get all entities paginated")
+    @Operation(operationId = "listRoles", summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_ROLE)
     public ResponseEntity<RolePaginate> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -35,7 +35,7 @@ public class RoleController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search roles using full-text search")
+    @Operation(operationId = "searchRoles", summary = "Search roles using full-text search")
     @CanPermission(PermissionCode.READ_ROLE)
     public ResponseEntity<RolePaginate> search(
             @RequestParam String query,
@@ -45,7 +45,7 @@ public class RoleController {
     }
 
     @PostMapping
-    @Operation(summary = "Create role")
+    @Operation(operationId = "createRole", summary = "Create role")
     @CanPermission(PermissionCode.CREATE_ROLE)
     public ResponseEntity<RoleResponse> save(@RequestBody @Valid RoleRequest roleDto) {
         var role = service.save(roleDto.toModel());
@@ -53,7 +53,7 @@ public class RoleController {
     }
 
     @PutMapping("/{uuid}")
-    @Operation(summary = "Update role")
+    @Operation(operationId = "updateRole", summary = "Update role")
     @CanPermission(PermissionCode.UPDATE_ROLE)
     public ResponseEntity<RoleResponse> update(@PathVariable UUID uuid, @RequestBody @Valid RoleRequest roleDto) {
         var role = service.update(uuid, roleDto.toModel());
@@ -61,7 +61,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/{uuid}")
-    @Operation(summary = "Delete role by uuid")
+    @Operation(operationId = "deleteRole", summary = "Delete role by uuid")
     @CanPermission(PermissionCode.DELETE_ROLE)
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
         service.deleteByUuid(uuid);

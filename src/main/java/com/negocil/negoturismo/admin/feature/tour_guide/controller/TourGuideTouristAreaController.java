@@ -25,7 +25,7 @@ public class TourGuideTouristAreaController {
     private final TouristAreaRepository touristAreaRepository;
 
     @PostMapping
-    @Operation(summary = "Create tour guide tourist area association")
+    @Operation(operationId = "createTourGuideTouristArea", summary = "Create tour guide tourist area association")
     public ResponseEntity<TourGuideTouristAreaResponse> save(@RequestBody @Valid TourGuideTouristAreaRequest request) {
         var tourGuide = tourGuideRepository.findByUuid(request.tourGuideUuid())
                 .orElseThrow(() -> new com.negocil.negoturismo.admin.shared.core.exception.NotFoundException(request.tourGuideUuid()));
@@ -36,7 +36,7 @@ public class TourGuideTouristAreaController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Delete tour guide tourist area association by id")
+    @Operation(operationId = "deleteTourGuideTouristArea", summary = "Delete tour guide tourist area association by id")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         service.deleteById(id);
         return ResponseEntity.noContent().build();

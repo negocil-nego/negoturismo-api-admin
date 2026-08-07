@@ -1,11 +1,13 @@
 package com.negocil.negoturismo.admin.feature.product.repository;
 
 import com.negocil.negoturismo.admin.feature.product.model.ProductPromotion;
+import com.negocil.negoturismo.admin.feature.product.util.ProductPromotionQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -16,7 +18,7 @@ import java.util.Optional;
 
 @Repository
 public interface ProductPromotionRepository extends JpaRepository<ProductPromotion, Long>, JpaSpecificationExecutor<ProductPromotion> {
-    @Query(name = "ProductPromotion.search", countQuery = "ProductPromotion.countSearch", nativeQuery = true)
+    @NativeQuery(value = ProductPromotionQuery.PRODUCT_PROMOTION_SEARCH, countQuery = ProductPromotionQuery.PRODUCT_PROMOTION_SEARCH_COUNT)
     Page<ProductPromotion> search(@Param("query") String query, Pageable pageable);
 
     @Modifying

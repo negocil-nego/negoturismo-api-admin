@@ -26,7 +26,7 @@ public class ProductController {
     private final ProductService service;
 
     @GetMapping()
-    @Operation(summary = "Get all entities paginated")
+    @Operation(operationId = "listProducts", summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_PRODUCT)
     public ResponseEntity<ProductPaginate> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -35,7 +35,7 @@ public class ProductController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search products using full-text search")
+    @Operation(operationId = "searchProducts", summary = "Search products using full-text search")
     @CanPermission(PermissionCode.READ_PRODUCT)
     public ResponseEntity<ProductPaginate> search(
             @RequestParam String query,
@@ -45,7 +45,7 @@ public class ProductController {
     }
 
     @PostMapping
-    @Operation(summary = "Create product")
+    @Operation(operationId = "createProduct", summary = "Create product")
     @CanPermission(PermissionCode.CREATE_PRODUCT)
     public ResponseEntity<ProductResponse> save(@RequestBody @Valid ProductRequest productDto) {
         var product = service.save(productDto.toModel());
@@ -53,7 +53,7 @@ public class ProductController {
     }
 
     @PutMapping("/{uuid}")
-    @Operation(summary = "Update product")
+    @Operation(operationId = "updateProduct", summary = "Update product")
     @CanPermission(PermissionCode.UPDATE_PRODUCT)
     public ResponseEntity<ProductResponse> update(@PathVariable UUID uuid, @RequestBody @Valid ProductRequest productDto) {
         var product = service.update(uuid, productDto.toModel());
@@ -61,7 +61,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{uuid}")
-    @Operation(summary = "Delete product by uuid")
+    @Operation(operationId = "deleteProduct", summary = "Delete product by uuid")
     @CanPermission(PermissionCode.DELETE_PRODUCT)
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
         service.deleteByUuid(uuid);

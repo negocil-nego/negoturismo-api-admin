@@ -1,6 +1,7 @@
 package com.negocil.negoturismo.admin.feature.user.repository;
 
 import com.negocil.negoturismo.admin.feature.user.model.User;
+import com.negocil.negoturismo.admin.feature.user.util.UserQuery;
 import com.negocil.negoturismo.admin.shared.core.repository.ConcreteRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,6 @@ public interface UserRepository extends ConcreteRepository<User> {
     Optional<User> findByEmail(String email);
     Optional<User> findByPhone(String phone);
 
-    @NativeQuery(name = "User.search", countQuery = "User.countSearch")
+    @NativeQuery(value = UserQuery.USER_SEARCH, countQuery = UserQuery.USER_SEARCH_COUNT)
     Page<User> search(@Param("query") String query, Pageable pageable);
 }

@@ -22,14 +22,14 @@ public class InterpreterController {
     private final InterpreterService service;
 
     @GetMapping("/{uuid}")
-    @Operation(summary = "Get interpreter by uuid")
+    @Operation(operationId = "getInterpreter", summary = "Get interpreter by uuid")
     @CanPermission(PermissionCode.READ_INTERPRETER)
     public ResponseEntity<InterpreterResponse> findByUuid(@PathVariable UUID uuid) {
         return ResponseEntity.ok(InterpreterResponse.of(service.findByUuid(uuid)));
     }
 
     @DeleteMapping("/{uuid}")
-    @Operation(summary = "Delete interpreter by uuid")
+    @Operation(operationId = "deleteInterpreter", summary = "Delete interpreter by uuid")
     @CanPermission(PermissionCode.DELETE_INTERPRETER)
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
         service.deleteByUuid(uuid);

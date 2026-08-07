@@ -24,6 +24,12 @@ public record ProductPromotionResponse(
         @Schema(description = "End date and time of the promotion", example = "2026-12-31T23:59:59Z")
         Instant completedAt,
 
+        @Schema(description = "Old price before promotion", example = "120.00")
+        double oldPrice,
+
+        @Schema(description = "New price after promotion", example = "99.90")
+        double newPrice,
+
         @Schema(description = "Computed concatenation of product name, description, and status", example = "City Tour, A guided tour, ACTIVE")
         String concat
 ) {
@@ -34,6 +40,8 @@ public record ProductPromotionResponse(
                 productPromotion.getStatus(),
                 productPromotion.getStartedAt(),
                 productPromotion.getCompletedAt(),
+                productPromotion.getOldPrice(),
+                productPromotion.getNewPrice(),
                 productPromotion.getConcat()
         );
     }

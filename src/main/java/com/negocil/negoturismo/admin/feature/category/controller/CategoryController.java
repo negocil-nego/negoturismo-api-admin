@@ -26,7 +26,7 @@ public class CategoryController {
     private final CategoryService service;
 
     @GetMapping()
-    @Operation(summary = "Get all entities paginated")
+    @Operation(operationId = "listCategories", summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_CATEGORY)
     public ResponseEntity<CategoryPaginate> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -35,7 +35,7 @@ public class CategoryController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search categories using full-text search")
+    @Operation(operationId = "searchCategories", summary = "Search categories using full-text search")
     @CanPermission(PermissionCode.READ_CATEGORY)
     public ResponseEntity<CategoryPaginate> search(
             @RequestParam String query,
@@ -45,7 +45,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    @Operation(summary = "Create category")
+    @Operation(operationId = "createCategory", summary = "Create category")
     @CanPermission(PermissionCode.CREATE_CATEGORY)
     public ResponseEntity<CategoryResponse> save(@RequestBody @Valid CategoryRequest categoryDto) {
         var category = service.save(categoryDto.toModel());
@@ -53,7 +53,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{uuid}")
-    @Operation(summary = "Update category")
+    @Operation(operationId = "updateCategory", summary = "Update category")
     @CanPermission(PermissionCode.UPDATE_CATEGORY)
     public ResponseEntity<CategoryResponse> update(@PathVariable UUID uuid, @RequestBody @Valid CategoryRequest categoryDto) {
         var category = service.update(uuid, categoryDto.toModel());
@@ -61,7 +61,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{uuid}")
-    @Operation(summary = "Delete category by uuid")
+    @Operation(operationId = "deleteCategory", summary = "Delete category by uuid")
     @CanPermission(PermissionCode.DELETE_CATEGORY)
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
         service.deleteByUuid(uuid);

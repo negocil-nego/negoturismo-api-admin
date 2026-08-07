@@ -28,7 +28,7 @@ public class TourGuideController {
     private final UserRepository userRepository;
 
     @GetMapping()
-    @Operation(summary = "Get all entities paginated")
+    @Operation(operationId = "listTourGuides", summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_TOUR_GUIDE)
     public ResponseEntity<TourGuidePaginate> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -37,7 +37,7 @@ public class TourGuideController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search tour guides using full-text search")
+    @Operation(operationId = "searchTourGuides", summary = "Search tour guides using full-text search")
     @CanPermission(PermissionCode.READ_TOUR_GUIDE)
     public ResponseEntity<TourGuidePaginate> search(
             @RequestParam String query,
@@ -47,14 +47,14 @@ public class TourGuideController {
     }
 
     @GetMapping("/{uuid}")
-    @Operation(summary = "Get tour guide by uuid")
+    @Operation(operationId = "getTourGuide", summary = "Get tour guide by uuid")
     @CanPermission(PermissionCode.READ_TOUR_GUIDE)
     public ResponseEntity<TourGuideResponse> findByUuid(@PathVariable UUID uuid) {
         return ResponseEntity.ok(TourGuideResponse.of(service.findByUuid(uuid)));
     }
 
     @PostMapping
-    @Operation(summary = "Create tour guide")
+    @Operation(operationId = "createTourGuide", summary = "Create tour guide")
     @CanPermission(PermissionCode.CREATE_TOUR_GUIDE)
     public ResponseEntity<TourGuideResponse> save(@RequestBody @Valid TourGuideRequest request) {
         var user = userRepository.findByUuid(request.userUuid()).orElseThrow();
@@ -66,7 +66,7 @@ public class TourGuideController {
     }
 
     @PutMapping("/{uuid}")
-    @Operation(summary = "Update tour guide")
+    @Operation(operationId = "updateTourGuide", summary = "Update tour guide")
     @CanPermission(PermissionCode.UPDATE_TOUR_GUIDE)
     public ResponseEntity<TourGuideResponse> update(@PathVariable UUID uuid, @RequestBody @Valid TourGuideRequest request) {
         var user = userRepository.findByUuid(request.userUuid()).orElseThrow();
@@ -78,7 +78,7 @@ public class TourGuideController {
     }
 
     @DeleteMapping("/{uuid}")
-    @Operation(summary = "Delete tour guide by uuid")
+    @Operation(operationId = "deleteTourGuide", summary = "Delete tour guide by uuid")
     @CanPermission(PermissionCode.DELETE_TOUR_GUIDE)
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
         service.deleteByUuid(uuid);

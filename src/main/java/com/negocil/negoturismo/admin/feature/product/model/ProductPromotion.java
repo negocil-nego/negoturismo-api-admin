@@ -35,5 +35,8 @@ public class ProductPromotion extends CommonModel {
     protected Instant startedAt;
     protected Instant completedAt;
 
+    private double oldPrice;
+    private double newPrice;
+
     private String concat;
 }

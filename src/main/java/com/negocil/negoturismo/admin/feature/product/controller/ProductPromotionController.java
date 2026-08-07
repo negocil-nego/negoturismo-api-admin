@@ -26,7 +26,7 @@ public class ProductPromotionController {
     private final ProductService productService;
 
     @GetMapping()
-    @Operation(summary = "Get all entities paginated")
+    @Operation(operationId = "listProductPromotions", summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_PRODUCT_PROMOTION)
     public ResponseEntity<ProductPromotionPaginate> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -35,7 +35,7 @@ public class ProductPromotionController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search product promotions using full-text search")
+    @Operation(operationId = "searchProductPromotions", summary = "Search product promotions using full-text search")
     @CanPermission(PermissionCode.READ_PRODUCT_PROMOTION)
     public ResponseEntity<ProductPromotionPaginate> search(
             @RequestParam String query,
@@ -45,7 +45,7 @@ public class ProductPromotionController {
     }
 
     @PostMapping
-    @Operation(summary = "Create product promotion")
+    @Operation(operationId = "createProductPromotion", summary = "Create product promotion")
     @CanPermission(PermissionCode.CREATE_PRODUCT_PROMOTION)
     public ResponseEntity<ProductPromotionResponse> save(@RequestBody @Valid ProductPromotionRequest request) {
         var model = request.toModel();
@@ -56,7 +56,7 @@ public class ProductPromotionController {
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Update product promotion")
+    @Operation(operationId = "updateProductPromotion", summary = "Update product promotion")
     @CanPermission(PermissionCode.UPDATE_PRODUCT_PROMOTION)
     public ResponseEntity<ProductPromotionResponse> update(@PathVariable Long id, @RequestBody @Valid ProductPromotionRequest request) {
         var model = request.toModel();
@@ -67,7 +67,7 @@ public class ProductPromotionController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Delete product promotion by id")
+    @Operation(operationId = "deleteProductPromotion", summary = "Delete product promotion by id")
     @CanPermission(PermissionCode.DELETE_PRODUCT_PROMOTION)
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         service.deleteById(id);

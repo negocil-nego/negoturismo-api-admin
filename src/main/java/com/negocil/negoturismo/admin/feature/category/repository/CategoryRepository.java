@@ -1,6 +1,7 @@
 package com.negocil.negoturismo.admin.feature.category.repository;
 
 import com.negocil.negoturismo.admin.feature.category.model.Category;
+import com.negocil.negoturismo.admin.feature.category.util.CategoryQuery;
 import com.negocil.negoturismo.admin.shared.core.repository.ConcreteRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,6 @@ import java.util.Optional;
 public interface CategoryRepository extends ConcreteRepository<Category> {
     Optional<Category> findByName(String name);
 
-    @NativeQuery(name = "Category.search", countQuery = "Category.countSearch")
+    @NativeQuery(value = CategoryQuery.CATEGORY_SEARCH, countQuery = CategoryQuery.CATEGORY_SEARCH_COUNT)
     Page<Category> search(@Param("query") String query, Pageable pageable);
 }

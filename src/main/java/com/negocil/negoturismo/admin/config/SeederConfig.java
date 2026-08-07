@@ -127,6 +127,8 @@ public class SeederConfig implements CommandLineRunner {
                 .status(d.getStatus())
                 .startedAt(d.getStartedAt())
                 .completedAt(d.getCompletedAt())
+                .oldPrice(d.getOldPrice())
+                .newPrice(d.getNewPrice())
                 .build(), productPromotionService::findOrCreate);
 
         // Cache de Intérpretes (Indexado por Username do Utilizador)

@@ -26,7 +26,7 @@ public class OrganizationController {
     private final OrganizationService service;
 
     @GetMapping()
-    @Operation(summary = "Get all entities paginated")
+    @Operation(operationId = "listOrganizations", summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_ORGANIZATION)
     public ResponseEntity<OrganizationPaginate> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -35,7 +35,7 @@ public class OrganizationController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search organizations using full-text search")
+    @Operation(operationId = "searchOrganizations", summary = "Search organizations using full-text search")
     @CanPermission(PermissionCode.READ_ORGANIZATION)
     public ResponseEntity<OrganizationPaginate> search(
             @RequestParam String query,
@@ -45,7 +45,7 @@ public class OrganizationController {
     }
 
     @PostMapping
-    @Operation(summary = "Create organization")
+    @Operation(operationId = "createOrganization", summary = "Create organization")
     @CanPermission(PermissionCode.CREATE_ORGANIZATION)
     public ResponseEntity<OrganizationResponse> save(@RequestBody @Valid OrganizationRequest organizationDto) {
         var organization = service.save(organizationDto.toModel());
@@ -53,7 +53,7 @@ public class OrganizationController {
     }
 
     @PutMapping("/{uuid}")
-    @Operation(summary = "Update organization")
+    @Operation(operationId = "updateOrganization", summary = "Update organization")
     @CanPermission(PermissionCode.UPDATE_ORGANIZATION)
     public ResponseEntity<OrganizationResponse> update(@PathVariable UUID uuid, @RequestBody @Valid OrganizationRequest organizationDto) {
         var organization = service.update(uuid, organizationDto.toModel());
@@ -61,7 +61,7 @@ public class OrganizationController {
     }
 
     @DeleteMapping("/{uuid}")
-    @Operation(summary = "Delete organization by uuid")
+    @Operation(operationId = "deleteOrganization", summary = "Delete organization by uuid")
     @CanPermission(PermissionCode.DELETE_ORGANIZATION)
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
         service.deleteByUuid(uuid);

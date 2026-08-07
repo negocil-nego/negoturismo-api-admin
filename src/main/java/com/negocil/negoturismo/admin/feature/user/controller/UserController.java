@@ -26,7 +26,7 @@ public class UserController {
     private final UserService service;
 
     @GetMapping()
-    @Operation(summary = "Get all entities paginated")
+    @Operation(operationId = "listUsers", summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_USER)
     public ResponseEntity<UserPaginate> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search users using full-text search")
+    @Operation(operationId = "searchUsers", summary = "Search users using full-text search")
     @CanPermission(PermissionCode.READ_USER)
     public ResponseEntity<UserPaginate> search(
             @RequestParam String query,
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping
-    @Operation(summary = "Create user")
+    @Operation(operationId = "createUser", summary = "Create user")
     @CanPermission(PermissionCode.CREATE_USER)
     public ResponseEntity<UserResponse> save(@RequestBody @Valid UserRequest userDto) {
         var user = service.save(userDto.toModel());
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @PutMapping("/{uuid}")
-    @Operation(summary = "Update user")
+    @Operation(operationId = "updateUser", summary = "Update user")
     @CanPermission(PermissionCode.UPDATE_USER)
     public ResponseEntity<UserResponse> update(@PathVariable UUID uuid, @RequestBody @Valid UserRequest userDto) {
         var user = service.update(uuid, userDto.toModel());
@@ -61,7 +61,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{uuid}")
-    @Operation(summary = "Delete user by uuid")
+    @Operation(operationId = "deleteUser", summary = "Delete user by uuid")
     @CanPermission(PermissionCode.DELETE_USER)
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
         service.deleteByUuid(uuid);

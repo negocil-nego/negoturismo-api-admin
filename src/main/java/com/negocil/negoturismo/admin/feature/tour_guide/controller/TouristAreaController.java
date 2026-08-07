@@ -26,7 +26,7 @@ public class TouristAreaController {
     private final TouristAreaService service;
 
     @GetMapping()
-    @Operation(summary = "Get all entities paginated")
+    @Operation(operationId = "listTouristAreas", summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_TOURIST_AREA)
     public ResponseEntity<TouristAreaPaginate> findAll(
             @RequestParam(defaultValue = "0") int page,
@@ -35,7 +35,7 @@ public class TouristAreaController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search tourist areas using full-text search")
+    @Operation(operationId = "searchTouristAreas", summary = "Search tourist areas using full-text search")
     @CanPermission(PermissionCode.READ_TOURIST_AREA)
     public ResponseEntity<TouristAreaPaginate> search(
             @RequestParam String query,
@@ -45,14 +45,14 @@ public class TouristAreaController {
     }
 
     @GetMapping("/{uuid}")
-    @Operation(summary = "Get tourist area by uuid")
+    @Operation(operationId = "getTouristArea", summary = "Get tourist area by uuid")
     @CanPermission(PermissionCode.READ_TOURIST_AREA)
     public ResponseEntity<TouristAreaResponse> findByUuid(@PathVariable UUID uuid) {
         return ResponseEntity.ok(TouristAreaResponse.of(service.findByUuid(uuid)));
     }
 
     @PostMapping
-    @Operation(summary = "Create tourist area")
+    @Operation(operationId = "createTouristArea", summary = "Create tourist area")
     @CanPermission(PermissionCode.CREATE_TOURIST_AREA)
     public ResponseEntity<TouristAreaResponse> save(@RequestBody @Valid TouristAreaRequest touristAreaDto) {
         var touristArea = service.save(touristAreaDto.toModel());
@@ -60,7 +60,7 @@ public class TouristAreaController {
     }
 
     @PutMapping("/{uuid}")
-    @Operation(summary = "Update tourist area")
+    @Operation(operationId = "updateTouristArea", summary = "Update tourist area")
     @CanPermission(PermissionCode.UPDATE_TOURIST_AREA)
     public ResponseEntity<TouristAreaResponse> update(@PathVariable UUID uuid, @RequestBody @Valid TouristAreaRequest touristAreaDto) {
         var touristArea = service.update(uuid, touristAreaDto.toModel());
@@ -68,7 +68,7 @@ public class TouristAreaController {
     }
 
     @DeleteMapping("/{uuid}")
-    @Operation(summary = "Delete tourist area by uuid")
+    @Operation(operationId = "deleteTouristArea", summary = "Delete tourist area by uuid")
     @CanPermission(PermissionCode.DELETE_TOURIST_AREA)
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
         service.deleteByUuid(uuid);

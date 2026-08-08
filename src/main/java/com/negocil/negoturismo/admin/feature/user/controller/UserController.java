@@ -1,6 +1,5 @@
 package com.negocil.negoturismo.admin.feature.user.controller;
 
-import com.negocil.negoturismo.admin.feature.user.dto.request.UserFilterPaginate;
 import com.negocil.negoturismo.admin.feature.user.dto.request.UserRequest;
 import com.negocil.negoturismo.admin.feature.user.dto.response.UserPaginate;
 import com.negocil.negoturismo.admin.feature.user.dto.response.UserResponse;
@@ -10,7 +9,6 @@ import com.negocil.negoturismo.admin.shared.core.enums.PermissionCode;
 import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,14 +26,16 @@ public class UserController {
     private final UserService service;
 
     @GetMapping()
-    @Operation(summary = "Get users by filter")
+    @Operation(operationId = "listUsers", summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_USER)
-    public ResponseEntity<UserPaginate> findByFilter(@ParameterObject @ModelAttribute UserFilterPaginate filter) {
-        return ResponseEntity.ok(UserPaginate.of(service.findAll(filter)));
+    public ResponseEntity<UserPaginate> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(UserPaginate.of(service.findAll(PageRequest.of(page, size))));
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search users using full-text search")
+    @Operation(operationId = "searchUsers", summary = "Search users using full-text search")
     @CanPermission(PermissionCode.READ_USER)
     public ResponseEntity<UserPaginate> search(
             @RequestParam String query,
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping
-    @Operation(summary = "Create user")
+    @Operation(operationId = "createUser", summary = "Create user")
     @CanPermission(PermissionCode.CREATE_USER)
     public ResponseEntity<UserResponse> save(@RequestBody @Valid UserRequest userDto) {
         var user = service.save(userDto.toModel());
@@ -53,7 +53,7 @@ public class UserController {
     }
 
     @PutMapping("/{uuid}")
-    @Operation(summary = "Update user")
+    @Operation(operationId = "updateUser", summary = "Update user")
     @CanPermission(PermissionCode.UPDATE_USER)
     public ResponseEntity<UserResponse> update(@PathVariable UUID uuid, @RequestBody @Valid UserRequest userDto) {
         var user = service.update(uuid, userDto.toModel());
@@ -61,7 +61,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{uuid}")
-    @Operation(summary = "Delete user by uuid")
+    @Operation(operationId = "deleteUser", summary = "Delete user by uuid")
     @CanPermission(PermissionCode.DELETE_USER)
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
         service.deleteByUuid(uuid);

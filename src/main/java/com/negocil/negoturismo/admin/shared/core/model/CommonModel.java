@@ -1,6 +1,5 @@
 package com.negocil.negoturismo.admin.shared.core.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +19,6 @@ public class CommonModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
-    @JsonIgnore
     protected long id;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

@@ -1,10 +1,11 @@
 package com.negocil.negoturismo.admin.feature.user.model;
 
-import com.negocil.negoturismo.admin.shared.core.enums.UserStatus;
-import com.negocil.negoturismo.admin.shared.core.enums.UserType;
+import com.negocil.negoturismo.admin.feature.user.enums.UserStatus;
+import com.negocil.negoturismo.admin.feature.user.enums.UserType;
 import com.negocil.negoturismo.admin.shared.core.model.ConcreteModel;
 import com.negocil.negoturismo.admin.shared.core.util.ConcreteTableModel;
 import com.negocil.negoturismo.admin.shared.core.util.ConstraintUniqueKey;
+import com.negocil.negoturismo.admin.shared.core.util.ValidateFields;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -38,14 +39,16 @@ public class User extends ConcreteModel implements UserDetails {
     @Column(unique = true)
     private String email;
 
-    @Pattern(regexp = "^\\+?[0-9]{7,15}$", message = "Phone invalid")
-    @Column(unique = true)
     @Size(max = 15)
+    @Column(unique = true)
+    @Pattern(regexp = ValidateFields.REGEX_PHONE, message = "Phone invalid")
     private String phone;
 
     private String password;
 
     private LocalDate birthday;
+
+    private String logo;
 
     @Builder.Default
     @Enumerated(EnumType.STRING)
@@ -55,30 +58,9 @@ public class User extends ConcreteModel implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserStatus status = UserStatus.PENDING;
 
-    private String logo;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 }

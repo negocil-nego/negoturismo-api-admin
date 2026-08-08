@@ -1,6 +1,5 @@
 package com.negocil.negoturismo.admin.feature.role.controller;
 
-import com.negocil.negoturismo.admin.feature.role.dto.request.RoleFilterPaginate;
 import com.negocil.negoturismo.admin.feature.role.dto.request.RoleRequest;
 import com.negocil.negoturismo.admin.feature.role.dto.response.RolePaginate;
 import com.negocil.negoturismo.admin.feature.role.dto.response.RoleResponse;
@@ -10,7 +9,6 @@ import com.negocil.negoturismo.admin.shared.core.enums.PermissionCode;
 import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,14 +26,16 @@ public class RoleController {
     private final RoleService service;
 
     @GetMapping()
-    @Operation(summary = "Get roles by filter")
+    @Operation(operationId = "listRoles", summary = "Get all entities paginated")
     @CanPermission(PermissionCode.READ_ROLE)
-    public ResponseEntity<RolePaginate> findByFilter(@ParameterObject @ModelAttribute RoleFilterPaginate filter) {
-        return ResponseEntity.ok(RolePaginate.of(service.findAll(filter)));
+    public ResponseEntity<RolePaginate> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(RolePaginate.of(service.findAll(PageRequest.of(page, size))));
     }
 
     @GetMapping("/search")
-    @Operation(summary = "Search roles using full-text search")
+    @Operation(operationId = "searchRoles", summary = "Search roles using full-text search")
     @CanPermission(PermissionCode.READ_ROLE)
     public ResponseEntity<RolePaginate> search(
             @RequestParam String query,
@@ -45,7 +45,7 @@ public class RoleController {
     }
 
     @PostMapping
-    @Operation(summary = "Create role")
+    @Operation(operationId = "createRole", summary = "Create role")
     @CanPermission(PermissionCode.CREATE_ROLE)
     public ResponseEntity<RoleResponse> save(@RequestBody @Valid RoleRequest roleDto) {
         var role = service.save(roleDto.toModel());
@@ -53,7 +53,7 @@ public class RoleController {
     }
 
     @PutMapping("/{uuid}")
-    @Operation(summary = "Update role")
+    @Operation(operationId = "updateRole", summary = "Update role")
     @CanPermission(PermissionCode.UPDATE_ROLE)
     public ResponseEntity<RoleResponse> update(@PathVariable UUID uuid, @RequestBody @Valid RoleRequest roleDto) {
         var role = service.update(uuid, roleDto.toModel());
@@ -61,7 +61,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/{uuid}")
-    @Operation(summary = "Delete role by uuid")
+    @Operation(operationId = "deleteRole", summary = "Delete role by uuid")
     @CanPermission(PermissionCode.DELETE_ROLE)
     public ResponseEntity<Void> deleteByUuid(@PathVariable UUID uuid) {
         service.deleteByUuid(uuid);

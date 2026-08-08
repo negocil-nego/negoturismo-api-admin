@@ -1,8 +1,8 @@
 package com.negocil.negoturismo.admin.feature.user.dto.response;
 
 import com.negocil.negoturismo.admin.feature.user.model.User;
-import com.negocil.negoturismo.admin.shared.core.enums.UserStatus;
-import com.negocil.negoturismo.admin.shared.core.enums.UserType;
+import com.negocil.negoturismo.admin.feature.user.enums.UserStatus;
+import com.negocil.negoturismo.admin.feature.user.enums.UserType;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDate;

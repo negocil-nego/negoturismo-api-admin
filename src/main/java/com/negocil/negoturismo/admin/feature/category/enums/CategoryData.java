@@ -57,7 +57,7 @@ public enum CategoryData {
             Category.builder()
                     .name("Guia de Turismo")
                     .icon(HugeiconNamed.TOUR_GUIDE.getWeb())
-                    .categoryGroup(CategoryGroup.TOUR_GUIDE_OR_INTERPRETER)
+                    .categoryGroup(CategoryGroup.TOUR_GUIDE)
                     .description("Profissional credenciado encarregado de acompanhar, orientar e transmitir informações a pessoas ou grupos em itinerários turísticos.")
                     .build()
     ),
@@ -66,7 +66,7 @@ public enum CategoryData {
             Category.builder()
                     .name("Intérprete de Viagem")
                     .icon(HugeiconNamed.INTERPRETER.getWeb())
-                    .categoryGroup(CategoryGroup.TOUR_GUIDE_OR_INTERPRETER)
+                    .categoryGroup(CategoryGroup.INTERPRETER)
                     .description("Profissional especializado na tradução e facilitação de comunicação intercultural e linguística para turistas.")
                     .build()
     );

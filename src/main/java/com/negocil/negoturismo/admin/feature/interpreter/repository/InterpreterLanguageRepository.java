@@ -1,5 +1,6 @@
 package com.negocil.negoturismo.admin.feature.interpreter.repository;
 
+import com.negocil.negoturismo.admin.feature.interpreter.enums.CountryLanguage;
 import com.negocil.negoturismo.admin.feature.interpreter.model.Interpreter;
 import com.negocil.negoturismo.admin.feature.interpreter.model.InterpreterLanguage;
 import com.negocil.negoturismo.admin.feature.interpreter.util.InterpreterLanguageQuery;
@@ -21,5 +22,5 @@ public interface InterpreterLanguageRepository extends JpaRepository<Interpreter
     @NativeQuery(value = InterpreterLanguageQuery.INTERPRETER_LANGUAGE_SEARCH, countQuery = InterpreterLanguageQuery.INTERPRETER_LANGUAGE_SEARCH_COUNT)
     Page<InterpreterLanguage> search(@Param("query") String query, Pageable pageable);
 
-    Optional<InterpreterLanguage> findByInterpreterAndLanguage(Interpreter interpreter, String language);
+    Optional<InterpreterLanguage> findByInterpreterAndLanguage(Interpreter interpreter, CountryLanguage language);
 }

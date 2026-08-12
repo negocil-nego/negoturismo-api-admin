@@ -4,6 +4,7 @@ import com.negocil.negoturismo.admin.feature.organization.enums.OrganizationHigh
 import com.negocil.negoturismo.admin.shared.core.model.CommonModel;
 import com.negocil.negoturismo.admin.shared.core.util.ConcreteTableModel;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,6 +35,9 @@ public class OrganizationHighlights extends CommonModel {
 
     protected Instant startedAt;
     protected Instant completedAt;
+
+    @Size(max = 2000)
+    private String description;
 
     private String concat;
 }

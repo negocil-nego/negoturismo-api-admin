@@ -19,6 +19,13 @@ public class InterpreterService extends ConcreteService<Interpreter> implements 
     }
 
     @Override
+    public Interpreter save(Interpreter data) {
+        var user = data.getUser();
+        data.setConcat("%s,%s,%s,%s".formatted(user.getName(), user.getPhone(), user.getEmail(), user.getPhone()));
+        return super.save(data);
+    }
+
+    @Override
     public Interpreter findByUuid(UUID uuid) {
         return repository.findByUuid(uuid).orElseThrow(() -> new InterpreterNotFoundException(uuid));
     }

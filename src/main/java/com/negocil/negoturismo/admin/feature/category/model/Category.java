@@ -36,7 +36,7 @@ public class Category extends ConcreteModel {
     private String slug;
 
     @NotBlank
-    @Size(max = 255)
+    @Size(max = 1000)
     private String description;
 
     @Size(max = 100)

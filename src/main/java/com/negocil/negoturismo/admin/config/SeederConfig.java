@@ -95,6 +95,9 @@ public class SeederConfig implements CommandLineRunner {
                         .phone(d.getPhone())
                         .description(d.getDescription())
                         .address(d.getAddress())
+                        .image(d.getImage())
+                        .logo(d.getLogo())
+                        .video(d.getVideo())
                         .user(userCache.get(d.getOwnerUsername()))
                         .build())
         );
@@ -102,6 +105,7 @@ public class SeederConfig implements CommandLineRunner {
         // Destaques de Organização
         seedList(OrganizationHighlightsData.values(), d -> OrganizationHighlights.builder()
                 .organization(orgCache.get(d.getOrganizationName()))
+                .description(d.getDescription())
                 .status(d.getStatus())
                 .startedAt(d.getStartedAt())
                 .completedAt(d.getCompletedAt())
@@ -115,6 +119,7 @@ public class SeederConfig implements CommandLineRunner {
                         .name(d.getName())
                         .slug(d.getSlug())
                         .description(d.getDescription())
+                        .image(d.getImage())
                         .price(d.getPrice())
                         .position(d.getPosition())
                         .organization(orgCache.get(d.getOrganizationName()))
@@ -124,6 +129,7 @@ public class SeederConfig implements CommandLineRunner {
         // Promoções de Produto
         seedList(ProductPromotionData.values(), d -> ProductPromotion.builder()
                 .product(productCache.get(d.getProductName()))
+                .description(d.getDescription())
                 .status(d.getStatus())
                 .startedAt(d.getStartedAt())
                 .completedAt(d.getCompletedAt())
@@ -137,6 +143,7 @@ public class SeederConfig implements CommandLineRunner {
                 InterpreterData::getUsername,
                 d -> interpreterService.findOrCreate(Interpreter.builder()
                         .user(userCache.get(d.getUsername()))
+                        .description(d.getDescription())
                         .build())
         );
 
@@ -163,6 +170,7 @@ public class SeederConfig implements CommandLineRunner {
                 TourGuideData::getUsername,
                 d -> tourGuideService.findOrCreate(TourGuide.builder()
                         .user(userCache.get(d.getUsername()))
+                        .description(d.getDescription())
                         .build())
         );
 

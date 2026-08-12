@@ -30,10 +30,17 @@ public record ProductResponse(
         Integer position,
 
         @Schema(description = "UUID of the organization this product belongs to", example = "550e8400-e29b-41d4-a716-446655440000", nullable = true)
-        UUID organizationUuid
+        UUID organizationUuid,
+
+        @Schema(description = "Organization name", example = "Negocil", nullable = true)
+        String organizationName,
+
+        @Schema(description = "Organization logo URL", example = "https://example.com/logo.png", nullable = true)
+        String organizationLogo
 
 ) {
     public static ProductResponse of(Product product) {
+        var org = product.getOrganization();
         return new ProductResponse(
                 product.getUuid(),
                 product.getName(),
@@ -42,7 +49,9 @@ public record ProductResponse(
                 product.getImage(),
                 product.getPrice(),
                 product.getPosition(),
-                product.getOrganization() != null ? product.getOrganization().getUuid() : null
+                org != null ? org.getUuid() : null,
+                org != null ? org.getName() : null,
+                org != null ? org.getLogo() : null
         );
     }
 }

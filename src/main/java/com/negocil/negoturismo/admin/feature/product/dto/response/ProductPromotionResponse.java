@@ -15,6 +15,18 @@ public record ProductPromotionResponse(
         @Schema(description = "UUID of the product", example = "550e8400-e29b-41d4-a716-446655440000")
         UUID productUuid,
 
+        @Schema(description = "Product name", example = "City Tour")
+        String productName,
+
+        @Schema(description = "Product slug", example = "city_tour")
+        String productSlug,
+
+        @Schema(description = "Product image URL", example = "https://example.com/image.jpg", nullable = true)
+        String productImage,
+
+        @Schema(description = "Promotion description", example = "Oferta especial de verão")
+        String description,
+
         @Schema(description = "Promotion status", example = "PENDENT")
         ProductPromotionStatus status,
 
@@ -34,9 +46,14 @@ public record ProductPromotionResponse(
         String concat
 ) {
     public static ProductPromotionResponse of(ProductPromotion productPromotion) {
+        var product = productPromotion.getProduct();
         return new ProductPromotionResponse(
                 productPromotion.getId(),
-                productPromotion.getProduct().getUuid(),
+                product.getUuid(),
+                product.getName(),
+                product.getSlug(),
+                product.getImage(),
+                productPromotion.getDescription() != null ? productPromotion.getDescription() : product.getDescription(),
                 productPromotion.getStatus(),
                 productPromotion.getStartedAt(),
                 productPromotion.getCompletedAt(),

@@ -1,8 +1,8 @@
 package com.negocil.negoturismo.admin.feature.interpreter.dto.request;
 
+import com.negocil.negoturismo.admin.feature.interpreter.enums.CountryLanguage;
 import com.negocil.negoturismo.admin.feature.interpreter.model.InterpreterLanguage;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
@@ -13,9 +13,9 @@ public record InterpreterLanguageRequest(
         @NotNull
         UUID interpreterUuid,
 
-        @Schema(description = "Language name", example = "Spanish", requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 100)
-        @NotBlank
-        String language
+        @Schema(description = "Language spoken by the interpreter", example = "PORTUGUESE", requiredMode = Schema.RequiredMode.REQUIRED)
+        @NotNull
+        CountryLanguage language
 ) {
     public InterpreterLanguage toModel() {
         return InterpreterLanguage.builder()

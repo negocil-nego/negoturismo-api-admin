@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum InterpreterLanguageData {
-    ANA_ENGLISH("anasilva", "Inglês"),
-    CARLOS_FRENCH("carlosndalu", "Francês");
+    ANA_ENGLISH("anasilva", CountryLanguage.ENGLISH),
+    CARLOS_FRENCH("carlosndalu", CountryLanguage.FRENCH);
 
     private final String username;
-    private final String language;
+    private final CountryLanguage language;
 }

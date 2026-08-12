@@ -4,7 +4,9 @@ import com.negocil.negoturismo.admin.feature.user.model.User;
 import com.negocil.negoturismo.admin.shared.core.model.ConcreteModel;
 import com.negocil.negoturismo.admin.shared.core.util.ConcreteTableModel;
 import com.negocil.negoturismo.admin.shared.core.util.ConstraintUniqueKey;
+import com.negocil.negoturismo.admin.shared.core.util.ValidateFields;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,6 +27,9 @@ public class TourGuide extends ConcreteModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Size(max = ValidateFields.DESCRIPTION_SIZE_MAX)
+    private String description;
 
     @Column(unique = true)
     private String concat;

@@ -18,6 +18,12 @@ public record OrganizationHighlightsResponse(
         @Schema(description = "Organization email", example = "contact@negocil.com")
         String organizationEmail,
 
+        @Schema(description = "Organization logo URL", example = "https://example.com/logo.png", nullable = true)
+        String organizationLogo,
+
+        @Schema(description = "Highlight description", example = "Melhor hotel de Luanda")
+        String description,
+
         @Schema(description = "Status of the highlight", example = "ACTIVE")
         OrganizationHighlightsStatus status,
 
@@ -36,6 +42,8 @@ public record OrganizationHighlightsResponse(
                 highlights.getId(),
                 org.getName(),
                 org.getEmail(),
+                org.getLogo(),
+                highlights.getDescription() != null ? highlights.getDescription() : org.getDescription(),
                 highlights.getStatus(),
                 highlights.getStartedAt(),
                 highlights.getCompletedAt(),

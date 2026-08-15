@@ -60,6 +60,8 @@ public class TourGuideController {
         var user = userRepository.findByUuid(request.userUuid()).orElseThrow();
         var tourGuide = com.negocil.negoturismo.admin.feature.tour_guide.model.TourGuide.builder()
                 .user(user)
+                .email(request.email())
+                .whatsapp(request.whatsapp())
                 .build();
         var saved = service.save(tourGuide);
         return new ResponseEntity<>(TourGuideResponse.of(saved), HttpStatus.CREATED);
@@ -72,6 +74,8 @@ public class TourGuideController {
         var user = userRepository.findByUuid(request.userUuid()).orElseThrow();
         var tourGuide = com.negocil.negoturismo.admin.feature.tour_guide.model.TourGuide.builder()
                 .user(user)
+                .email(request.email())
+                .whatsapp(request.whatsapp())
                 .build();
         var updated = service.update(uuid, tourGuide);
         return new ResponseEntity<>(TourGuideResponse.of(updated), HttpStatus.ACCEPTED);

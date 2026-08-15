@@ -7,6 +7,7 @@ import com.negocil.negoturismo.admin.feature.tour_guide.model.TourGuide;
 import com.negocil.negoturismo.admin.feature.user.model.User;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
 import com.negocil.negoturismo.admin.shared.core.service.ConcreteService;
+import com.negocil.negoturismo.admin.shared.core.util.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -35,19 +36,11 @@ public class TourGuideService extends ConcreteService<TourGuide> implements IFin
         return repository.findByUuid(uuid).orElseThrow(() -> new TourGuideNotFoundException(uuid));
     }
 
-    public TourGuide findByUserUuid(UUID userUuid) {
-        return repository.findByUserUuid(userUuid).orElseThrow(() -> new TourGuideNotFoundException("Tour guide not found for user " + userUuid));
-    }
-
     @Override
     public TourGuide save(TourGuide data) {
-        if (data.getUser() != null) {
-            User user = data.getUser();
-            String name = user.getName() != null ? user.getName() : "";
-            String phone = user.getPhone() != null ? user.getPhone() : "";
-            String email = user.getEmail() != null ? user.getEmail() : "";
-            data.setConcat(name + "+" + phone + "+" + email);
-        }
+        User user = data.getUser();
+        data.setConcat("%s,%s,%s,%s".formatted(user.getName(), user.getPhone(), user.getEmail(), user.getPhone()));
+        data.setSlug(StringUtils.generateSlug(user.getUsername()));
         return super.save(data);
     }
 

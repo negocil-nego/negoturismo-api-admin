@@ -5,6 +5,7 @@ import com.negocil.negoturismo.admin.feature.interpreter.repository.InterpreterR
 import com.negocil.negoturismo.admin.feature.interpreter.model.Interpreter;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
 import com.negocil.negoturismo.admin.shared.core.service.ConcreteService;
+import com.negocil.negoturismo.admin.shared.core.util.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -22,6 +23,7 @@ public class InterpreterService extends ConcreteService<Interpreter> implements 
     public Interpreter save(Interpreter data) {
         var user = data.getUser();
         data.setConcat("%s,%s,%s,%s".formatted(user.getName(), user.getPhone(), user.getEmail(), user.getPhone()));
+        data.setSlug(StringUtils.generateSlug(user.getUsername()));
         return super.save(data);
     }
 

@@ -120,3 +120,21 @@ ALTER TABLE TB_PRODUCT_PROMOTIONS
             setweight(to_tsvector('portuguese', coalesce("concat", '')), 'A')
             ) STORED;
 CREATE INDEX IF NOT EXISTS product_promotion_search_vector_idx ON TB_PRODUCT_PROMOTIONS USING GIN (search_vector);
+
+-- ─── TB_DOCUMENT_FILES ────────────────────────────────────────
+ALTER TABLE TB_DOCUMENT_FILES
+    ADD COLUMN IF NOT EXISTS search_vector tsvector
+    GENERATED ALWAYS AS (
+    setweight(to_tsvector('portuguese', coalesce("concat", '')), 'A') ||
+    setweight(to_tsvector('portuguese', coalesce("title", '')), 'B') ||
+    setweight(to_tsvector('portuguese', coalesce("description", '')), 'C')
+    ) STORED;
+CREATE INDEX IF NOT EXISTS document_files_search_vector_idx ON TB_DOCUMENT_FILES USING GIN (search_vector);
+
+-- ─── TB_ORGANIZATION_CATEGORY ────────────────────────────────────────
+ALTER TABLE TB_ORGANIZATION_CATEGORY
+    ADD COLUMN IF NOT EXISTS search_vector tsvector
+    GENERATED ALWAYS AS (
+    setweight(to_tsvector('portuguese', coalesce("concat", '')), 'A')
+    ) STORED;
+CREATE INDEX IF NOT EXISTS organization_category_search_vector_idx ON TB_ORGANIZATION_CATEGORY USING GIN (search_vector);

@@ -1,6 +1,7 @@
 package com.negocil.negoturismo.admin.config;
 
 import com.negocil.negoturismo.admin.feature.category.enums.CategoryData;
+import com.negocil.negoturismo.admin.feature.category.model.Category;
 import com.negocil.negoturismo.admin.feature.category.service.CategoryService;
 import com.negocil.negoturismo.admin.feature.interpreter.enums.InterpreterData;
 import com.negocil.negoturismo.admin.feature.interpreter.enums.InterpreterLanguageData;
@@ -9,17 +10,25 @@ import com.negocil.negoturismo.admin.feature.interpreter.model.InterpreterLangua
 import com.negocil.negoturismo.admin.feature.interpreter.service.InterpreterLanguageService;
 import com.negocil.negoturismo.admin.feature.interpreter.service.InterpreterService;
 import com.negocil.negoturismo.admin.feature.organization.enums.OrganizationData;
+import com.negocil.negoturismo.admin.feature.organization.enums.OrganizationFileData;
 import com.negocil.negoturismo.admin.feature.organization.enums.OrganizationHighlightsData;
 import com.negocil.negoturismo.admin.feature.organization.model.Organization;
+import com.negocil.negoturismo.admin.feature.organization.model.OrganizationCategory;
+import com.negocil.negoturismo.admin.feature.organization.model.OrganizationFile;
 import com.negocil.negoturismo.admin.feature.organization.model.OrganizationHighlights;
+import com.negocil.negoturismo.admin.feature.organization.service.OrganizationCategoryService;
+import com.negocil.negoturismo.admin.feature.organization.service.OrganizationFileService;
 import com.negocil.negoturismo.admin.feature.organization.service.OrganizationHighlightsService;
 import com.negocil.negoturismo.admin.feature.organization.service.OrganizationService;
 import com.negocil.negoturismo.admin.feature.permission.enums.PermissionData;
 import com.negocil.negoturismo.admin.feature.permission.service.PermissionService;
 import com.negocil.negoturismo.admin.feature.product.enums.ProductData;
+import com.negocil.negoturismo.admin.feature.product.enums.ProductFileData;
 import com.negocil.negoturismo.admin.feature.product.enums.ProductPromotionData;
 import com.negocil.negoturismo.admin.feature.product.model.Product;
+import com.negocil.negoturismo.admin.feature.product.model.ProductFile;
 import com.negocil.negoturismo.admin.feature.product.model.ProductPromotion;
+import com.negocil.negoturismo.admin.feature.product.service.ProductFileService;
 import com.negocil.negoturismo.admin.feature.product.service.ProductPromotionService;
 import com.negocil.negoturismo.admin.feature.product.service.ProductService;
 import com.negocil.negoturismo.admin.feature.role.enums.RoleData;
@@ -36,6 +45,9 @@ import com.negocil.negoturismo.admin.feature.tour_guide.service.TouristAreaServi
 import com.negocil.negoturismo.admin.feature.user.enums.UserData;
 import com.negocil.negoturismo.admin.feature.user.model.User;
 import com.negocil.negoturismo.admin.feature.user.service.UserService;
+import com.negocil.negoturismo.admin.shared.document_file.enums.DocumentFileData;
+import com.negocil.negoturismo.admin.shared.document_file.model.DocumentFile;
+import com.negocil.negoturismo.admin.shared.document_file.service.DocumentFileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
@@ -57,10 +69,14 @@ public class SeederConfig implements CommandLineRunner {
     private final TourGuideTouristAreaService tourGuideTouristAreaService;
     private final InterpreterLanguageService interpreterLanguageService;
     private final ProductPromotionService productPromotionService;
+    private final OrganizationCategoryService organizationCategoryService;
+    private final OrganizationFileService organizationFileService;
     private final OrganizationService organizationService;
     private final InterpreterService interpreterService;
+    private final DocumentFileService documentFileService;
     private final TouristAreaService touristAreaService;
     private final PermissionService permissionService;
+    private final ProductFileService productFileService;
     private final TourGuideService tourGuideService;
     private final CategoryService categoryService;
     private final ProductService productService;
@@ -72,8 +88,12 @@ public class SeederConfig implements CommandLineRunner {
         log.info("Starting initial data seed...");
         long start = System.currentTimeMillis();
 
-        // Enums simples
-        seedList(CategoryData.values(), CategoryData::getCategory, categoryService::findOrCreate);
+        // Cache das Categorias (Indexado por Nome)
+        Map<String, Category> categoryCache = seedMap(
+                CategoryData.values(),
+                d -> d.getCategory().getName(),
+                d -> categoryService.findOrCreate(d.getCategory())
+        );
         seedList(PermissionData.values(), PermissionData::getPermission, permissionService::findOrCreate);
         seedList(RoleData.values(), RoleData::getRole, roleService::findOrCreate);
 
@@ -111,6 +131,32 @@ public class SeederConfig implements CommandLineRunner {
                 .completedAt(d.getCompletedAt())
                 .build(), organizationHighlightsService::findOrCreate);
 
+        // Cache dos Ficheiros de Documentos (Indexado por Título)
+        Map<String, DocumentFile> docCache = seedMap(
+                DocumentFileData.values(),
+                DocumentFileData::getTitle,
+                d -> documentFileService.findOrCreate(DocumentFile.builder()
+                        .url(d.getUrl())
+                        .fileType(d.getFileType())
+                        .thumbnail(d.getThumbnail())
+                        .title(d.getTitle())
+                        .description(d.getDescription())
+                        .build())
+        );
+
+        // Ficheiros de Organização
+        seedList(OrganizationFileData.values(), d -> OrganizationFile.builder()
+                .organization(orgCache.get(d.getOrganizationName()))
+                .doc(docCache.get(d.getDocumentFileTitle()))
+                .build(), organizationFileService::findOrCreate);
+
+        // Categorias de Organização (todas as organizações em todas as categorias possíveis)
+        orgCache.values().forEach(org -> categoryCache.values().forEach(category ->
+                organizationCategoryService.findOrCreate(OrganizationCategory.builder()
+                        .organization(org)
+                        .category(category)
+                        .build())));
+
         // Cache dos Produtos
         Map<String, Product> productCache = seedMap(
                 ProductData.values(),
@@ -137,13 +183,23 @@ public class SeederConfig implements CommandLineRunner {
                 .newPrice(d.getNewPrice())
                 .build(), productPromotionService::findOrCreate);
 
+        // Ficheiros de Produto
+        seedList(ProductFileData.values(), d -> ProductFile.builder()
+                .product(productCache.get(d.getProductName()))
+                .doc(docCache.get(d.getDocumentFileTitle()))
+                .build(), productFileService::findOrCreate);
+
         // Cache de Intérpretes (Indexado por Username do Utilizador)
         Map<String, Interpreter> interpreterCache = seedMap(
                 InterpreterData.values(),
                 InterpreterData::getUsername,
                 d -> interpreterService.findOrCreate(Interpreter.builder()
                         .user(userCache.get(d.getUsername()))
+                        .email(d.getEmail())
+                        .whatsapp(d.getWhatsapp())
                         .description(d.getDescription())
+                        .photo(d.getPhoto())
+                        .video(d.getVideo())
                         .build())
         );
 
@@ -170,7 +226,11 @@ public class SeederConfig implements CommandLineRunner {
                 TourGuideData::getUsername,
                 d -> tourGuideService.findOrCreate(TourGuide.builder()
                         .user(userCache.get(d.getUsername()))
+                        .email(d.getEmail())
+                        .whatsapp(d.getWhatsapp())
                         .description(d.getDescription())
+                        .photo(d.getPhoto())
+                        .video(d.getVideo())
                         .build())
         );
 

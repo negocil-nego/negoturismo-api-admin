@@ -37,19 +37,19 @@ public class CategoryService extends ConcreteService<Category> implements IFindO
 
     @Override
     public Category save(Category data) {
-        data.setSlug(StringUtils.generateFlag(data.getName()));
+        data.setSlug(StringUtils.generateSlug(data.getName()));
         return super.save(data);
     }
 
     @Override
     public Category update(UUID uuid, Category data) {
-        data.setSlug(StringUtils.generateFlag(data.getName()));
+        data.setSlug(StringUtils.generateSlug(data.getName()));
         return super.update(uuid, data);
     }
 
     @Override
     public Category update(long id, Category data) {
-        data.setSlug(StringUtils.generateFlag(data.getName()));
+        data.setSlug(StringUtils.generateSlug(data.getName()));
         return super.update(id, data);
     }
 

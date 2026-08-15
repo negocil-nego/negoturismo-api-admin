@@ -30,8 +30,6 @@ public class Category extends ConcreteModel {
     @Column(unique = true)
     private String name;
 
-    @NotBlank
-    @Size(max = 100)
     @Column(unique = true)
     private String slug;
 

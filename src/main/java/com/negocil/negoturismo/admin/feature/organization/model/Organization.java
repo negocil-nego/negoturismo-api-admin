@@ -1,9 +1,8 @@
 package com.negocil.negoturismo.admin.feature.organization.model;
 
 import com.negocil.negoturismo.admin.feature.user.model.User;
-import com.negocil.negoturismo.admin.shared.core.model.ConcreteModel;
 import com.negocil.negoturismo.admin.shared.core.util.ConcreteTableModel;
-import com.negocil.negoturismo.admin.shared.core.util.ConstraintUniqueKey;
+import com.negocil.negoturismo.admin.shared.core.model.ConcreteModel;
 import com.negocil.negoturismo.admin.shared.core.util.ValidateFields;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -13,6 +12,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -68,4 +70,8 @@ public class Organization extends ConcreteModel {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<OrganizationFile> files = new ArrayList<>();
 }

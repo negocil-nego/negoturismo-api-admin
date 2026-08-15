@@ -15,4 +15,8 @@ public final class ConcreteTableModel {
     public final static String TOUR_GUIDE_TOURIST_AREA = "TB_TOUR_GUIDE_TOURIST_AREAS";
     public final static String ORGANIZATION_HIGHLIGHTS = "TB_ORGANIZATION_HIGHLIGHTS";
     public final static String PRODUCT_PROMOTION = "TB_PRODUCT_PROMOTIONS";
+    public final static String DOCUMENT_FILE = "TB_DOCUMENT_FILES";
+    public final static String PRODUCT_FILE = "TB_PRODUCT_FILES";
+    public final static String ORGANIZATION_FILE = "TB_ORGANIZATION_FILES";
+    public final static String ORGANIZATION_CATEGORY = "TB_ORGANIZATION_CATEGORY";
 }

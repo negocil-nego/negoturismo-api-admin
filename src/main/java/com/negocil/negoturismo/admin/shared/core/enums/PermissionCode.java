@@ -45,4 +45,16 @@ public final class PermissionCode {
     public static final String UPDATE_PRODUCT_PROMOTION = "UPDATE_PRODUCT_PROMOTION";
     public static final String DELETE_PRODUCT_PROMOTION = "DELETE_PRODUCT_PROMOTION";
     public static final String READ_PRODUCT_PROMOTION = "READ_PRODUCT_PROMOTION";
+    public static final String CREATE_DOCUMENT_FILE = "CREATE_DOCUMENT_FILE";
+    public static final String UPDATE_DOCUMENT_FILE = "UPDATE_DOCUMENT_FILE";
+    public static final String DELETE_DOCUMENT_FILE = "DELETE_DOCUMENT_FILE";
+    public static final String READ_DOCUMENT_FILE = "READ_DOCUMENT_FILE";
+    public static final String CREATE_PRODUCT_FILE = "CREATE_PRODUCT_FILE";
+    public static final String UPDATE_PRODUCT_FILE = "UPDATE_PRODUCT_FILE";
+    public static final String DELETE_PRODUCT_FILE = "DELETE_PRODUCT_FILE";
+    public static final String READ_PRODUCT_FILE = "READ_PRODUCT_FILE";
+    public static final String CREATE_ORGANIZATION_FILE = "CREATE_ORGANIZATION_FILE";
+    public static final String UPDATE_ORGANIZATION_FILE = "UPDATE_ORGANIZATION_FILE";
+    public static final String DELETE_ORGANIZATION_FILE = "DELETE_ORGANIZATION_FILE";
+    public static final String READ_ORGANIZATION_FILE = "READ_ORGANIZATION_FILE";
 }

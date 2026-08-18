@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +68,12 @@ public class Organization extends ConcreteModel {
     @Size(max = 2048)
     private String video;
 
+    private String imageBanner;
+
+    private String website;
+
+    private LocalDate dateFounded;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -74,4 +81,12 @@ public class Organization extends ConcreteModel {
     @Builder.Default
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrganizationFile> files = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<OrganizationReviews> reviews = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<OrganizationAddress> addresses = new ArrayList<>();
 }

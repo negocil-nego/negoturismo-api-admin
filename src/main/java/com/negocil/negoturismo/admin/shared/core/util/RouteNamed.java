@@ -17,4 +17,10 @@ public class RouteNamed {
     public final static String DOCUMENT_FILE = "/api/v1/admin/document-files";
     public final static String PRODUCT_FILE = "/api/v1/admin/product-files";
     public final static String ORGANIZATION_FILE = "/api/v1/admin/organization-files";
+    public final static String REVIEW = "/api/v1/admin/reviews";
+    public final static String ADDRESS = "/api/v1/admin/addresses";
+    public final static String ORGANIZATION_REVIEW = "/api/v1/admin/organization-reviews";
+    public final static String ORGANIZATION_ADDRESS = "/api/v1/admin/organization-addresses";
+    public final static String PRODUCT_REVIEW = "/api/v1/admin/product-reviews";
+    public final static String PRODUCT_ADDRESS = "/api/v1/admin/product-addresses";
 }

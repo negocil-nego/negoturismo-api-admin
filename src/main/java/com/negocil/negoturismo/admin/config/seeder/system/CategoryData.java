@@ -1,5 +1,6 @@
-package com.negocil.negoturismo.admin.feature.category.enums;
+package com.negocil.negoturismo.admin.config.seeder.system;
 
+import com.negocil.negoturismo.admin.feature.category.enums.CategoryGroup;
 import com.negocil.negoturismo.admin.feature.category.model.Category;
 import com.negocil.negoturismo.admin.shared.core.enums.HugeiconNamed;
 import lombok.AllArgsConstructor;

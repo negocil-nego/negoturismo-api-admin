@@ -138,3 +138,21 @@ ALTER TABLE TB_ORGANIZATION_CATEGORY
     setweight(to_tsvector('portuguese', coalesce("concat", '')), 'A')
     ) STORED;
 CREATE INDEX IF NOT EXISTS organization_category_search_vector_idx ON TB_ORGANIZATION_CATEGORY USING GIN (search_vector);
+
+-- ─── TB_REVIEWS ────────────────────────────────────────────────
+ALTER TABLE TB_REVIEWS
+    ADD COLUMN IF NOT EXISTS search_vector tsvector
+    GENERATED ALWAYS AS (
+    setweight(to_tsvector('portuguese', coalesce("content", '')), 'A')
+    ) STORED;
+CREATE INDEX IF NOT EXISTS review_search_vector_idx ON TB_REVIEWS USING GIN (search_vector);
+
+-- ─── TB_ADDRESSES ──────────────────────────────────────────────
+ALTER TABLE TB_ADDRESSES
+    ADD COLUMN IF NOT EXISTS search_vector tsvector
+    GENERATED ALWAYS AS (
+    setweight(to_tsvector('portuguese', coalesce("state", '')), 'A') ||
+    setweight(to_tsvector('portuguese', coalesce("municipality", '')), 'B') ||
+    setweight(to_tsvector('portuguese', coalesce("address", '')), 'C')
+    ) STORED;
+CREATE INDEX IF NOT EXISTS address_search_vector_idx ON TB_ADDRESSES USING GIN (search_vector);

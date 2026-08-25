@@ -2,7 +2,6 @@ package com.negocil.negoturismo.admin.config.seeder.system;
 
 import com.negocil.negoturismo.admin.feature.category.enums.CategoryGroup;
 import com.negocil.negoturismo.admin.feature.category.model.Category;
-import com.negocil.negoturismo.admin.shared.core.enums.HugeiconNamed;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,7 +11,7 @@ public enum CategoryData {
     HOTEL(
             Category.builder()
                     .name("Hotel")
-                    .icon(HugeiconNamed.HOTEL_01.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-hotel-02")
                     .categoryGroup(CategoryGroup.HOSTING)
                     .description("Estabelecimento destinado à hospedagem, oferecendo acomodações, conforto e diversos serviços aos hóspedes.")
                     .build()
@@ -21,7 +20,7 @@ public enum CategoryData {
     GUESTHOUSE(
             Category.builder()
                     .name("Pousada")
-                    .icon(HugeiconNamed.GUESTHOUSE.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-bed-double")
                     .categoryGroup(CategoryGroup.HOSTING)
                     .description("Hospedagem turística de pequeno porte, com ambiente acolhedor e atendimento mais personalizado.")
                     .build()
@@ -30,7 +29,7 @@ public enum CategoryData {
     ACCOMMODATION(
             Category.builder()
                     .name("Hospedaria")
-                    .icon(HugeiconNamed.HOTEL_02.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-building-06")
                     .categoryGroup(CategoryGroup.HOSTING)
                     .description("Local de hospedagem simples e econômica para estadias temporárias, podendo incluir serviços básicos.")
                     .build()
@@ -39,7 +38,7 @@ public enum CategoryData {
     RESTAURANT(
             Category.builder()
                     .name("Restaurante")
-                    .icon(HugeiconNamed.RESTAURANT.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-restaurant-01")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Estabelecimento dedicado à preparação e serviço de refeições, com ementa variada e serviço à mesa.")
                     .build()
@@ -48,7 +47,7 @@ public enum CategoryData {
     TRADITIONAL_FOOD(
             Category.builder()
                     .name("Comida Tradicional")
-                    .icon(HugeiconNamed.RESTAURANT_02.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-dish-01")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Restaurantes especializados em gastronomia típica, com pratos da culinária local e regional.")
                     .build()
@@ -57,7 +56,7 @@ public enum CategoryData {
     PIZZERIA(
             Category.builder()
                     .name("Pizzaria")
-                    .icon(HugeiconNamed.PIZZA_01.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-pizza-02")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Estabelecimento especializado em pizzas artesanais e outros pratos de inspiração italiana.")
                     .build()
@@ -66,7 +65,7 @@ public enum CategoryData {
     FAST_FOOD(
             Category.builder()
                     .name("Comida Rápida")
-                    .icon(HugeiconNamed.HAMBURGER_01.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-cafe")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Estabelecimentos de refeições rápidas, incluindo hamburguerias, lanchonetes e take-away.")
                     .build()
@@ -75,7 +74,7 @@ public enum CategoryData {
     GRILL(
             Category.builder()
                     .name("Churrasco e Grelhados")
-                    .icon(HugeiconNamed.BBQ_GRILL.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-beef")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Casas especializadas em grelhados, churrasco e carnes no carvão ou na brasa.")
                     .build()
@@ -84,7 +83,7 @@ public enum CategoryData {
     SEAFOOD(
             Category.builder()
                     .name("Marisqueira")
-                    .icon(HugeiconNamed.SHELLFISH.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-prawn")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Restaurante focado em mariscos, peixes e frutos do mar frescos.")
                     .build()
@@ -93,7 +92,7 @@ public enum CategoryData {
     SUSHI(
             Category.builder()
                     .name("Restaurante de Sushi")
-                    .icon(HugeiconNamed.SUSHI_01.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-sushi-03")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Estabelecimento especializado em gastronomia japonesa, com sushi, sashimi e pratos orientais.")
                     .build()
@@ -102,7 +101,7 @@ public enum CategoryData {
     CAFE(
             Category.builder()
                     .name("Café")
-                    .icon(HugeiconNamed.CAFE.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-coffee-01")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Espaço acolhedor para refeições ligeiras, bebidas, cafés e sobremesas.")
                     .build()
@@ -111,7 +110,7 @@ public enum CategoryData {
     BAR(
             Category.builder()
                     .name("Bar")
-                    .icon(HugeiconNamed.DRINK.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-beer")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Estabelecimento de bebidas e petiscos, com ambiente descontraído e opções de música.")
                     .build()
@@ -120,7 +119,7 @@ public enum CategoryData {
     SELF_SERVICE(
             Category.builder()
                     .name("Restaurante Self-Service")
-                    .icon(HugeiconNamed.RICE_BOWL_01.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-serving-food")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Restaurante ao balcão onde o cliente se serve diretamente, com pagamento por peso ou fixo.")
                     .build()
@@ -129,7 +128,7 @@ public enum CategoryData {
     VEGETARIAN(
             Category.builder()
                     .name("Restaurante Vegetariano")
-                    .icon(HugeiconNamed.VEGETARIAN_FOOD.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-tree-palm")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Restaurante focado em pratos vegetarianos e veganos, com ingredientes naturais e saudáveis.")
                     .build()
@@ -138,7 +137,7 @@ public enum CategoryData {
     BAKERY(
             Category.builder()
                     .name("Padaria e Pastelaria")
-                    .icon(HugeiconNamed.CHEF_HAT.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-bread-04")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Estabelecimento de pães, bolos, doces e refeições ligeiras, com produção própria.")
                     .build()
@@ -147,7 +146,7 @@ public enum CategoryData {
     FLIGHTS(
             Category.builder()
                     .name("Voos")
-                    .icon(HugeiconNamed.FLIGHTS.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-airplane-01")
                     .categoryGroup(CategoryGroup.TOURISM)
                     .description("Seja os voos destinados para Angola e marca a sua viagem.")
                     .build()
@@ -156,7 +155,7 @@ public enum CategoryData {
     TRAVEL_AGENCIES(
             Category.builder()
                     .name("Agências de viagens")
-                    .icon(HugeiconNamed.TRAVEL_AGENCIES.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-travel-bag")
                     .categoryGroup(CategoryGroup.TOURISM)
                     .description("Empresas especializadas na organização de viagens, reservas de passagens e pacotes turísticos.")
                     .build()
@@ -165,7 +164,7 @@ public enum CategoryData {
     TOUR_GUIDE(
             Category.builder()
                     .name("Guia de Turismo")
-                    .icon(HugeiconNamed.TOUR_GUIDE.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-location-user-04")
                     .categoryGroup(CategoryGroup.TOURISM)
                     .description("Profissional credenciado encarregado de acompanhar, orientar e transmitir informações a pessoas ou grupos em itinerários turísticos.")
                     .build()
@@ -174,7 +173,7 @@ public enum CategoryData {
     INTERPRETER(
             Category.builder()
                     .name("Intérprete de Viagem")
-                    .icon(HugeiconNamed.INTERPRETER.getWeb())
+                    .icon("hgi hgi-stroke hgi-rounded hgi-bubble-chat-translate")
                     .categoryGroup(CategoryGroup.INTERPRETER)
                     .description("Profissional especializado na tradução e facilitação de comunicação intercultural e linguística para turistas.")
                     .build()

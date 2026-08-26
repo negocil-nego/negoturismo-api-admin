@@ -74,7 +74,7 @@ public enum CategoryData {
     GRILL(
             Category.builder()
                     .name("Churrasco e Grelhados")
-                    .icon("hgi hgi-stroke hgi-rounded hgi-beef")
+                    .icon("hgi hgi-stroke hgi-rounded hgi-bbq-grill")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Casas especializadas em grelhados, churrasco e carnes no carvão ou na brasa.")
                     .build()
@@ -110,7 +110,7 @@ public enum CategoryData {
     BAR(
             Category.builder()
                     .name("Bar")
-                    .icon("hgi hgi-stroke hgi-rounded hgi-beer")
+                    .icon("hgi hgi-stroke hgi-rounded hgi-drink")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Estabelecimento de bebidas e petiscos, com ambiente descontraído e opções de música.")
                     .build()
@@ -119,7 +119,7 @@ public enum CategoryData {
     SELF_SERVICE(
             Category.builder()
                     .name("Restaurante Self-Service")
-                    .icon("hgi hgi-stroke hgi-rounded hgi-serving-food")
+                    .icon("hgi hgi-stroke hgi-rounded hgi-dish-01")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Restaurante ao balcão onde o cliente se serve diretamente, com pagamento por peso ou fixo.")
                     .build()

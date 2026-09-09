@@ -17,4 +17,12 @@ public final class ConstraintUniqueKey {
     public final static String TOUR_GUIDE_CONCAT = "UK_TOUR_GUIDE_CONCAT";
     public final static String TOUR_GUIDE_TOURIST_AREA_TG = "UK_TG_TA_TOUR_GUIDE";
     public final static String TOUR_GUIDE_TOURIST_AREA_TA = "UK_TG_TA_TOURIST_AREA";
+    public final static String ORGANIZATION_REVIEW_ORG = "UK_ORG_REVIEW_ORG";
+    public final static String ORGANIZATION_REVIEW_REVIEW = "UK_ORG_REVIEW_REVIEW";
+    public final static String ORGANIZATION_ADDRESS_ORG = "UK_ORG_ADDRESS_ORG";
+    public final static String ORGANIZATION_ADDRESS_ADDR = "UK_ORG_ADDRESS_ADDR";
+    public final static String PRODUCT_REVIEW_PRODUCT = "UK_PROD_REVIEW_PRODUCT";
+    public final static String PRODUCT_REVIEW_REVIEW = "UK_PROD_REVIEW_REVIEW";
+    public final static String PRODUCT_ADDRESS_PRODUCT = "UK_PROD_ADDRESS_PRODUCT";
+    public final static String PRODUCT_ADDRESS_ADDR = "UK_PROD_ADDRESS_ADDR";
 }

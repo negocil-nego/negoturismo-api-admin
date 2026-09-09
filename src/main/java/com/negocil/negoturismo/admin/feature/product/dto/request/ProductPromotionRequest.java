@@ -14,6 +14,9 @@ public record ProductPromotionRequest(
         @NotNull
         UUID productUuid,
 
+        @Schema(description = "Promotion description", example = "Oferta especial de verão", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+        String description,
+
         @Schema(description = "Promotion status", example = "PENDENT", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
         ProductPromotionStatus status,
 
@@ -31,6 +34,7 @@ public record ProductPromotionRequest(
 ) {
     public ProductPromotion toModel() {
         return ProductPromotion.builder()
+                .description(description)
                 .status(status != null ? status : ProductPromotionStatus.PENDENT)
                 .startedAt(startedAt)
                 .completedAt(completedAt)

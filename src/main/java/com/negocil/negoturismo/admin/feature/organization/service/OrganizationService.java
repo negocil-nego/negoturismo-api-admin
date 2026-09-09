@@ -37,19 +37,19 @@ public class OrganizationService extends ConcreteService<Organization> implement
 
     @Override
     public Organization save(Organization data) {
-        data.setSlug(StringUtils.generateFlag(data.getName()));
+        data.setSlug(StringUtils.generateSlug(data.getName()));
         return super.save(data);
     }
 
     @Override
     public Organization update(long id, Organization data) {
-        data.setSlug(StringUtils.generateFlag(data.getName()));
+        data.setSlug(StringUtils.generateSlug(data.getName()));
         return super.update(id, data);
     }
 
     @Override
     public Organization update(UUID uuid, Organization data) {
-        data.setSlug(StringUtils.generateFlag(data.getName()));
+        data.setSlug(StringUtils.generateSlug(data.getName()));
         return super.update(uuid, data);
     }
 

@@ -2,9 +2,9 @@ package com.negocil.negoturismo.admin.feature.product.model;
 
 
 import com.negocil.negoturismo.admin.feature.organization.model.Organization;
-import com.negocil.negoturismo.admin.shared.core.model.ConcreteModel;
-import com.negocil.negoturismo.admin.shared.core.util.ConcreteTableModel;
 import com.negocil.negoturismo.admin.shared.core.util.ConstraintUniqueKey;
+import com.negocil.negoturismo.admin.shared.core.util.ConcreteTableModel;
+import com.negocil.negoturismo.admin.shared.core.model.ConcreteModel;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
@@ -62,4 +64,16 @@ public class Product extends ConcreteModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organization_id")
     private Organization organization;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ProductFile> files = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ProductReviews> reviews = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<ProductAddress> addresses = new ArrayList<>();
 }

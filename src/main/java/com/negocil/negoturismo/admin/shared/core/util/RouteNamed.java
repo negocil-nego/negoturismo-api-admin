@@ -14,4 +14,13 @@ public class RouteNamed {
     public final static String TOUR_GUIDE_TOURIST_AREA = "/api/v1/admin/tour-guide-tourist-areas";
     public final static String ORGANIZATION_HIGHLIGHTS = "/api/v1/admin/organization-highlights";
     public final static String PRODUCT_PROMOTION = "/api/v1/admin/product-promotions";
+    public final static String DOCUMENT_FILE = "/api/v1/admin/document-files";
+    public final static String PRODUCT_FILE = "/api/v1/admin/product-files";
+    public final static String ORGANIZATION_FILE = "/api/v1/admin/organization-files";
+    public final static String REVIEW = "/api/v1/admin/reviews";
+    public final static String ADDRESS = "/api/v1/admin/addresses";
+    public final static String ORGANIZATION_REVIEW = "/api/v1/admin/organization-reviews";
+    public final static String ORGANIZATION_ADDRESS = "/api/v1/admin/organization-addresses";
+    public final static String PRODUCT_REVIEW = "/api/v1/admin/product-reviews";
+    public final static String PRODUCT_ADDRESS = "/api/v1/admin/product-addresses";
 }

@@ -37,11 +37,11 @@ spring-doc:
   swagger-ui:
     enabled: true
 rsa:
-  private-key: classpath:certs/rsa/private.pem
-  public-key: classpath:certs/rsa/public.pem
+  private-key: ${RSA_PRIVATE_KEY:classpath:certs/rsa/private.pem}
+  public-key: ${RSA_PUBLIC_KEY:classpath:certs/rsa/public.pem}
 crypto:
-  secret-key: classpath:certs/crypto/secret-key.pem
-  salt: classpath:certs/crypto/salt.pem
+  secret-key: ${CRYTO_SECRET_KEY:classpath:certs/crypto/secret-key.pem}
+  salt: ${CRYTO_SALT:classpath:certs/crypto/salt.pem}
 ombala:
   api:
     base-url: ${OMBALA_BASE_URL}

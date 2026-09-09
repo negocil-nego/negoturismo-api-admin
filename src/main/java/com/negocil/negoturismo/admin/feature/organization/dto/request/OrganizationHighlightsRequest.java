@@ -14,6 +14,9 @@ public record OrganizationHighlightsRequest(
         @NotNull
         UUID organizationUuid,
 
+        @Schema(description = "Highlight description", example = "Melhor hotel de Luanda", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+        String description,
+
         @Schema(description = "Highlight status", example = "PENDENT", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
         OrganizationHighlightsStatus status,
 
@@ -25,6 +28,7 @@ public record OrganizationHighlightsRequest(
 ) {
     public OrganizationHighlights toModel() {
         return OrganizationHighlights.builder()
+                .description(description)
                 .status(status != null ? status : OrganizationHighlightsStatus.PENDENT)
                 .startedAt(startedAt)
                 .completedAt(completedAt)

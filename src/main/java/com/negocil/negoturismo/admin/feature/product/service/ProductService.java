@@ -37,7 +37,7 @@ public class ProductService extends ConcreteService<Product> implements IFindOrC
 
     @Override
     public Product save(Product data) {
-        data.setSlug(StringUtils.generateFlag(data.getName()));
+        data.setSlug(StringUtils.generateSlug(data.getName()));
         return super.save(data);
     }
 

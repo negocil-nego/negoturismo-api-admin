@@ -128,7 +128,7 @@ public enum CategoryData {
     VEGETARIAN(
             Category.builder()
                     .name("Restaurante Vegetariano")
-                    .icon("hgi hgi-stroke hgi-rounded hgi-tree-palm")
+                    .icon("hgi hgi-stroke hgi-rounded hgi-restaurant-table")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Restaurante focado em pratos vegetarianos e veganos, com ingredientes naturais e saudáveis.")
                     .build()

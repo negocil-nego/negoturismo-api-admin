@@ -40,6 +40,8 @@ public class Category extends ConcreteModel {
     @Size(max = 100)
     private String icon;
 
+    private String image;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private CategoryGroup categoryGroup;

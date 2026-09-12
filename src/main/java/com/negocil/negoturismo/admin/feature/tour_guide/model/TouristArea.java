@@ -29,6 +29,8 @@ public class TouristArea extends ConcreteModel {
     @NotBlank
     private String address;
 
+    private String image;
+
     @Column(nullable = true)
     private Double latitude;
 

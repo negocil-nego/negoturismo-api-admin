@@ -33,6 +33,7 @@ import com.negocil.negoturismo.admin.feature.user.service.UserService;
 import com.negocil.negoturismo.admin.shared.document_file.enums.DocumentFileData;
 import com.negocil.negoturismo.admin.shared.document_file.model.DocumentFile;
 import com.negocil.negoturismo.admin.shared.document_file.service.DocumentFileService;
+import com.negocil.negoturismo.admin.shared.security.util.PasswordEncoderGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
@@ -94,7 +95,11 @@ public class SeederConfig implements CommandLineRunner {
         Map<String, User> userCache = seedMap(
                 UserData.values(),
                 d -> d.getUser().getUsername(),
-                d -> userService.findOrCreate(d.getUser())
+                d -> {
+                    var u = d.getUser();
+                    u.setPassword(PasswordEncoderGenerator.encode(u.getPassword()));
+                    return  userService.findOrCreate(u);
+                }
         );
 
         // 4. Endereços

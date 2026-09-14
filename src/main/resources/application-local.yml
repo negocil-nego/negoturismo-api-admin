@@ -5,8 +5,8 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/negoturismo
     username: postgres
-    password: admin
-    #password: postgres
+    #password: admin
+    password: postgres
   jpa:
     hibernate:
       ddl-auto: update

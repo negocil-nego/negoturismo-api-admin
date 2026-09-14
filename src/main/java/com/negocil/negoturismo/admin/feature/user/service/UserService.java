@@ -32,25 +32,17 @@ public class UserService extends ConcreteService<User> implements IFindOrCreate<
         return repository.search(query, pageable);
     }
 
+    public User findByUsername(String username) {
+        return repository.findByUsername(username).orElseThrow(() -> new UserUsernameNotFoundException(username));
+    }
+
     @Override
     public User findByUuid(UUID uuid) {
         return repository.findByUuid(uuid).orElseThrow(() -> new UserNotFoundException(uuid));
     }
 
-    public User findByUsername(String username) {
-        return repository.findByUsername(username).orElseThrow(() -> new UserUsernameNotFoundException(username));
-    }
-
-    public User findByEmail(String email) {
-        return repository.findByEmail(email).orElseThrow(() -> new UserEmailNotFoundException(email));
-    }
-
-    public User findByPhone(String phone) {
-        return repository.findByPhone(phone).orElseThrow(() -> new UserPhoneNotFoundException(phone));
-    }
-
     @Override
     public User findOrCreate(User model) {
-        return repository.findByUsername(model.getUsername()).orElseGet(() -> repository.save(model));
+        return repository.findByUsername(model.getUsername()).orElseGet(() -> save(model));
     }
 }

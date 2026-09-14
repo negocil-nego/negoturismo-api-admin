@@ -7,3 +7,68 @@ openssl rsa -in keypair.pem -pubout -out public.pem
 
 # create private key in PKCS#8 format
 openssl pkcs8 -topk8 -inform PEM -outform PEM -nocrypt -in keypair.pem -out private.pem
+
+=============================================
+  GCP Deploy command
+=============================================
+
+1. Login no GCP
+  gcloud auth login
+
+  -Se você estiver trabalhando em um ambiente de servidor
+  gcloud auth login --no-launch-browser
+
+2. Listar todos porjecto
+  gcloud projects list
+
+3. Selecionar um projecto
+  gcloud config set project [SEU_ID_DO_PROJETO]
+
+4. Deletar projecto
+  gcloud projects delete PROJECT_ID
+
+5. Recuperação projecto
+  gcloud projects undelete PROJECT_ID
+
+6. Lista projectos activos
+  gcloud projects list --filter="lifecycleState:ACTIVE"
+
+7. Ver as configurações do projeto atual
+  gcloud config list
+
+8. Listar todos os serviços do Cloud Run no projeto
+  gcloud run services list
+
+9. Descrever as configurações de um serviço específico
+  gcloud run services describe [NOME_DO_SERVIÇO]
+
+10. Como ver a configuração das variáveis de ambiente (Específico)
+  gcloud run deploy [NOME_DO_SEU_SERVIÇO] --source . --region europe-west1 --allow-unauthenticated --set-env-vars PORT=893,NODE_ENV
+  -> Para executar esses comando deves ter a permissão Bucket "Administrador do Cloud Build", "Usuário do Cloud Run"
+
+  Editor de Cloud Build (roles/cloudbuild.builds.editor): Permite que o serviço orquestre e gerencie a criação da imagem.
+  Administrador do Storage (roles/storage.admin): Permite que o serviço leia o seu código enviado para o bucket temporário e armazene a imagem resultante.
+  Desenvolvedor do Cloud Run (roles/run.developer): Permite que o serviço crie e atualize a configuração do seu site no Cloud Run.
+
+  Opcões:
+  --set-build-env-vars: utilizado para variáveis em tempo de build, que precisam estar disponivel container
+
+11. Actualizar variáveis de ambiente
+  gcloud run deploy [NOME_DO_SEU_SERVIÇO] --source . --region europe-west1 --allow-unauthenticated --update-env-vars PORT=893,NODE_ENV
+
+12. Adicione a permissão via terminal
+  gcloud projects add-iam-policy-binding [SEU_ID_DO_PROJETO] --member="exemple-user" --role="roles/example"
+
+=============================================
+  Docker command
+=============================================
+1. Apenas reconstruir as imagens sem usar cache
+  docker compose build --no-cache
+  docker compose up
+  (Ou em um único comando:)
+  docker compose up --build --force-recreate
+
+2. Reconstruir tudo e recriar os containers
+  docker compose down
+  docker compose build --no-cache
+  docker compose up -d --force-recreate

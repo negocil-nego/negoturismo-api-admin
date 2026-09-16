@@ -17,6 +17,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 @Data
 @Entity
@@ -59,8 +60,10 @@ public class User extends ConcreteModel implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserStatus status = UserStatus.PENDING;
 
-    private Instant tokensInvalidatedAt;
+    @Builder.Default
+    private Locale language = Locale.ENGLISH;
 
+    private Instant tokensInvalidatedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -59,13 +59,11 @@ public class UserService extends ConcreteService<User> implements IFindOrCreate<
     }
 
     public void invalidateTokens(User user) {
-        user.setTokensInvalidatedAt(Instant.now());
-        repository.save(user);
+        repository.updateTokensInvalidatedAtById(user.getId(), Instant.now());
     }
 
     public void updateTokensInvalidatedAt(User user, Instant tokensInvalidatedAt) {
-        user.setTokensInvalidatedAt(tokensInvalidatedAt);
-        repository.save(user);
+        repository.updateTokensInvalidatedAtById(user.getId(), tokensInvalidatedAt);
     }
 
     @Override

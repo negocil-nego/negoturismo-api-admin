@@ -8,8 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.util.UUID;
-
 @AllArgsConstructor
 abstract public class CommonService<T extends CommonModel> {
 
@@ -25,21 +23,10 @@ abstract public class CommonService<T extends CommonModel> {
         return repository.save(data);
     }
 
-    public T update(UUID uuid, T data) {
-        var item = repository.findByUuid(uuid).orElseThrow(NotFoundException::new);
-        data.setId(item.getId());
-        return save(data);
-    }
-
     public T update(long id, T data) {
         var item = repository.findById(id).orElseThrow(NotFoundException::new);
         data.setId(item.getId());
         return save(data);
-    }
-
-    public boolean deleteByUuid(UUID uuid) {
-        repository.deleteByUuid(uuid);
-        return true;
     }
 
     public boolean deleteAll() {

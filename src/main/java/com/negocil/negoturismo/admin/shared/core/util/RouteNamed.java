@@ -1,6 +1,8 @@
 package com.negocil.negoturismo.admin.shared.core.util;
 
 public class RouteNamed {
+    public final static String LOGIN = "/api/v1/pub/login";
+    public final static String LOGOUT = "/api/v1/logout";
     public final static String PERMISSION = "/api/v1/admin/permissions";
     public final static String CATEGORY = "/api/v1/admin/categories";
     public final static String ROLE = "/api/v1/admin/roles";

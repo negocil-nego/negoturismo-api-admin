@@ -3,7 +3,7 @@ package com.negocil.negoturismo.admin.feature.interpreter.repository;
 import com.negocil.negoturismo.admin.feature.interpreter.model.Interpreter;
 import com.negocil.negoturismo.admin.feature.interpreter.util.InterpreterQuery;
 import com.negocil.negoturismo.admin.shared.core.repository.ConcreteRepository;
-import com.negocil.negoturismo.admin.feature.user.model.User;
+import com.negocil.negoturismo.admin.shared.user.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.NativeQuery;

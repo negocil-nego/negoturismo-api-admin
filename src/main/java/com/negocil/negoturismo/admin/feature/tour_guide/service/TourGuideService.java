@@ -4,7 +4,7 @@ import com.negocil.negoturismo.admin.feature.tour_guide.exception.TourGuideNotFo
 
 import com.negocil.negoturismo.admin.feature.tour_guide.repository.TourGuideRepository;
 import com.negocil.negoturismo.admin.feature.tour_guide.model.TourGuide;
-import com.negocil.negoturismo.admin.feature.user.model.User;
+import com.negocil.negoturismo.admin.shared.user.model.User;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
 import com.negocil.negoturismo.admin.shared.core.service.ConcreteService;
 import com.negocil.negoturismo.admin.shared.core.util.StringUtils;

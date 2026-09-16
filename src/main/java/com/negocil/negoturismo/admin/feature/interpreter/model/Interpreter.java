@@ -1,6 +1,6 @@
 package com.negocil.negoturismo.admin.feature.interpreter.model;
 
-import com.negocil.negoturismo.admin.feature.user.model.User;
+import com.negocil.negoturismo.admin.shared.user.model.User;
 import com.negocil.negoturismo.admin.shared.core.model.ConcreteModel;
 import com.negocil.negoturismo.admin.shared.core.util.ConcreteTableModel;
 import com.negocil.negoturismo.admin.shared.core.util.ConstraintUniqueKey;

@@ -1,19 +1,20 @@
 package com.negocil.negoturismo.admin.shared.security.service;
 
+import com.negocil.negoturismo.admin.shared.security.util.CookieUtils;
 import com.negocil.negoturismo.admin.shared.security.util.ExpiredGenerator;
-import com.negocil.negoturismo.admin.shared.security.dto.response.TokenResponse;
+import com.negocil.negoturismo.admin.shared.user.enums.UserStatus;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -22,73 +23,39 @@ import java.util.stream.Collectors;
 public class TokenService {
     private final JwtEncoder encoder;
 
+    public record IssuedToken(String token, Instant expiresAt) {
+    }
+
+    public IssuedToken generateToken(Authentication authentication, HttpServletResponse response, UserStatus status) {
+        return issueAndStore(authentication.getName(), authentication.getAuthorities(), response, status);
+    }
+
+    public IssuedToken generateToken(UserDetails userDetails, HttpServletResponse response, UserStatus status) {
+        return issueAndStore(userDetails.getUsername(), userDetails.getAuthorities(), response, status);
+    }
+
     public void clearTokenCookie(HttpServletResponse response) {
-        ResponseCookie expiredCookie = ResponseCookie.from("token", "")
-                .httpOnly(true)
-                .secure(false)
-                .path("/")
-                .maxAge(0)
-                .sameSite("Lax")
-                .build();
-        response.addHeader(HttpHeaders.SET_COOKIE, expiredCookie.toString());
+        response.addHeader(HttpHeaders.SET_COOKIE, CookieUtils.clearTokenCookie().toString());
+        response.addHeader(HttpHeaders.SET_COOKIE, CookieUtils.clearStatusCookie().toString());
     }
 
-    public TokenResponse generateToken(Authentication authentication) {
-        String scope = extractScope(authentication.getAuthorities());
-        return buildToken(authentication.getName(), scope);
-    }
+    private IssuedToken issueAndStore(String subject, Collection<? extends GrantedAuthority> authorities,
+                                      HttpServletResponse response, UserStatus status) {
+        var expiresAt = ExpiredGenerator.jwtExpired1Hour();
+        var scope = extractScope(authorities);
 
-    public TokenResponse generateToken(UserDetails userDetails) {
-        String scope = extractScope(userDetails.getAuthorities());
-        return buildToken(userDetails.getUsername(), scope);
-    }
-
-    private TokenResponse buildToken(String subject, String scope) {
-        var now = ExpiredGenerator.account1Hour();
-        return buildToken(subject, scope, now);
-    }
-
-    public TokenResponse generateToken(Authentication authentication, HttpServletResponse response) {
-        String scope = extractScope(authentication.getAuthorities());
-        return buildToken(authentication.getName(), scope, response);
-    }
-
-    public TokenResponse generateToken(UserDetails userDetails, HttpServletResponse response) {
-        String scope = extractScope(userDetails.getAuthorities());
-        return buildToken(userDetails.getUsername(), scope, response);
-    }
-
-    private TokenResponse buildToken(String subject, String scope, HttpServletResponse response) {
-        var now = Instant.now();
-
-        var expiredAt = ExpiredGenerator.account1Hour(now);
-        var tokenResponse = buildToken(subject, scope, expiredAt);
-
-        var maxAgeSeconds = ChronoUnit.SECONDS.between(now, expiredAt);
-
-        ResponseCookie cookie = ResponseCookie.from("token", tokenResponse.token())
-                .httpOnly(true)
-                .secure(false)
-                .path("/")
-                .maxAge(maxAgeSeconds)
-                .sameSite("Lax")
-                .build();
-
-        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-
-        return tokenResponse;
-    }
-
-    private TokenResponse buildToken(String subject, String scope, Instant expiredAt) {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(Instant.now())
-                .expiresAt(expiredAt)
+                .expiresAt(expiresAt)
                 .subject(subject)
                 .claim("scope", scope)
                 .build();
-        var token = encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
-        return new TokenResponse(token, expiredAt);
+
+        String token = encoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+        response.addHeader(HttpHeaders.SET_COOKIE, CookieUtils.tokenCookie(token).toString());
+        response.addHeader(HttpHeaders.SET_COOKIE, CookieUtils.statusCookie(status.name()).toString());
+        return new IssuedToken(token, expiresAt);
     }
 
     private String extractScope(Collection<? extends GrantedAuthority> authorities) {

@@ -5,7 +5,6 @@ public final class ConcreteTableModel {
     public final static String CATEGORY = "TB_CATEGORIES";
     public final static String ROLE = "TB_ROLES";
     public final static String USER = "TB_USERS";
-    public final static String OTP = "TB_OTP_VERIFICATIONS";
     public final static String ORGANIZATION = "TB_ORGANIZATIONS";
     public final static String PRODUCT = "TB_PRODUCTS";
     public final static String INTERPRETER = "TB_INTERPRETERS";
@@ -25,4 +24,9 @@ public final class ConcreteTableModel {
     public final static String ORGANIZATION_ADDRESS = "TB_ORGANIZATION_ADDRESS";
     public final static String PRODUCT_REVIEWS = "TB_PRODUCT_REVIEWS";
     public final static String PRODUCT_ADDRESS = "TB_PRODUCT_ADDRESS";
+
+    public final static String OTP_VERIFICATIONS = "TB_OTP_VERIFICATIONS";
+    public final static String USERS_OUTBOX = "TB_USERS_OUTBOX";
+    public final static String USER_OTP = "TB_USERS_OTP";
+    public final static String LOGIN_LOG = "TB_LOGIN_LOGS";
 }

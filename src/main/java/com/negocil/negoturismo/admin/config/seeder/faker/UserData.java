@@ -1,8 +1,8 @@
 package com.negocil.negoturismo.admin.config.seeder.faker;
 
-import com.negocil.negoturismo.admin.feature.user.enums.UserStatus;
-import com.negocil.negoturismo.admin.feature.user.enums.UserType;
-import com.negocil.negoturismo.admin.feature.user.model.User;
+import com.negocil.negoturismo.admin.shared.user.enums.UserStatus;
+import com.negocil.negoturismo.admin.shared.user.enums.UserType;
+import com.negocil.negoturismo.admin.shared.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

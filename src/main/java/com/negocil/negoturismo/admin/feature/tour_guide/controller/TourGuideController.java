@@ -4,7 +4,7 @@ import com.negocil.negoturismo.admin.feature.tour_guide.dto.request.TourGuideReq
 import com.negocil.negoturismo.admin.feature.tour_guide.dto.response.TourGuidePaginate;
 import com.negocil.negoturismo.admin.feature.tour_guide.dto.response.TourGuideResponse;
 import com.negocil.negoturismo.admin.feature.tour_guide.service.TourGuideService;
-import com.negocil.negoturismo.admin.feature.user.repository.UserRepository;
+import com.negocil.negoturismo.admin.shared.user.repository.UserRepository;
 import com.negocil.negoturismo.admin.shared.core.annotation.CanPermission;
 import com.negocil.negoturismo.admin.shared.core.enums.PermissionCode;
 import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;

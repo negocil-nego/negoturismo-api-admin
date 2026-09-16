@@ -3,6 +3,7 @@ package com.negocil.negoturismo.admin.config;
 import com.negocil.negoturismo.admin.config.properties.CorsProperties;
 import com.negocil.negoturismo.admin.shared.security.util.PasswordEncoderGenerator;
 import com.negocil.negoturismo.admin.config.properties.RsaKeyProperties;
+import com.negocil.negoturismo.admin.shared.security.util.RevokedTokenValidator;
 import com.negocil.negoturismo.admin.shared.security.service.UserDetailsServiceImpl;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
@@ -21,8 +22,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.oauth2.jwt.JwtValidators;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -69,8 +72,10 @@ public class SecurityConfig {
     }
 
     @Bean
-    JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withPublicKey(rsaKeys.publicKey()).build();
+    JwtDecoder jwtDecoder(RevokedTokenValidator revokedTokenValidator) {
+        NimbusJwtDecoder decoder = NimbusJwtDecoder.withPublicKey(rsaKeys.publicKey()).build();
+        decoder.setJwtValidator(new DelegatingOAuth2TokenValidator<>(JwtValidators.createDefault(), revokedTokenValidator));
+        return decoder;
     }
 
     @Bean

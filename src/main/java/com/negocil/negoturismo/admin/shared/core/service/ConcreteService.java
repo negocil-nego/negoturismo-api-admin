@@ -22,7 +22,6 @@ public abstract class ConcreteService<T extends ConcreteModel> extends CommonSer
         return repository.findByUuid(uuid).orElseThrow(() -> new NotFoundException(uuid));
     }
 
-    @Override
     public T update(UUID uuid, T data) {
         var item = findByUuid(uuid);;
         BeanUtils.copyProperties(data, item, "id", "uuid");
@@ -36,7 +35,6 @@ public abstract class ConcreteService<T extends ConcreteModel> extends CommonSer
         return save(item);
     }
 
-    @Override
     public boolean deleteByUuid(UUID uuid) {
         var item = findByUuid(uuid);
         item.setDeletedAt(Instant.now());

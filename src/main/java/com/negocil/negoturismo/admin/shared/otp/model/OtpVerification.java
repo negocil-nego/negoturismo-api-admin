@@ -14,7 +14,7 @@ import java.time.Instant;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = false)
-@Table(name = ConcreteTableModel.OTP)
+@Table(name = ConcreteTableModel.OTP_VERIFICATIONS)
 public class OtpVerification extends CommonModel {
     private String code;
 

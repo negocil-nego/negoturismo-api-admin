@@ -175,7 +175,7 @@ public enum CategoryData {
                     .name("Intérprete de Viagem")
                     .icon("hgi hgi-stroke hgi-rounded hgi-bubble-chat-translate")
                     .categoryGroup(CategoryGroup.INTERPRETER)
-                    .description("Profissional especializado na tradução e facilitação de comunicação intercultural e linguística para turistas.")
+                    .description("Professional especializado na tradução e facilitação de comunicação intercultural e linguística para turistas.")
                     .build()
     );
 

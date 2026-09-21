@@ -25,4 +25,6 @@ public class RouteNamed {
     public final static String ORGANIZATION_ADDRESS = "/api/v1/admin/organization-addresses";
     public final static String PRODUCT_REVIEW = "/api/v1/admin/product-reviews";
     public final static String PRODUCT_ADDRESS = "/api/v1/admin/product-addresses";
+    public final static String USER_REQUEST_BLOCKED = "/api/v1/admin/user-request-blockeds";
+    public final static String SOCIAL_NETWORK = "/api/v1/admin/social-networks";
 }

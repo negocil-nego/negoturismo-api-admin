@@ -29,4 +29,7 @@ public final class ConcreteTableModel {
     public final static String USERS_OUTBOX = "TB_USERS_OUTBOX";
     public final static String USER_OTP = "TB_USERS_OTP";
     public final static String LOGIN_LOG = "TB_LOGIN_LOGS";
+    public final static String USER_REQUEST_BLOCKED = "TB_USERS_REQUESTS_BLOCKED";
+    public final static String SOCIAL_NETWORK = "TB_SOCIAL_NETWORKS";
+    public final static String USER_ADDRESS = "TB_USER_ADDRESSES";
 }

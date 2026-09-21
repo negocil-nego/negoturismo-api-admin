@@ -81,4 +81,6 @@ public final class PermissionCode {
     public static final String UPDATE_PRODUCT_ADDRESS = "UPDATE_PRODUCT_ADDRESS";
     public static final String DELETE_PRODUCT_ADDRESS = "DELETE_PRODUCT_ADDRESS";
     public static final String READ_PRODUCT_ADDRESS = "READ_PRODUCT_ADDRESS";
+    public static final String READ_USER_REQUEST_BLOCKED = "READ_USER_REQUEST_BLOCKED";
+    public static final String UPDATE_USER_REQUEST_BLOCKED = "UPDATE_USER_REQUEST_BLOCKED";
 }

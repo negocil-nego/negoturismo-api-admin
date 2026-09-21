@@ -25,4 +25,6 @@ public final class ConstraintUniqueKey {
     public final static String PRODUCT_REVIEW_REVIEW = "UK_PROD_REVIEW_REVIEW";
     public final static String PRODUCT_ADDRESS_PRODUCT = "UK_PROD_ADDRESS_PRODUCT";
     public final static String PRODUCT_ADDRESS_ADDR = "UK_PROD_ADDRESS_ADDR";
+    public final static String SOCIAL_NETWORK_USER = "UK_SOCIAL_NETWORK_USER";
+    public final static String USER_ADDRESS_USER = "UK_USER_ADDRESS_USER";
 }

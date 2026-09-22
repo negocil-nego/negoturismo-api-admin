@@ -2,6 +2,7 @@ package com.negocil.negoturismo.admin.shared.security.service;
 
 import com.negocil.negoturismo.admin.shared.core.exception.UnauthorizedException;
 import com.negocil.negoturismo.admin.shared.security.dto.request.LoginRequest;
+import com.negocil.negoturismo.admin.shared.security.dto.response.IssuedToken;
 import com.negocil.negoturismo.admin.shared.user.enums.UserStatus;
 import com.negocil.negoturismo.admin.shared.user.exception.UserBlockedStatusException;
 import com.negocil.negoturismo.admin.shared.user.exception.UserNotFoundException;
@@ -23,7 +24,7 @@ public class LoginService {
     private final TokenService tokenService;
     private final UserService userService;
 
-    public String login(LoginRequest request, HttpServletResponse response, HttpServletRequest httpRequest) {
+    public IssuedToken login(LoginRequest request, HttpServletResponse response, HttpServletRequest httpRequest) {
         var ipAddress = clientIp(httpRequest);
         var userAgent = httpRequest.getHeader("User-Agent");
 
@@ -40,7 +41,7 @@ public class LoginService {
             var issued = tokenService.generateToken(auth, response, user.getStatus());
             userService.updateTokensInvalidatedAt(user, issued.expiresAt());
             loginLogService.success(user, request.username(), ipAddress, userAgent);
-            return issued.token();
+            return issued;
         } catch (UserNotFoundException e) {
             loginLogService.failed(request.username(), "USER_NOT_FOUND", ipAddress, userAgent);
             throw e;

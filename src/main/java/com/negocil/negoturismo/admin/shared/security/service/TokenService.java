@@ -1,5 +1,6 @@
 package com.negocil.negoturismo.admin.shared.security.service;
 
+import com.negocil.negoturismo.admin.shared.security.dto.response.IssuedToken;
 import com.negocil.negoturismo.admin.shared.security.util.CookieUtils;
 import com.negocil.negoturismo.admin.shared.security.util.ExpiredGenerator;
 import com.negocil.negoturismo.admin.shared.user.enums.UserStatus;
@@ -22,9 +23,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TokenService {
     private final JwtEncoder encoder;
-
-    public record IssuedToken(String token, Instant expiresAt) {
-    }
 
     public IssuedToken generateToken(Authentication authentication, HttpServletResponse response, UserStatus status) {
         return issueAndStore(authentication.getName(), authentication.getAuthorities(), response, status);

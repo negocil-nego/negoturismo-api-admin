@@ -2,6 +2,7 @@ package com.negocil.negoturismo.admin.shared.security.controller;
 
 import com.negocil.negoturismo.admin.shared.core.util.RouteNamed;
 import com.negocil.negoturismo.admin.shared.security.dto.request.LoginRequest;
+import com.negocil.negoturismo.admin.shared.security.dto.response.IssuedToken;
 import com.negocil.negoturismo.admin.shared.security.service.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,7 +27,7 @@ public class LoginController {
             description = "Authenticates the admin with username/email and password, returns a JWT token. The login attempt and device are recorded."
     )
     @PostMapping()
-    public String token(@RequestBody LoginRequest request, HttpServletResponse response, HttpServletRequest httpRequest) {
+    public IssuedToken token(@RequestBody LoginRequest request, HttpServletResponse response, HttpServletRequest httpRequest) {
         return loginService.login(request, response, httpRequest);
     }
 }

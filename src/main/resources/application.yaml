@@ -66,3 +66,6 @@ springdoc:
   pathsToMatch: /api/v1/admin/**
 scalar:
   enabled: true
+service:
+  email: smtp
+  phone: ombala

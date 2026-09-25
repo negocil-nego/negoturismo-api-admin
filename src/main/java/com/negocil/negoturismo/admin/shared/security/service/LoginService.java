@@ -1,6 +1,7 @@
 package com.negocil.negoturismo.admin.shared.security.service;
 
 import com.negocil.negoturismo.admin.shared.core.exception.UnauthorizedException;
+import com.negocil.negoturismo.admin.shared.core.i18n.I18n;
 import com.negocil.negoturismo.admin.shared.security.dto.request.LoginRequest;
 import com.negocil.negoturismo.admin.shared.security.dto.response.IssuedToken;
 import com.negocil.negoturismo.admin.shared.user.enums.UserStatus;
@@ -23,6 +24,7 @@ public class LoginService {
     private final LoginLogService loginLogService;
     private final TokenService tokenService;
     private final UserService userService;
+    private final I18n i18n;
 
     public IssuedToken login(LoginRequest request, HttpServletResponse response, HttpServletRequest httpRequest) {
         var ipAddress = clientIp(httpRequest);
@@ -33,7 +35,7 @@ public class LoginService {
 
             if (user.getStatus() == UserStatus.BLOCKED) {
                 loginLogService.blocked(user, request.username(), ipAddress, userAgent);
-                throw new UserBlockedStatusException("User account is blocked");
+                throw new UserBlockedStatusException(i18n.get(user, "exception.user.status.blocked"));
             }
 
             var auth = authenticationManager.authenticate(
@@ -47,7 +49,7 @@ public class LoginService {
             throw e;
         } catch (AuthenticationException e) {
             loginLogService.failed(request.username(), "INVALID_CREDENTIALS", ipAddress, userAgent);
-            throw new UnauthorizedException("Invalid username or password");
+            throw new UnauthorizedException(i18n.get("exception.auth.invalid_credentials"));
         }
     }
 

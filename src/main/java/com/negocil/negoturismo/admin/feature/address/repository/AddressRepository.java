@@ -4,9 +4,6 @@ import com.negocil.negoturismo.admin.feature.address.model.Address;
 import com.negocil.negoturismo.admin.shared.core.repository.ConcreteRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface AddressRepository extends ConcreteRepository<Address> {
-    Optional<Address> findByStateAndMunicipalityAndAddress(String state, String municipality, String address);
 }

@@ -2,8 +2,11 @@ package com.negocil.negoturismo.admin.feature.address.model;
 
 import com.negocil.negoturismo.admin.shared.core.model.ConcreteModel;
 import com.negocil.negoturismo.admin.shared.core.util.ConcreteTableModel;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

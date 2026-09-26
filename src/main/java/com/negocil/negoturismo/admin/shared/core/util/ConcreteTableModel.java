@@ -31,6 +31,6 @@ public final class ConcreteTableModel {
     public final static String LOGIN_LOG = "TB_LOGIN_LOGS";
     public final static String USER_REQUEST_BLOCKED = "TB_USERS_REQUESTS_BLOCKED";
     public final static String SOCIAL_NETWORK = "TB_SOCIAL_NETWORKS";
-    //public final static String USER_ADDRESS = "TB_USER_ADDRESSES";
+    public final static String USER_ADDRESS = "TB_USER_ADDRESSES";
     public final static String USER_DATA = "TB_USERS_DATA";
 }

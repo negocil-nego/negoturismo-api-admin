@@ -4,6 +4,8 @@ import com.negocil.negoturismo.admin.config.seeder.faker.*;
 import com.negocil.negoturismo.admin.config.seeder.system.CategoryData;
 import com.negocil.negoturismo.admin.config.seeder.system.PermissionData;
 import com.negocil.negoturismo.admin.config.seeder.system.RoleData;
+import com.negocil.negoturismo.admin.config.seeder.system.TouristAreaData;
+import com.negocil.negoturismo.admin.config.seeder.system.TouristAreaFileData;
 import com.negocil.negoturismo.admin.feature.address.enums.AddressData;
 import com.negocil.negoturismo.admin.feature.address.model.Address;
 import com.negocil.negoturismo.admin.feature.address.service.AddressService;
@@ -25,12 +27,15 @@ import com.negocil.negoturismo.admin.feature.role.service.RoleService;
 import com.negocil.negoturismo.admin.feature.tour_guide.model.TourGuide;
 import com.negocil.negoturismo.admin.feature.tour_guide.model.TourGuideTouristArea;
 import com.negocil.negoturismo.admin.feature.tour_guide.model.TouristArea;
+import com.negocil.negoturismo.admin.feature.tour_guide.model.TouristAreaFile;
 import com.negocil.negoturismo.admin.feature.tour_guide.service.TourGuideService;
 import com.negocil.negoturismo.admin.feature.tour_guide.service.TourGuideTouristAreaService;
+import com.negocil.negoturismo.admin.feature.tour_guide.service.TouristAreaFileService;
 import com.negocil.negoturismo.admin.feature.tour_guide.service.TouristAreaService;
 import com.negocil.negoturismo.admin.shared.user.model.User;
 import com.negocil.negoturismo.admin.shared.user.service.UserService;
 import com.negocil.negoturismo.admin.shared.document_file.enums.DocumentFileData;
+import com.negocil.negoturismo.admin.shared.document_file.enums.FileType;
 import com.negocil.negoturismo.admin.shared.document_file.model.DocumentFile;
 import com.negocil.negoturismo.admin.shared.document_file.service.DocumentFileService;
 import com.negocil.negoturismo.admin.shared.security.util.PasswordEncoderGenerator;
@@ -60,6 +65,7 @@ public class SeederConfig implements CommandLineRunner {
     private final OrganizationService organizationService;
     private final InterpreterService interpreterService;
     private final DocumentFileService documentFileService;
+    private final TouristAreaFileService touristAreaFileService;
     private final TouristAreaService touristAreaService;
     private final PermissionService permissionService;
     private final ProductFileService productFileService;
@@ -235,7 +241,21 @@ public class SeederConfig implements CommandLineRunner {
                 d -> touristAreaService.findOrCreate(d.getTouristArea())
         );
 
-        // 17. Guias Turísticos
+        // 17. Ficheiros de Áreas Turísticas
+        seedList(TouristAreaFileData.values(),
+                d -> {
+                    TouristAreaFile item = d.getTouristAreaFile();
+                    var area = areaCache.get(item.getTouristArea().getName());
+                    var doc = documentFileService.findOrCreate(buildAreaDoc(item.getDoc(), area.getName()));
+                    return item.toBuilder()
+                            .touristArea(area)
+                            .doc(doc)
+                            .build();
+                },
+                touristAreaFileService::findOrCreate
+        );
+
+        // 18. Guias Turísticos
         Map<String, TourGuide> guideCache = seedMap(
                 TourGuideData.values(),
                 d -> d.getTourGuide().getUser().getUsername(),
@@ -247,7 +267,7 @@ public class SeederConfig implements CommandLineRunner {
                 }
         );
 
-        // 18. Atribuições de Áreas Turísticas aos Guias
+        // 19. Atribuições de Áreas Turísticas aos Guias
         seedList(TourGuideTouristAreaData.values(),
                 d -> {
                     TourGuideTouristArea item = d.getTourGuideTouristArea();
@@ -259,7 +279,7 @@ public class SeederConfig implements CommandLineRunner {
                 tourGuideTouristAreaService::findOrCreate
         );
 
-        // 19. Reviews de Organização
+        // 20. Reviews de Organização
         seedList(OrganizationReviewsData.values(),
                 d -> {
                     OrganizationReviews item = d.getOrganizationReviews();
@@ -271,7 +291,7 @@ public class SeederConfig implements CommandLineRunner {
                 organizationReviewsService::findOrCreate
         );
 
-        // 20. Endereços de Organização
+        // 21. Endereços de Organização
         seedList(OrganizationAddressData.values(),
                 d -> {
                     OrganizationAddress item = d.getOrganizationAddress();
@@ -283,7 +303,7 @@ public class SeederConfig implements CommandLineRunner {
                 organizationAddressService::findOrCreate
         );
 
-        // 21. Reviews de Produto
+        // 22. Reviews de Produto
         seedList(ProductReviewsData.values(),
                 d -> {
                     ProductReviews item = d.getProductReviews();
@@ -295,7 +315,7 @@ public class SeederConfig implements CommandLineRunner {
                 productReviewsService::findOrCreate
         );
 
-        // 22. Endereços de Produto
+        // 23. Endereços de Produto
         seedList(ProductAddressData.values(),
                 d -> {
                     ProductAddress item = d.getProductAddress();
@@ -308,6 +328,26 @@ public class SeederConfig implements CommandLineRunner {
         );
 
         log.info("Seed finished successfully in {}ms", System.currentTimeMillis() - start);
+    }
+
+    private DocumentFile buildAreaDoc(DocumentFile doc, String areaName) {
+        var url = doc.getUrl();
+        var clean = url.contains("?") ? url.substring(0, url.indexOf('?')) : url;
+        var fileName = clean.substring(clean.lastIndexOf('/') + 1);
+        var extension = fileName.contains(".")
+                ? fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase()
+                : "";
+        var fileType = Arrays.stream(FileType.values())
+                .filter(type -> type.getExtensions().contains(extension))
+                .findFirst()
+                .orElse(FileType.IMAGE);
+        var baseName = fileName.contains(".")
+                ? fileName.substring(0, fileName.lastIndexOf('.'))
+                : fileName;
+        return doc.toBuilder()
+                .title("%s - %s".formatted(areaName, baseName))
+                .fileType(fileType)
+                .build();
     }
 
     private <T, D> void seedList(D[] dataArray, Function<D, T> mapper, Function<T, T> serviceCall) {

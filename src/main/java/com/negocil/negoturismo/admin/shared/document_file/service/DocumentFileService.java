@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @Service
 public class DocumentFileService extends ConcreteService<DocumentFile> implements IFindOrCreate<DocumentFile> {
+    private static final int CONCAT_MAX_SIZE = 255;
     private final DocumentFileRepository repository;
 
     public DocumentFileService(DocumentFileRepository repository) {
@@ -31,7 +32,8 @@ public class DocumentFileService extends ConcreteService<DocumentFile> implement
 
     @Override
     public DocumentFile save(DocumentFile data) {
-        data.setConcat("%s, %s, %s".formatted(data.getTitle(), data.getUrl(), data.getFileType()));
+        var concat = "%s, %s, %s".formatted(data.getTitle(), data.getUrl(), data.getFileType());
+        data.setConcat(concat.length() > CONCAT_MAX_SIZE ? concat.substring(0, CONCAT_MAX_SIZE) : concat);
         return super.save(data);
     }
 

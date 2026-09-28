@@ -1,0 +1,9 @@
+
+TouristAreaFileData
+Irás cria o seeder para TouristAreaFileData, me modo que no SeederConfig, primeiro pegar o TouristArea já criado e apenas deves cria
+o DocumentFile caso não exista.
+
+E no projecto
+C:\Users\sedra\OneDrive\Documentos\projects\negoturismo\api\admin
+
+No TouristAreaResponse deve ter um campo files que retorna a lista TouristAreaFileResponse

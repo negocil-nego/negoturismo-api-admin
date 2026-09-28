@@ -3,6 +3,7 @@ package com.negocil.negoturismo.admin.feature.tour_guide.dto.response;
 import com.negocil.negoturismo.admin.feature.tour_guide.model.TouristArea;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.util.List;
 import java.util.UUID;
 
 @Schema(description = "Tourist area data returned to clients")
@@ -23,7 +24,10 @@ public record TouristAreaResponse(
         Double latitude,
 
         @Schema(description = "Longitude coordinate", example = "13.1833", nullable = true)
-        Double longitude
+        Double longitude,
+
+        @Schema(description = "Tourist area files", nullable = true)
+        List<TouristAreaFileResponse> files
 ) {
     public static TouristAreaResponse of(TouristArea touristArea) {
         return new TouristAreaResponse(
@@ -32,7 +36,8 @@ public record TouristAreaResponse(
                 touristArea.getState(),
                 touristArea.getAddress(),
                 touristArea.getLatitude(),
-                touristArea.getLongitude()
+                touristArea.getLongitude(),
+                touristArea.getFiles().stream().map(TouristAreaFileResponse::of).toList()
         );
     }
 }

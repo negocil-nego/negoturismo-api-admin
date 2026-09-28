@@ -4,13 +4,19 @@ import com.negocil.negoturismo.admin.shared.core.model.ConcreteModel;
 import com.negocil.negoturismo.admin.shared.core.util.ConcreteTableModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -31,9 +37,11 @@ public class TouristArea extends ConcreteModel {
 
     private String image;
 
-    @Column(nullable = true)
     private Double latitude;
 
-    @Column(nullable = true)
     private Double longitude;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "touristArea", fetch = FetchType.LAZY)
+    private List<TouristAreaFile> files = new ArrayList<>();
 }

@@ -1,5 +1,6 @@
 package com.negocil.negoturismo.admin.config.seeder.faker;
 
+import com.negocil.negoturismo.admin.config.seeder.system.TouristAreaData;
 import com.negocil.negoturismo.admin.feature.tour_guide.model.TourGuideTouristArea;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

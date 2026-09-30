@@ -54,6 +54,7 @@ public enum CategoryData {
                     .icon("hgi hgi-stroke hgi-rounded hgi-dish-01")
                     .categoryGroup(CategoryGroup.RESTAURANT)
                     .description("Restaurantes especializados em gastronomia típica, com pratos da culinária local e regional.")
+                    .image("https://firebasestorage.googleapis.com/v0/b/negoturismo-6d989.firebasestorage.app/o/categoreis%2Fcomida_tradicional.png?alt=media&token=3de35e27-2f4e-4431-93c3-e7d458793bbb")
                     .build()
     ),
 
@@ -163,7 +164,7 @@ public enum CategoryData {
                     .icon("hgi hgi-stroke hgi-rounded hgi-airplane-01")
                     .categoryGroup(CategoryGroup.TOURISM)
                     .description("Seja os voos destinados para Angola e marca a sua viagem.")
-                    .image("")
+                    .image("https://firebasestorage.googleapis.com/v0/b/negoturismo-6d989.firebasestorage.app/o/categoreis%2Fvoos.png?alt=media&token=53bb7c5e-a599-4a59-a49f-030474da1f04")
                     .build()
     ),
 
@@ -173,7 +174,7 @@ public enum CategoryData {
                     .icon("hgi hgi-stroke hgi-rounded hgi-travel-bag")
                     .categoryGroup(CategoryGroup.TOURISM)
                     .description("Empresas especializadas na organização de viagens, reservas de passagens e pacotes turísticos.")
-                    .image("")
+                    .image("https://firebasestorage.googleapis.com/v0/b/negoturismo-6d989.firebasestorage.app/o/categoreis%2Fagencias_viagens.png?alt=media&token=eeb266d9-539a-43ef-82b9-39694a22ec8b")
                     .build()
     ),
 
@@ -183,7 +184,7 @@ public enum CategoryData {
                     .icon("hgi hgi-stroke hgi-rounded hgi-location-user-04")
                     .categoryGroup(CategoryGroup.TOURISM)
                     .description("Profissional credenciado encarregado de acompanhar, orientar e transmitir informações a pessoas ou grupos em itinerários turísticos.")
-                    .image("")
+                    .image("https://firebasestorage.googleapis.com/v0/b/negoturismo-6d989.firebasestorage.app/o/categoreis%2Fguia_turismo.png?alt=media&token=a445c4b5-ccc0-49d1-83ef-f3dc3b734336")
                     .build()
     ),
 
@@ -193,7 +194,7 @@ public enum CategoryData {
                     .icon("hgi hgi-stroke hgi-rounded hgi-bubble-chat-translate")
                     .categoryGroup(CategoryGroup.INTERPRETER)
                     .description("Professional especializado na tradução e facilitação de comunicação intercultural e linguística para turistas.")
-                    .image("")
+                    .image("https://firebasestorage.googleapis.com/v0/b/negoturismo-6d989.firebasestorage.app/o/categoreis%2Finterprete_viagem.png?alt=media&token=a8e7f9ca-45a4-4a43-a8b3-ae8ce0a080ab")
                     .build()
     );
 

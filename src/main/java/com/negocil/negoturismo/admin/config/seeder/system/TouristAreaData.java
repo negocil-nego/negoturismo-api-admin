@@ -20,7 +20,7 @@ public enum TouristAreaData {
                     .name("Fenda da Tundavala")
                     .state("Huíla")
                     .address("Lubango, Huíla")
-                    .image("https://firebasestorage.googleapis.com/v0/b/negoturismo-6d989.firebasestorage.app/o/tourism-area%2Ftundavala%2F1.png?alt=media&token=4f971dbf-1252-4efe-8c18-ea8250ef5e52")
+                    .image("https://firebasestorage.googleapis.com/v0/b/negoturismo-6d989.firebasestorage.app/o/tourism-area%2Ftundavala%2F2.png?alt=media&token=7e40936a-9262-4cea-a2e8-362301051c6a")
                     .build()
     ),
     MIRADOURO_DA_LUA(

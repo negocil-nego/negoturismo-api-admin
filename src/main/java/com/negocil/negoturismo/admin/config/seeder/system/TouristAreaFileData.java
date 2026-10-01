@@ -8,6 +8,30 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum TouristAreaFileData {
+    KALANDULA_1(TouristAreaFile.builder()
+            .touristArea(TouristAreaData.KALANDULA.getTouristArea())
+            .doc(DocumentFile.builder()
+                    .url("https://firebasestorage.googleapis.com/v0/b/negoturismo-6d989.firebasestorage.app/o/tourism-area%2Fkalandula%2F3.png?alt=media&token=bfced605-9cc5-457d-8c2b-54321503a00b")
+                    .build())
+            .build()),
+    KALANDULA_2(TouristAreaFile.builder()
+            .touristArea(TouristAreaData.KALANDULA.getTouristArea())
+            .doc(DocumentFile.builder()
+                    .url("https://firebasestorage.googleapis.com/v0/b/negoturismo-6d989.firebasestorage.app/o/tourism-area%2Fkalandula%2F2.png?alt=media&token=706d28ca-f63d-48e6-b148-c4602847f23f")
+                    .build())
+            .build()),
+    KALANDULA_3(TouristAreaFile.builder()
+            .touristArea(TouristAreaData.KALANDULA.getTouristArea())
+            .doc(DocumentFile.builder()
+                    .url("https://firebasestorage.googleapis.com/v0/b/negoturismo-6d989.firebasestorage.app/o/tourism-area%2Fkalandula%2F1.png?alt=media&token=58be226d-7bdc-461b-a9df-640ec3114896")
+                    .build())
+            .build()),
+    TUNDAVALA_1(TouristAreaFile.builder()
+            .touristArea(TouristAreaData.TUNDAVALA.getTouristArea())
+            .doc(DocumentFile.builder()
+                    .url("https://firebasestorage.googleapis.com/v0/b/negoturismo-6d989.firebasestorage.app/o/tourism-area%2Ftundavala%2F2.png?alt=media&token=7e40936a-9262-4cea-a2e8-362301051c6a")
+                    .build())
+            .build()),
     AVENIDA_4_DE_FEVEREIRO_1(TouristAreaFile.builder()
             .touristArea(TouristAreaData.AVENIDA_4_DE_FEVEREIRO.getTouristArea())
             .doc(DocumentFile.builder()

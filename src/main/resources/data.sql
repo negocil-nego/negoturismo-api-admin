@@ -199,3 +199,16 @@ ALTER TABLE TB_ADDRESSES
             setweight(to_tsvector('portuguese', immutable_unaccent(coalesce("address", ''))), 'C')
             ) STORED;
 CREATE INDEX IF NOT EXISTS address_search_vector_idx ON TB_ADDRESSES USING GIN (search_vector);
+
+-- ─── TB_TRAVELS ──────────────────────────────────────────────
+DROP INDEX IF EXISTS travel_search_vector_idx;
+ALTER TABLE TB_TRAVELS DROP COLUMN IF EXISTS search_vector;
+ALTER TABLE TB_TRAVELS
+    ADD COLUMN search_vector tsvector
+        GENERATED ALWAYS AS (
+            setweight(to_tsvector('portuguese', immutable_unaccent(coalesce("city", ''))), 'A') ||
+            setweight(to_tsvector('portuguese', immutable_unaccent(coalesce("country", ''))), 'B') ||
+            setweight(to_tsvector('portuguese', immutable_unaccent(coalesce("description", ''))), 'C') ||
+            setweight(to_tsvector('portuguese', immutable_unaccent(coalesce("type", ''))), 'D')
+            ) STORED;
+CREATE INDEX IF NOT EXISTS travel_search_vector_idx ON TB_TRAVELS USING GIN (search_vector);

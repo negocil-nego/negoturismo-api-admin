@@ -6,6 +6,7 @@ import com.negocil.negoturismo.admin.config.seeder.system.PermissionData;
 import com.negocil.negoturismo.admin.config.seeder.system.RoleData;
 import com.negocil.negoturismo.admin.config.seeder.system.TouristAreaData;
 import com.negocil.negoturismo.admin.config.seeder.system.TouristAreaFileData;
+import com.negocil.negoturismo.admin.config.seeder.system.TravelSeeder;
 import com.negocil.negoturismo.admin.feature.address.enums.AddressData;
 import com.negocil.negoturismo.admin.feature.address.model.Address;
 import com.negocil.negoturismo.admin.feature.address.service.AddressService;
@@ -23,6 +24,8 @@ import com.negocil.negoturismo.admin.feature.product.service.*;
 import com.negocil.negoturismo.admin.feature.review.enums.ReviewData;
 import com.negocil.negoturismo.admin.feature.review.model.Review;
 import com.negocil.negoturismo.admin.feature.review.service.ReviewService;
+import com.negocil.negoturismo.admin.feature.travel.model.Travel;
+import com.negocil.negoturismo.admin.feature.travel.service.TravelService;
 import com.negocil.negoturismo.admin.feature.role.service.RoleService;
 import com.negocil.negoturismo.admin.feature.tour_guide.model.TourGuide;
 import com.negocil.negoturismo.admin.feature.tour_guide.model.TourGuideTouristArea;
@@ -80,6 +83,7 @@ public class SeederConfig implements CommandLineRunner {
     private final OrganizationAddressService organizationAddressService;
     private final ProductReviewsService productReviewsService;
     private final ProductAddressService productAddressService;
+    private final TravelService travelService;
 
     @Override
     public void run(String @NonNull ... args) {
@@ -325,6 +329,17 @@ public class SeederConfig implements CommandLineRunner {
                             .build();
                 },
                 productAddressService::findOrCreate
+        );
+
+        // 24. Viagens
+        seedList(TravelSeeder.values(),
+                d -> {
+                    Travel item = d.getTravel();
+                    return item.toBuilder()
+                            .organization(orgCache.get(item.getOrganization().getName()))
+                            .build();
+                },
+                travelService::findOrCreate
         );
 
         log.info("Seed finished successfully in {}ms", System.currentTimeMillis() - start);

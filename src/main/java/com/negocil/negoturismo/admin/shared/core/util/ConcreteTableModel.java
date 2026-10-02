@@ -25,6 +25,7 @@ public final class ConcreteTableModel {
     public final static String ORGANIZATION_ADDRESS = "TB_ORGANIZATION_ADDRESS";
     public final static String PRODUCT_REVIEWS = "TB_PRODUCT_REVIEWS";
     public final static String PRODUCT_ADDRESS = "TB_PRODUCT_ADDRESS";
+    public final static String TRAVEL = "TB_TRAVELS";
 
     public final static String OTP_VERIFICATIONS = "TB_OTP_VERIFICATIONS";
     public final static String USERS_OUTBOX = "TB_USERS_OUTBOX";

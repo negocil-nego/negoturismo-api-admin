@@ -122,6 +122,35 @@ public enum PermissionData {
                     .name("Read Permission")
                     .description("Permissão para ler permissões")
                     .build()
+    ),
+
+    CREATE_TRAVEL(
+            Permission.builder()
+                    .code(PermissionCode.CREATE_TRAVEL)
+                    .name("Create Travel")
+                    .description("Permissão para criar viagens")
+                    .build()
+    ),
+    UPDATE_TRAVEL(
+            Permission.builder()
+                    .code(PermissionCode.UPDATE_TRAVEL)
+                    .name("Update Travel")
+                    .description("Permissão para atualizar viagens")
+                    .build()
+    ),
+    DELETE_TRAVEL(
+            Permission.builder()
+                    .code(PermissionCode.DELETE_TRAVEL)
+                    .name("Delete Travel")
+                    .description("Permissão para deletar viagens")
+                    .build()
+    ),
+    READ_TRAVEL(
+            Permission.builder()
+                    .code(PermissionCode.READ_TRAVEL)
+                    .name("Read Travel")
+                    .description("Permissão para ler viagens")
+                    .build()
     );
 
     private final Permission permission;

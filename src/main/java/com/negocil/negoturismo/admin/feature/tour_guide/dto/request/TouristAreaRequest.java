@@ -1,8 +1,10 @@
 package com.negocil.negoturismo.admin.feature.tour_guide.dto.request;
 
+import com.negocil.negoturismo.admin.feature.tour_guide.model.Province;
 import com.negocil.negoturismo.admin.feature.tour_guide.model.TouristArea;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Schema(description = "Request payload for creating or updating a tourist area")
 public record TouristAreaRequest(
@@ -18,6 +20,10 @@ public record TouristAreaRequest(
         @NotBlank
         String address,
 
+        @Schema(description = "Province where the tourist area is located", example = "LUANDA", requiredMode = Schema.RequiredMode.REQUIRED)
+        @NotNull
+        Province province,
+
         @Schema(description = "Latitude coordinate", example = "-9.2833", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
         Double latitude,
 
@@ -29,6 +35,7 @@ public record TouristAreaRequest(
                 .name(name)
                 .state(state)
                 .address(address)
+                .province(province)
                 .latitude(latitude)
                 .longitude(longitude)
                 .build();

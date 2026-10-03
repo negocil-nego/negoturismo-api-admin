@@ -1,5 +1,6 @@
 package com.negocil.negoturismo.admin.feature.tour_guide.dto.response;
 
+import com.negocil.negoturismo.admin.feature.tour_guide.model.Province;
 import com.negocil.negoturismo.admin.feature.tour_guide.model.TouristArea;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -16,6 +17,9 @@ public record TouristAreaResponse(
 
         @Schema(description = "State where the tourist area is located", example = "Bengo")
         String state,
+
+        @Schema(description = "Province where the tourist area is located", example = "BENGO", nullable = true)
+        Province province,
 
         @Schema(description = "Address of the tourist area", example = "Estrada EN-100, Km 70")
         String address,
@@ -34,6 +38,7 @@ public record TouristAreaResponse(
                 touristArea.getUuid(),
                 touristArea.getName(),
                 touristArea.getState(),
+                touristArea.getProvince(),
                 touristArea.getAddress(),
                 touristArea.getLatitude(),
                 touristArea.getLongitude(),

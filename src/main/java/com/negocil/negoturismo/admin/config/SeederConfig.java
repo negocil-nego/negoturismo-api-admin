@@ -37,7 +37,7 @@ import com.negocil.negoturismo.admin.feature.tour_guide.service.TouristAreaFileS
 import com.negocil.negoturismo.admin.feature.tour_guide.service.TouristAreaService;
 import com.negocil.negoturismo.admin.shared.user.model.User;
 import com.negocil.negoturismo.admin.shared.user.service.UserService;
-import com.negocil.negoturismo.admin.shared.document_file.enums.DocumentFileData;
+import com.negocil.negoturismo.admin.config.seeder.faker.DocumentFileData;
 import com.negocil.negoturismo.admin.shared.document_file.enums.FileType;
 import com.negocil.negoturismo.admin.shared.document_file.model.DocumentFile;
 import com.negocil.negoturismo.admin.shared.document_file.service.DocumentFileService;
@@ -174,11 +174,16 @@ public class SeederConfig implements CommandLineRunner {
         );
 
         // 10. Categorias de Organização
-        orgCache.values().forEach(org -> categoryCache.values().forEach(category ->
-                organizationCategoryService.findOrCreate(OrganizationCategory.builder()
-                        .organization(org)
-                        .category(category)
-                        .build())));
+        seedList(OrganizationCategoryData.values(),
+                d -> {
+                    OrganizationCategory item = d.getOrganizationCategory();
+                    return item.toBuilder()
+                            .organization(orgCache.get(item.getOrganization().getName()))
+                            .category(categoryCache.get(item.getCategory().getName()))
+                            .build();
+                },
+                organizationCategoryService::findOrCreate
+        );
 
         // 11. Produtos
         Map<String, Product> productCache = seedMap(

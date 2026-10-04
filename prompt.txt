@@ -1,9 +1,43 @@
 
-TouristAreaFileData
-Irás cria o seeder para TouristAreaFileData, me modo que no SeederConfig, primeiro pegar o TouristArea já criado e apenas deves cria
-o DocumentFile caso não exista.
+Irás aumentar mais registro no seeder para Produtos, Organizações, como produto promoção, organização de destaque
 
-E no projecto
-C:\Users\sedra\OneDrive\Documentos\projects\negoturismo\api\admin
+Para Empresa
+-> Cria pelo menos 5 empresas para cada cateroria que existe em (
+src/main/java/com/negocil/negoturismo/admin/config/seeder/system/CategoryData.java
+)
+src/main/java/com/negocil/negoturismo/admin/config/seeder/faker/OrganizationData.java
+-> Deves utilizar este seeder para unificar Empresa em uma Categoria
+src/main/java/com/negocil/negoturismo/admin/config/seeder/faker/OrganizationCategoryData.java
+-> Deves criar o ficheiro que são as imagem ou video da empresa
+src/main/java/com/negocil/negoturismo/admin/config/seeder/faker/OrganizationFileData.java
+-> Deves colocar pelo mesmo metades as Empresa em destque
+src/main/java/com/negocil/negoturismo/admin/config/seeder/faker/OrganizationHighlightsData.java
+-> Deves criar os endereços de todas empresa
+src/main/java/com/negocil/negoturismo/admin/config/seeder/faker/OrganizationAddressData.java
+-> Para todas as url images, videos que irás utilizar no "OrganizationFileData" garante que sejam
+url que estão disponível na internet
+src/main/java/com/negocil/negoturismo/admin/config/seeder/faker/DocumentFileData.java
 
-No TouristAreaResponse deve ter um campo files que retorna a lista TouristAreaFileResponse
+Para produto
+-> Para cada Organização que criaste cria pelos mesmo 5 produto dele
+src/main/java/com/negocil/negoturismo/admin/config/seeder/faker/ProductData.java
+-> Deves criar o ficheiro que são as imagem ou video do produto
+src/main/java/com/negocil/negoturismo/admin/config/seeder/faker/ProductFileData.java
+-> Deves colocar pelo mesmo metades as Produtos em promoção
+src/main/java/com/negocil/negoturismo/admin/config/seeder/faker/ProductPromotionData.java
+-> Deves criar os endereços de todos produtos que criaste
+src/main/java/com/negocil/negoturismo/admin/config/seeder/faker/ProductAddressData.java
+-> Para todas as url images, videos que irás utilizar no "ProductFileData" garante que sejam
+url que estão disponível na internet
+src/main/java/com/negocil/negoturismo/admin/config/seeder/faker/DocumentFileData.java
+
+OBS: Olha as informações do seeders deve ser coerente caso escolhas por exemplo um "Hotel", deves
+procurar produtos relacionados ao hotel, e deves garantir que todas url que deves utilizar deve vir da
+internet pesquisa em site gratuitos de imagens e videos, e as imagem deves esta relacionado ao conteudo
+e a empresa é "Hotel Carlos" deves pesquisar imagens de Hotel, se o produtos é Cadeira busca imagens e vidos
+de cadeira.
+
+Olha no caso para criar empresa com bases a categorias deves ter inteligência Criar Empresa que podem ter as categorias
+relacionados quando é possível, Exemplo "Restaurante e Churrasco Lando", então terá categoria [GRILL, RESTAURANT].
+
+Actualiza o "src/main/java/com/negocil/negoturismo/admin/config/SeederConfig.java", para ter o serviço "OrganizationCategoryService"

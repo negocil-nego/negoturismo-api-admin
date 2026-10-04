@@ -50,6 +50,7 @@ public class Product extends ConcreteModel {
     private String description;
 
     @Size(max = 2000)
+    @Column(length = 2000)
     private String image;
 
     @NotNull

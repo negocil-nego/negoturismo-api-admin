@@ -60,16 +60,21 @@ public class Organization extends ConcreteModel {
     private Integer rating = 0;
 
     @Size(max = 2048)
+    @Column(length = 2048)
     private String image;
 
     @Size(max = 2048)
+    @Column(length = 2048)
     private String logo;
 
     @Size(max = 2048)
+    @Column(length = 2048)
     private String video;
 
+    @Column(length = 2048)
     private String imageBanner;
 
+    @Column(length = 2048)
     private String website;
 
     private LocalDate dateFounded;

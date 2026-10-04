@@ -42,8 +42,10 @@ public class Interpreter extends ConcreteModel {
 
     private String concat;
 
+    @Column(length = 2048)
     private String photo;
 
+    @Column(length = 2048)
     private String video;
 
     @Builder.Default

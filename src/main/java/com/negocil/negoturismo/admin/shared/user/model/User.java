@@ -50,6 +50,7 @@ public class User extends ConcreteModel implements UserDetails {
 
     private LocalDate birthday;
 
+    @Column(length = 2048)
     private String logo;
 
     @Builder.Default

@@ -44,7 +44,9 @@ public class TourGuide extends ConcreteModel {
     @Column(unique = true)
     private String concat;
 
+    @Column(length = 2048)
     private String photo;
 
+    @Column(length = 2048)
     private String video;
 }

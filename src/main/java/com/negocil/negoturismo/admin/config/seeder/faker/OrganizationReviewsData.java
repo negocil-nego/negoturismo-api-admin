@@ -1,7 +1,6 @@
 package com.negocil.negoturismo.admin.config.seeder.faker;
 
 import com.negocil.negoturismo.admin.feature.organization.model.OrganizationReviews;
-import com.negocil.negoturismo.admin.feature.review.enums.ReviewData;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

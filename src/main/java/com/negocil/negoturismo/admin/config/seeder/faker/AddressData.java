@@ -1,4 +1,4 @@
-package com.negocil.negoturismo.admin.feature.address.enums;
+package com.negocil.negoturismo.admin.config.seeder.faker;
 
 import com.negocil.negoturismo.admin.feature.address.model.Address;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,5 @@
-package com.negocil.negoturismo.admin.feature.review.enums;
+package com.negocil.negoturismo.admin.config.seeder.faker;
 
-import com.negocil.negoturismo.admin.config.seeder.faker.UserData;
 import com.negocil.negoturismo.admin.feature.review.model.Review;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

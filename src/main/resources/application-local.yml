@@ -27,3 +27,7 @@ cloudinary:
   cloud-name: dutqp1b2w
   api-key: 116295929792656
   api-secret: G8KNxXfvKM2Qam5WGrOZLCRKdqM
+fullsearch:
+  algolia:
+    app-id: YLDJUB4BQK
+    api-key: 2be9a4f37e5746f89e0270509deb44c0

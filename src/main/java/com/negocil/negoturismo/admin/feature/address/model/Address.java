@@ -42,4 +42,8 @@ public class Address extends ConcreteModel {
     private String address;
 
     private String mapUrl;
+
+    public String addressFormat() {
+        return String.format("%s, %s", state, municipality);
+    }
 }

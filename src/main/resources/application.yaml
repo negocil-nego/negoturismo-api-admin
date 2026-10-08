@@ -69,3 +69,9 @@ scalar:
 service:
   email: smtp
   phone: ombala
+  fullsearch: algolia
+fullsearch:
+  algolia:
+    app-id: ${ALGOLIA_APPLICATION_ID}
+    api-key: ${ALGOLIA_API_KEY}
+

@@ -87,4 +87,5 @@ public final class PermissionCode {
     public static final String UPDATE_TRAVEL = "UPDATE_TRAVEL";
     public static final String DELETE_TRAVEL = "DELETE_TRAVEL";
     public static final String READ_TRAVEL = "READ_TRAVEL";
+    public static final String FULL_SEARCH_REINDEX = "FULL_SEARCH_REINDEX";
 }

@@ -7,6 +7,7 @@ import com.negocil.negoturismo.admin.feature.organization.model.Organization;
 import com.negocil.negoturismo.admin.shared.core.contract.IFindOrCreate;
 import com.negocil.negoturismo.admin.shared.core.service.ConcreteService;
 import com.negocil.negoturismo.admin.shared.core.util.StringUtils;
+import com.negocil.negoturismo.admin.shared.full_search.shared.service.OrganizationFullSearchService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,12 @@ import java.util.UUID;
 @Service
 public class OrganizationService extends ConcreteService<Organization> implements IFindOrCreate<Organization> {
     private final OrganizationRepository repository;
+    private final OrganizationFullSearchService fullSearch;
 
-    public OrganizationService(OrganizationRepository repository) {
+    public OrganizationService(OrganizationRepository repository, OrganizationFullSearchService fullSearch) {
         super(repository);
         this.repository = repository;
+        this.fullSearch = fullSearch;
     }
 
     public Page<Organization> findAll(Pageable pageable) {
@@ -38,19 +41,33 @@ public class OrganizationService extends ConcreteService<Organization> implement
     @Override
     public Organization save(Organization data) {
         data.setSlug(StringUtils.generateSlug(data.getName()));
-        return super.save(data);
+        var organization = super.save(data);
+        fullSearch.indexSaveOrUpdate(organization);
+        return organization;
     }
 
     @Override
     public Organization update(long id, Organization data) {
         data.setSlug(StringUtils.generateSlug(data.getName()));
-        return super.update(id, data);
+        var organization = super.update(id, data);
+        fullSearch.indexSaveOrUpdate(organization);
+        return organization;
     }
 
     @Override
     public Organization update(UUID uuid, Organization data) {
         data.setSlug(StringUtils.generateSlug(data.getName()));
-        return super.update(uuid, data);
+        var organization = super.update(uuid, data);
+        fullSearch.indexSaveOrUpdate(organization);
+        return organization;
+    }
+
+    @Override
+    public boolean deleteByUuid(UUID uuid) {
+        var organization = findByUuid(uuid);
+        var deleted = super.deleteByUuid(uuid);
+        fullSearch.remove(organization);
+        return deleted;
     }
 
     @Override

@@ -29,4 +29,5 @@ public class RouteNamed {
     public final static String SOCIAL_NETWORK = "/api/v1/admin/social-networks";
     public final static String CLICK = "/api/v1/admin/clicks";
     public final static String TRAVEL = "/api/v1/admin/travels";
+    public final static String FULL_SEARCH = "/api/v1/admin/full-search";
 }

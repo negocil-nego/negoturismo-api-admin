@@ -11,6 +11,7 @@ public class FullSearchIndexService {
     private final InterpreterFullSearchService interpreterFullSearch;
     private final TourGuideFullSearchService tourGuideFullSearch;
     private final TouristAreaFullSearchService touristAreaFullSearch;
+    private final TravelFullSearchService travelFullSearch;
 
     public void reindexAll() {
         organizationFullSearch.reindexAll();
@@ -18,5 +19,6 @@ public class FullSearchIndexService {
         interpreterFullSearch.reindexAll();
         tourGuideFullSearch.reindexAll();
         touristAreaFullSearch.reindexAll();
+        travelFullSearch.reindexAll();
     }
 }

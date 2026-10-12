@@ -63,7 +63,7 @@ app:
   cors:
     allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:5173}
 springdoc:
-  pathsToMatch: /api/v1/admin/**
+  pathsToMatch: /api/v1/admin/**,/api/v1/pub/**
 scalar:
   enabled: true
 service:
